@@ -1,0 +1,6 @@
+Pyrogram>=2.0.59
+TgCrypto==1.2.4
+python-dotenv
+psutil 
+speedtest-cli
+requests 
