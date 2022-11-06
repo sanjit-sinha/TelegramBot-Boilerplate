@@ -1,6 +1,7 @@
 from TelegramBot.helpers.decorators import dev_commands
 from TelegramBot.logging import LOGGER
 from pyrogram import Client, filters
+from TelegramBot import bot
 from pyrogram.types import Message
 from TelegramBot.config import *
 from io import StringIO
