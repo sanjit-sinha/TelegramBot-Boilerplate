@@ -241,9 +241,7 @@ Any type of suggestions, pointing out bug or contribution is highly appreciated.
 * Licensed under the terms of the [The MIT License](https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate/blob/main/LICENSE)
 
 <div align="center">
-<img src="https://img.shields.io/badge/License-MIT-green.svg" align="center"> | 
-<img src="https://img.shields.io/bundlephobia/min/react?style=plastic" align="center">
-  
+<img src="https://img.shields.io/badge/License-MIT-green.svg" align="center">
 </div>
 
 -------
