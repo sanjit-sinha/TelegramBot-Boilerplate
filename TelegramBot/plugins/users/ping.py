@@ -11,7 +11,7 @@ commands = ["ping", f"ping@{BOT_USERNAME}"]
 @Client.on_message(filters.command(commands, **prefixes))
 async def ping(_, message: Message):
    """
-   Checks ping speed to bot API
+   Checks ping speed of Telegram API.
    """
 
    start = datetime.now()
