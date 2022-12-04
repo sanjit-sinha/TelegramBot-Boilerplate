@@ -154,7 +154,7 @@ DirectoryLayout <b></h1>
 │   │   ├── font.ttf
 │   │   └── template.png
 │   │
-│   ├── database                      ( Sperate folder to manage databse related stuff for bigger projects.)
+│   ├── database                      ( Sperate folder to manage database related stuff for bigger projects.)
 │   │   ├── __init__.py
 │   │   └── db.py
 │   │  
