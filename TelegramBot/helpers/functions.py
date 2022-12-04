@@ -66,8 +66,7 @@ def get_readable_bytes(value, digits=2, delim="", postfix=""):
         if value > 1000:
             value /= 1024
             chosen_unit = unit
-        else:
-            break
+        else: break
     return f"{value:.{digits}f}" + delim + chosen_unit + postfix
 
 
