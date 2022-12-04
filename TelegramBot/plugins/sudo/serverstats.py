@@ -12,17 +12,11 @@ from TelegramBot.helpers.decorators import sudo_commands
 prefixes = COMMAND_PREFIXES
 
 
-commands = [
-    "stats",
-    f"stats@{BOT_USERNAME}",
-    "serverstats",
-    f"serverstats@{BOT_USERNAME}",
-]
-
+commands = ["stats", f"stats@{BOT_USERNAME}", "serverstats", f"serverstats@{BOT_USERNAME}"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
-async def update(client, message: Message):
+async def stats(client, message: Message):
 
     currentTime = get_readable_time(time.time() - BotStartTime)
     total, used, free = shutil.disk_usage(".")
@@ -37,5 +31,4 @@ async def update(client, message: Message):
     await message.reply_animation(
         animation="https://telegra.ph/file/fd2495f0465f5293bd052.mp4",
         caption=f"**≧◉◡◉≦ Bot is Up and Running successfully.**\n\n× Bot Uptime: `{currentTime}`\n× Total Disk Space: `{total}`\n× Used: `{used}({disk_usage}%)`\n× Free: `{free}`\n× CPU Usage: `{cpu_usage}%`\n× RAM Usage: `{ram_usage}%`",
-        quote=True,
-    )
+        quote=True)
