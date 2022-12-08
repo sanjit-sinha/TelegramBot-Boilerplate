@@ -4,9 +4,8 @@ from TelegramBot import BotStartTime
 from pyrogram.types import Message
 from TelegramBot.config import *
 from datetime import datetime
-import requests 
 import time
-import asyncio
+import httpx
 
 prefixes = COMMAND_PREFIXES
 commands = ["ping", f"ping@{BOT_USERNAME}", "alive", f"alive@{BOT_USERNAME}"]
@@ -18,7 +17,10 @@ async def ping(_, message: Message):
    """
 
    start = datetime.now()
-   requests.get("http://api.telegram.org")
+   
+   async with httpx.AsyncClient() as client:
+     	await client.get("http://api.telegram.org")
+   	
    end = datetime.now()
    
    botuptime = get_readable_time(time.time() - BotStartTime)
