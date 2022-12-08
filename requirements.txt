@@ -4,3 +4,5 @@ python-dotenv
 psutil 
 speedtest-cli
 requests 
+aiofiles
+httpx
