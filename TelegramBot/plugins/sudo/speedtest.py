@@ -24,7 +24,7 @@ async def speedtest(client, message):
     """
     Give speedtest of server where bot is running
     """
-    await message.reply("Running speedtest....", quote=True)
+    speed = await message.reply("Running speedtest....", quote=True)
     LOGGER(__name__).info("Running speedtest....")
     result = await loop.run_in_executor(None, speedtestcli)
 	
@@ -35,4 +35,5 @@ async def speedtest(client, message):
 × Ping: {result["ping"]} ms
 × ISP: {result["client"]["isp"]}
 """
+    await speed.delete()
     await message.reply_photo(photo=photo, caption=speed_string, quote=True)
