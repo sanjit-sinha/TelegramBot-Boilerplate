@@ -154,7 +154,7 @@ DirectoryLayout <b></h1>
 │   │   ├── font.ttf
 │   │   └── template.png
 │   │
-│   ├── database                      ( Sperate folder to manage databse related stuff for bigger projects.)
+│   ├── database                      ( Sperate folder to manage database related stuff for bigger projects.)
 │   │   ├── __init__.py
 │   │   └── db.py
 │   │  
@@ -167,8 +167,7 @@ DirectoryLayout <b></h1>
 │   │
 │   ├── plugins                       ( plugins folder contain all the plugins commands via wich user interact)          
 │   │   │
-│   │   ├── __init__.py
-│   │    
+│   │   ├── __init__.py 
 │   │   ├── developer
 │   │   │   ├── __init__.py
 │   │   │   ├── terminal.py
