@@ -8,9 +8,8 @@ import os
 
 prefixes = COMMAND_PREFIXES
 
+
 commands = ["update", f"update@{BOT_USERNAME}"]
-
-
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
 async def update(client, message: Message):
@@ -29,8 +28,6 @@ async def update(client, message: Message):
 
 
 commands = ["restart", f"restart@{BOT_USERNAME}"]
-
-
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
 async def restart(client, message: Message):
@@ -40,8 +37,6 @@ async def restart(client, message: Message):
 
     LOGGER(__name__).info("Restarting the bot. shutting down this instance")
     print("ok")
-    await message.reply_text(
-        "`Starting a new instance and shutting down this one`", quote=True
-    )
+    await message.reply_text("`Starting a new instance and shutting down this one`", quote=True)
     os.execl(sys.executable, sys.executable, "-m", "TelegramBot")
     sys.exit()
