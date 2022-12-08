@@ -43,8 +43,7 @@ except RuntimeError:
 LOGGER(__name__).info(BANNER)
 LOGGER(__name__).info("initiating the client")
 
-
-plugins = dict(root="TelegramBot/plugins")
+lugins = dict(root="TelegramBot/plugins")
 bot = Client(
     "TelegramBot",
     api_id=API_ID,
