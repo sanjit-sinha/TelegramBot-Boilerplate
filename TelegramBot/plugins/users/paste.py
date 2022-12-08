@@ -58,7 +58,4 @@ async def paste(client, message):
    	 
    output = await katbin_paste(content)  
    return await message.reply_text(f"{output}", quote=True, disable_web_page_preview=True)
-   
-
-
-   
+    
