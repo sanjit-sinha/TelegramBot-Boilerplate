@@ -1,7 +1,3 @@
-"""
-https://github.com/UsergeTeam/Userge/blob/alpha/userge/logger.py
-"""
-
 import logging
 from logging.handlers import RotatingFileHandler
 import os
