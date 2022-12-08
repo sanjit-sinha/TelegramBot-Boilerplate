@@ -1,22 +1,28 @@
+from TelegramBot.helpers.functions import get_readable_time    
 from pyrogram import Client, filters
+from TelegramBot import BotStartTime
 from pyrogram.types import Message
 from TelegramBot.config import *
 from datetime import datetime
-import requests as r
+import requests 
+import time
+import asyncio
 
 prefixes = COMMAND_PREFIXES
-commands = ["ping", f"ping@{BOT_USERNAME}"]
-
+commands = ["ping", f"ping@{BOT_USERNAME}", "alive", f"alive@{BOT_USERNAME}"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 async def ping(_, message: Message):
    """
-   Checks ping speed of Telegram API.
+   Give ping speed of Telegram API along with Bot Uptime.
    """
 
    start = datetime.now()
-   r.get("http://api.telegram.org")
+   requests.get("http://api.telegram.org")
    end = datetime.now()
-
+   
+   botuptime = get_readable_time(time.time() - BotStartTime)
    pong = (end - start).microseconds / 1000
-   await message.reply_text(f"**PONG!!** | Ping Time: `{pong}`ms", quote=True)
+   await message.reply_text(f"**Ping Time:** `{pong}`ms | **Bot is alive since:** `{botuptime}`, quote=True)
+   
+   
