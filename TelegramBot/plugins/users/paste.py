@@ -22,7 +22,7 @@ async def katbin_paste(content):
 	try:
 		paste_post = await client.post(katbin_url, data={"_csrf_token":csrf_token, "paste[content]":content}, follow_redirects=False)
 		output_url = f"{katbin_url}{paste_post.headers['location']}"
-		client.aclose()
+		await client.aclose()
 		return output_url
 	
 	except: return "something went wrong while pasting text in katb.in."
