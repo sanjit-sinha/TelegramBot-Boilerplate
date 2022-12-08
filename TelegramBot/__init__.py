@@ -8,9 +8,9 @@ BotStartTime = time.time()
 plugins = dict(root="TelegramBot/plugins")
 
 if sys.version_info[0] < 3 or sys.version_info[1] < 7:
-    VERSION_ASCII = """
+    VERSION_ASCII ="""
   =============================================================
-  "You MUST need to be on python 3.7 or above, shutting down the bot...
+  You MUST need to be on python 3.7 or above, shutting down the bot...
   =============================================================
   """
     LOGGER(__name__).critical(VERSION_ASCII)
@@ -26,8 +26,9 @@ ____________________________________________________________________
 |    | |  __/ |  __/ (_| | | | (_| | | | | | | |_) | (_) | |_      |
 |    |_|\___|_|\___|\__, |_|  \__,_|_| |_| |_|____/ \___/ \__|     |
 |                    __/ |                                         |
-|____________________________________________________________________   
+|__________________________________________________________________|   
 """
+
 # https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 
 LOGGER(__name__).info(BANNER)
@@ -38,5 +39,4 @@ bot = Client(
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
-    plugins=plugins,
-)  # https://docs.pyrogram.org/topics/smart-plugins
+    plugins=plugins)  #https://docs.pyrogram.org/topics/smart-plugins
