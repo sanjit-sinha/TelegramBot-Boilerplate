@@ -32,11 +32,12 @@ ____________________________________________________________________
 # https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 
 LOGGER(__name__).info(BANNER)
-LOGGER(__name__).info("initiating the client")
+LOGGER(__name__).info("initiating the client...")
 
 bot = Client(
     "TelegramBot",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
-    plugins=plugins)  #https://docs.pyrogram.org/topics/smart-plugins
+    plugins=plugins #https://docs.pyrogram.org/topics/smart-plugin
+)
