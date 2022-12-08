@@ -6,11 +6,12 @@ import httpx
 import aiofiles
 import os 
 
-prefixes = COMMAND_PREFIXES
-paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
-commands = ["paste", f"paste@{BOT_USERNAME}", "p", f"p@{BOT_USERNAME}"]
 
 async def katbin_paste(content):
+	"""
+	paste the text to katb.in website.
+	"""
+	
 	katbin_url = "https://katb.in"
 	client = httpx.AsyncClient()
 	response = await client.get(katbin_url)
@@ -26,6 +27,10 @@ async def katbin_paste(content):
 	
 	except: return "something went wrong while pasting text in katb.in."
 	
+
+prefixes = COMMAND_PREFIXES
+paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
+commands = ["paste", f"paste@{BOT_USERNAME}", "p", f"p@{BOT_USERNAME}"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 async def paste(client, message):
