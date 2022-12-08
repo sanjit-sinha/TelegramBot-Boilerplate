@@ -23,6 +23,6 @@ async def ping(_, message: Message):
    
    botuptime = get_readable_time(time.time() - BotStartTime)
    pong = (end - start).microseconds / 1000
-   await message.reply_text(f"**Ping Time:** `{pong}`ms | **Bot is alive since:** `{botuptime}`, quote=True)
+   await message.reply_text(f"**Ping Time:** `{pong}`ms | **Bot is alive since:** `{botuptime}`", quote=True)
    
    
