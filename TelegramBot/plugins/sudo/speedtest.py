@@ -17,7 +17,7 @@ async def speedtest(_, message: Message):
     Give speedtest of server where bot is running
     """
     speed = await message.reply("**Running speedtest ....**", quote=True)
-    LOGGER(__name__).info("speedtest starter")
+    LOGGER(__name__).info("speedtest started")
 
     test = Speedtest()
     test.get_best_server()
