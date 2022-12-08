@@ -7,6 +7,6 @@ class CustomExceptionError(Exception):
 """
 usage example:
 if something_wrong:
-  raise CuatomExceptionError("Rising your own custom error.")
+  raise CustomExceptionError("Rising your own custom error.")
 """
 
