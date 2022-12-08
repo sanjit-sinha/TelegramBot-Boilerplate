@@ -32,11 +32,10 @@ commands = ["restart", f"restart@{BOT_USERNAME}"]
 @dev_commands
 async def restart(client, message: Message):
     """
-    Restart the bot.
+    This function just Restart the bot.
     """
 
     LOGGER(__name__).info("Restarting the bot. shutting down this instance")
-    print("ok")
     await message.reply_text("`Starting a new instance and shutting down this one`", quote=True)
     os.execl(sys.executable, sys.executable, "-m", "TelegramBot")
     sys.exit()
