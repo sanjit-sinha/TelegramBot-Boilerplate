@@ -8,7 +8,6 @@ import os
 
 prefixes = COMMAND_PREFIXES
 
-
 commands = ["update", f"update@{BOT_USERNAME}"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
