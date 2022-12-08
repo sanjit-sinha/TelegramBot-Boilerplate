@@ -1,3 +1,4 @@
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from TelegramBot.helpers.decorators import dev_commands
 from TelegramBot.logging import LOGGER
 from pyrogram import Client, filters
@@ -5,6 +6,7 @@ from TelegramBot import bot
 from pyrogram.types import Message
 from TelegramBot.config import *
 from io import StringIO, BytesIO
+import aiofiles
 import subprocess
 import traceback
 import sys
@@ -49,29 +51,38 @@ async def shell(client, message: Message):
         await message.reply_text(f"**Output:**:\n\n{result}", quote=True)
 
 
-async def aexec(code, client, message):
-    exec(
-        "async def __aexec(client, message): "
-        + "".join(f"\n {a}" for a in code.split("\n"))
-    )
-    return await locals()["__aexec"](client, message)
+
+
+
+
+
+
+
+
+
+
 
 
 exec_usage = f"**USAGE:** Executes python commands directly via bot.\n\n<pre>/exec print('hello world')</pre>"
 commands = ["exec", f"exec@{BOT_USERNAME}", "execute"]
 
 
-@Client.on_message(filters.command(commands, **prefixes))
-@dev_commands
-async def executor(client, message: Message):
+async def aexec(code, client, message):
+    exec("async def __aexec(client, message): "
+        + "".join(f"\n {a}" for a in code.split("\n")))
+        
+    return await locals()["__aexec"](client, message)
+
+
+#refresh_button = [[InlineKeyboardButton("refresh", callback_data="COMMAND_BUTTON")]]
+
+#reply_markup=InlineKeyboardMarkup(refresh_button),
+
+async def exec(client, message):        
     if len(message.command) < 2:
         return await message.reply_text(exec_usage)
-
-    try:
-        code = message.text.split(None, 1)[1]
-        print(message.text)
-    except IndexError:
-        return await message.delete()
+        
+    code = message.text.split(None, 1)[1]
 
     old_stderr = sys.stderr
     old_stdout = sys.stdout
@@ -79,34 +90,44 @@ async def executor(client, message: Message):
     redirected_error = sys.stderr = StringIO()
     stdout, stderr, exc = None, None, None
 
-    try:
-        await aexec(code, client, message)
-    except Exception:
-        exc = traceback.format_exc()
+    try: await aexec(code, client, message)
+    except Exception: exc = traceback.format_exc()
 
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
 
+
     evaluation = ""
     if exc:
-        evaluation = exc
+    	evaluation = exc
     elif stderr:
         evaluation = stderr
     elif stdout:
         evaluation = stdout
     else:
-        evaluation = "Success"
-
-    final_output = f"**OUTPUT**: \n\n{evaluation.strip()}"
+        evaluation = "success" 
+    final_output = f"**output**: \n\n{evaluation.strip()}"
+    
+    
     if len(final_output) > 2000:
-        with open("output.txt", "w+", encoding="utf8") as file:
-            file.write(str(evaluation.strip()))
-
+        async with aiofiles.open("output.txt", "w+", encoding="utf8") as file:
+            await file.write(str(evaluation.strip()))
         await message.reply_text("output too large. sending it as a file..", quote=True)
         await client.send_document(message.chat.id, "output.txt", caption="output.txt")
         os.remove("output.txt")
-
+    
     else:
-        await message.reply_text(final_output)
+    	await message.reply_text(final_output, quote=True)
+
+
+@Client.on_message(filters.command(commands, **prefixes))
+@dev_commands
+async def executor(client, message):
+    await exec(client, message)
+    
+    
+  
+    
+    
