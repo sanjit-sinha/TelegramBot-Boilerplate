@@ -38,12 +38,13 @@ try:
 	loop = get_event_loop()
 except RuntimeError:
 	set_event_loop(new_event_loop())
-    loop = get_event_loop()
+	loop = get_event_loop()
 
 LOGGER(__name__).info(BANNER)
 LOGGER(__name__).info("initiating the client")
 
-lugins = dict(root="TelegramBot/plugins")
+
+plugins = dict(root="TelegramBot/plugins")
 bot = Client(
     "TelegramBot",
     api_id=API_ID,
