@@ -10,8 +10,6 @@ from TelegramBot.helpers.decorators import sudo_commands
 
 
 prefixes = COMMAND_PREFIXES
-
-
 commands = ["stats", f"stats@{BOT_USERNAME}", "serverstats", f"serverstats@{BOT_USERNAME}"]
 
 @Client.on_message(filters.command(commands, **prefixes))
