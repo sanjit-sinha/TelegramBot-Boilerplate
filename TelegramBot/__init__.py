@@ -1,5 +1,5 @@
 from TelegramBot.config import BOT_TOKEN, API_ID, API_HASH
-from TelegramBot.logging import LOGGER
+from TelegramBot.logging import LOGGER, logging
 from pyrogram import Client
 import time
 import sys
@@ -32,6 +32,8 @@ ____________________________________________________________________
 
 LOGGER(__name__).info(BANNER)
 LOGGER(__name__).info("initiating the client")
+
+LOGGER("pyrogram").setLevel(logging.WARNING)
 
 bot = Client(
     "TelegramBot",
