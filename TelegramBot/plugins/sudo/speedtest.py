@@ -16,7 +16,7 @@ def speedtestcli():
     result = test.results.dict()
     return result 
 
-commands = ["speedtest", f"speedtest@{BOT_USERNAME}"]
+commands = ["speedtest", f"speed"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
 async def speedtest(_, message: Message):
