@@ -18,6 +18,7 @@ async def inspect(_, message: Message):
 	try:
 	       await message.reply_text(message, quote=True)
 	except MessageTooLong:
-		output = await katbin_paste(message)
-		await message.reply_text(output, quote=True)
-
+	   	output = await katbin_paste(message)
+	   	await message.reply_text(output, quote=True)
+	   
+	
