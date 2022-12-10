@@ -7,9 +7,8 @@ from datetime import datetime
 import time
 import httpx
 
-prefixes = COMMAND_PREFIXES
-commands = ["ping", "alive"]
 
+commands = ["ping", "alive"]
 @Client.on_message(filters.command(commands, **prefixes))
 async def ping(_, message: Message):
    """
