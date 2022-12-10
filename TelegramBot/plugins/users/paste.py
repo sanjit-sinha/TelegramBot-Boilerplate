@@ -1,42 +1,21 @@
+from TelegramBot.helpers.pasting_services import katbin_paste
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from TelegramBot.config import *
-from bs4 import BeautifulSoup
-import httpx
 import aiofiles
 import os 
 
 
-async def katbin_paste(content):
-	"""
-	paste the text to katb.in website.
-	"""
-	
-	katbin_url = "https://katb.in"
-	client = httpx.AsyncClient()
-	response = await client.get(katbin_url)
-	
-	soup = BeautifulSoup(response.content, "html.parser")
-	csrf_token = soup.find('input', {"name":"_csrf_token"}).get("value")
-	
-	try:
-		paste_post = await client.post(katbin_url, data={"_csrf_token":csrf_token, "paste[content]":content}, follow_redirects=False)
-		output_url = f"{katbin_url}{paste_post.headers['location']}"
-		await client.aclose()
-		return output_url
-	
-	except: return "something went wrong while pasting text in katb.in."
-	
-
 prefixes = COMMAND_PREFIXES
 paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
-commands = ["paste", f"paste@{BOT_USERNAME}", "p", f"p@{BOT_USERNAME}"]
+commands = ["paste", "p"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 async def paste(client, message):
    """
-   Paste the text to katb.in.
+   Paste the text to katb.in website.
    """
+
    replied_message = message.reply_to_message   
    if len(message.command) > 1:
    	content = message.text.split(None, 1)[1]
