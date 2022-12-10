@@ -51,6 +51,8 @@ async def shell(client, message: Message):
 
 
 
+	
+	
 exec_usage = f"**Usage:** Executes python commands directly via bot.\n\n**Example: **<pre>/exec print('hello world')</pre>"
 commands = ["exec", "py"]
 
