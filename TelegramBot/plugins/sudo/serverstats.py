@@ -5,7 +5,7 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from TelegramBot import BotStartTime
 from TelegramBot.config import *
-from TelegramBot.helpers.functions import get_readable_size, get_readable_time
+from TelegramBot.helpers.functions import get_readable_bytes, get_readable_time
 from TelegramBot.helpers.decorators import sudo_commands
 
 
@@ -16,9 +16,9 @@ async def stats(_, message: Message):
 
     currentTime = get_readable_time(time.time() - BotStartTime)
     total, used, free = shutil.disk_usage(".")
-    total = get_readable_size(total)
-    used = get_readable_size(used)
-    free = get_readable_size(free)
+    total = get_readable_bytes(total)
+    used = get_readable_bytes(used)
+    free = get_readable_bytes(free)
 
     cpu_usage = psutil.cpu_percent()
     ram_usage = psutil.virtual_memory().percent
