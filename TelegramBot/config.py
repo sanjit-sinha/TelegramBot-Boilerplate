@@ -4,7 +4,6 @@ from dotenv import load_dotenv
 load_dotenv("config.env") 
 
 
-
 COMMAND_PREFIXES = dict(prefixes=json.loads(getenv("COMMAND_PREFIXES")))
 prefixes=COMMAND_PREFIXES
 
@@ -18,4 +17,3 @@ API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
 BOT_TOKEN = getenv("BOT_TOKEN")
 
-print(SUDO_USERID)
