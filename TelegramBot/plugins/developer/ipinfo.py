@@ -15,4 +15,4 @@ async def ipinfo(client, message: Message):
     async with httpx.AsyncClient() as client:
     	response = await client.get("http://ipinfo.io/ip")
     	
-    await message.reply_text(f"IP Adress of the server is: `{response.text}`", quote=True)
+    await message.reply_text(f"IP Adress of the server bot server is: `{response.text}`", quote=True)
