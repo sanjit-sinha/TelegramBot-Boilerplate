@@ -57,8 +57,7 @@ commands = ["exec", f"exec@{BOT_USERNAME}", "py",f"py@{BOT_USERNAME}"]
 
 async def aexec(code, client, message):
     exec("async def __aexec(client, message): "
-        + "".join(f"\n {a}" for a in code.split("\n")))
-        
+        + "".join(f"\n {a}" for a in code.split("\n")))        
     return await locals()["__aexec"](client, message)
     
 async def runexec(client, message, replymsg):
@@ -73,12 +72,11 @@ async def runexec(client, message, replymsg):
     	await replymsg.edit("ㅤ") 	    
     	code = message.text.split(None, 1)[1]  	
     except IndexError:
-    	return await replymsg.edit("`No codes found to execute`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
+    	return await replymsg.edit("No codes found to execute.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
     	
     if "config.env" in code:
-        return await replymsg.edit("`That's a dangerous operation! Not Permitted!`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄",  callback_data="refresh")]]))
-               
-                               
+        return await replymsg.edit("That's a dangerous operation! Not Permitted!", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄",  callback_data="refresh")]]))
+                                            
     try:
     	await aexec(code, client, message)
     except Exception:
