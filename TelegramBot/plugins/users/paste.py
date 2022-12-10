@@ -7,8 +7,9 @@ import os
 
 
 prefixes = COMMAND_PREFIXES
-paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
 commands = ["paste", "p"]
+paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
+
 
 @Client.on_message(filters.command(commands, **prefixes))
 async def paste(client, message):
@@ -34,7 +35,9 @@ async def paste(client, message):
       		
    elif len(message.command) < 2:
    	return await message.reply_text(paste_usage, quote=True)
+   	
+   paste_reply = await message.reply_text("pasting..", quote=True)
    	 
    output = await katbin_paste(content)  
-   return await message.reply_text(f"{output}", quote=True, disable_web_page_preview=True)
+   return await paste_reply.edit(f"{output}", quote=True, disable_web_page_preview=True)
     
