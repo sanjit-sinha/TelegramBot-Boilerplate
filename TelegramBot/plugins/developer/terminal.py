@@ -15,47 +15,9 @@ import shlex
 import sys
 import os
 
-from asyncio import Lock, create_task
-from time import time
-import asyncio
 
-tasks = {}
-TASKS_LOCK = Lock()
-
-async def add_task(
-        taskFunc,
-        task_name,
-        *args,
-        **kwargs,
-):
-    
-    async with TASKS_LOCK:
-        global tasks
-
-        task_id = (list(tasks.keys())[-1] + 1) if tasks else 0
-        task = create_task(taskFunc(*args, **kwargs), name=task_name)
-        tasks[task_id] = task, int(time())
-        
-    return task, task_id
-
-
-async def remove_task(task_id=None):
-    global tasks
-
-    async with TASKS_LOCK:
-        for key, value in list(tasks.items()):
-            if value[0].done() or value[0].cancelled():
-                del tasks[key]
-
-        if (task_id is not None) and (task_id in tasks):
-            task = tasks[task_id][0]
-            
-            if not task.done(): task.cancel()
-            del tasks[task_id]
-
-prefixes = COMMAND_PREFIXES
-shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n<pre>/shell pip install requests</pre>"
-commands = ["shell", f"shell@{BOT_USERNAME}"]
+shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n**Example: **<pre>/shell pip install requests</pre>"
+commands = ["shell"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
@@ -89,8 +51,8 @@ async def shell(client, message: Message):
 
 
 
-exec_usage = f"**USAGE:** Executes python commands directly via bot.\n\n<pre>/exec print('hello world')</pre>"
-commands = ["exec", f"exec@{BOT_USERNAME}", "py",f"py@{BOT_USERNAME}"]
+exec_usage = f"**Usage:** Executes python commands directly via bot.\n\n**Example: **<pre>/exec print('hello world')</pre>"
+commands = ["exec", "py"]
 
 async def aexec(code, client, message):
     exec("async def __aexec(client, message): "
@@ -115,17 +77,14 @@ async def py_runexec(client, message, replymsg):
         return await replymsg.edit("That's a dangerous operation! Not Permitted!", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄",  callback_data="refresh")]]))
                                             
     try:
-    	task, task_id = await add_task(aexec, "exec", code, client, message)
-    	await task
+    	await aexec(code, client, message)
     except Exception:
     	exc = traceback.format_exc()
-    await remove_task()
 
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
-
  
     evaluation = ""
     if exc:
@@ -171,7 +130,7 @@ async def botCallbacks(client, CallbackQuery):
 @dev_commands
 async def py_exec(client, message):
 	"""
-	Executes python command via bot with refresh burton.
+	Executes python command via bot with refresh button.
 	"""
 	
 	if len(message.command) < 2:
