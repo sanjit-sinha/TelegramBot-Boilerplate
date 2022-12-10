@@ -8,13 +8,14 @@ import time
 import httpx
 
 prefixes = COMMAND_PREFIXES
-commands = ["ping", f"ping@{BOT_USERNAME}", "alive", f"alive@{BOT_USERNAME}"]
+commands = ["ping", "alive"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 async def ping(_, message: Message):
    """
    Give ping speed of Telegram API along with Bot Uptime.
    """
+   pong_reply = await message.reply_text("pong", quote=true)
 
    start = datetime.now()   
    async with httpx.AsyncClient() as client:
@@ -23,6 +24,7 @@ async def ping(_, message: Message):
    
    botuptime = get_readable_time(time.time() - BotStartTime)
    pong = (end - start).microseconds / 1000
-   return await message.reply_text(f"**Ping Time:** `{pong}`ms | **Bot is alive since:** `{botuptime}`", quote=True)
+   
+   return await pong_reply.edit(f"**Ping Time:** `{pong}`ms | **Bot is alive since:** `{botuptime}`")
    
    
