@@ -5,10 +5,8 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from TelegramBot.config import *
 
-		
-prefixes = COMMAND_PREFIXES
-commands = ["inspect"]
-	
+
+commands = ["inspect"]	
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
 async def inspect(_, message: Message):
@@ -16,9 +14,9 @@ async def inspect(_, message: Message):
 	isnpect the message and give reply in json format.
 	"""
 	try:
-	       await message.reply_text(message, quote=True)
+	   await message.reply_text(message, quote=True)
 	except MessageTooLong:
-	   	output = await katbin_paste(message)
-	   	await message.reply_text(output, quote=True)
+	   output = await katbin_paste(message)
+	   await message.reply_text(output, quote=True)
 	   
 	
