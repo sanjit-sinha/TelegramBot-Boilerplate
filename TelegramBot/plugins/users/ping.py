@@ -16,11 +16,9 @@ async def ping(_, message: Message):
    Give ping speed of Telegram API along with Bot Uptime.
    """
 
-   start = datetime.now()
-   
+   start = datetime.now()   
    async with httpx.AsyncClient() as client:
-     	await client.get("http://api.telegram.org")
-   	
+     	await client.get("http://api.telegram.org") 	
    end = datetime.now()
    
    botuptime = get_readable_time(time.time() - BotStartTime)
