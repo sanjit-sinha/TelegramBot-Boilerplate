@@ -60,7 +60,7 @@ async def aexec(code, client, message):
         + "".join(f"\n {a}" for a in code.split("\n")))        
     return await locals()["__aexec"](client, message)
     
-async def runexec(client, message, replymsg):
+async def py_runexec(client, message, replymsg):
  
     old_stderr = sys.stderr
     old_stdout = sys.stdout
@@ -125,18 +125,21 @@ async def botCallbacks(client, CallbackQuery):
     replymsg = await client.get_messages(CallbackQuery.message.chat.id, CallbackQuery.message.id)
 
     if CallbackQuery.data == "refresh":
-        await runexec(client, message, replymsg)
+        await py_runexec(client, message, replymsg)
   
   
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def executor(client, message):
+async def py_exec(client, message):
+	"""
+	Executes python command via bot with refresh burton.
+	"""
 	
 	if len(message.command) < 2:
 		await message.reply_text(exec_usage)				
 	else:
 	   replymsg = await message.reply_text("executing....", quote=True)
-	   await runexec(client, message, replymsg)
+	   await py_runexec(client, message, replymsg)
     
     
 
