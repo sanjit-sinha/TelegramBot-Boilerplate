@@ -36,8 +36,8 @@ async def paste(client, message):
    elif len(message.command) < 2:
    	return await message.reply_text(paste_usage, quote=True)
    	
-   paste_reply = await message.reply_text("pasting..", quote=True)
+   paste_reply = await message.reply_text("pasting...", quote=True)
    	 
    output = await katbin_paste(content)  
-   return await paste_reply.edit(f"{output}", quote=True, disable_web_page_preview=True)
+   return await paste_reply.edit(f"{output}", disable_web_page_preview=True)
     
