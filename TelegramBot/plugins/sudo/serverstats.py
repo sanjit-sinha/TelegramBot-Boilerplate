@@ -9,9 +9,7 @@ from TelegramBot.helpers.functions import get_readable_size, get_readable_time
 from TelegramBot.helpers.decorators import sudo_commands
 
 
-prefixes = COMMAND_PREFIXES
-commands = ["stats", f"stats@{BOT_USERNAME}", "serverstats", f"serverstats@{BOT_USERNAME}"]
-
+commands = ["stats", "serverstats"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
 async def stats(client, message: Message):
