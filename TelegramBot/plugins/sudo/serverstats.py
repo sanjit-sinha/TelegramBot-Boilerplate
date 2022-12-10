@@ -12,7 +12,7 @@ from TelegramBot.helpers.decorators import sudo_commands
 commands = ["stats", "serverstats"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
-async def stats(client, message: Message):
+async def stats(_, message: Message):
 
     currentTime = get_readable_time(time.time() - BotStartTime)
     total, used, free = shutil.disk_usage(".")
