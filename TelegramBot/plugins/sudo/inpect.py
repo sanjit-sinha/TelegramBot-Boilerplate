@@ -1,4 +1,4 @@
-from TelegramBot.helpers.decorators.pasting_services import katbin_paste
+from TelegramBot.helpers.pasting_services import katbin_paste
 from TelegramBot.helpers.decorators import sudo_commands
 from pyrogram.errors import MessageTooLong
 from pyrogram import Client, filters
