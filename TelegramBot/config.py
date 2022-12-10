@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 load_dotenv("config.env") 
 
 COMMAND_PREFIXES = dict(prefixes=json.loads(getenv("COMMAND_PREFIXES")))
+prefixes = dict(prefixes=json.loads(getenv("COMMAND_PREFIXES")))
 
 OWNER_USERID = json.loads(getenv("OWNER_USERID"))
 SUDO_USERID = OWNER_USERID #owner is ultimately sudo user too
