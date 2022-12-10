@@ -8,6 +8,7 @@ import os
 
 commands = ["paste", "p"]
 paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
+
 @Client.on_message(filters.command(commands, **prefixes))
 async def paste(client, message):
    """
