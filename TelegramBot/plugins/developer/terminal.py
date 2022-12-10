@@ -110,7 +110,7 @@ async def py_runexec(client, message, replymsg):
     	return await replymsg.edit(final_output,  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("refresh 🔄",callback_data="refresh")]]))
 
 
-@Client.on_callback_query()
+@Client.on_callback_query(filters.regex("refresh"))
 async def botCallbacks(client, CallbackQuery):
     
     cliker_user_id = CallbackQuery.from_user.id
