@@ -6,12 +6,11 @@ from TelegramBot.config import *
 import sys
 import os
 
-prefixes = COMMAND_PREFIXES
 
-commands = ["update", f"update@{BOT_USERNAME}"]
+commands = ["update"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def update(client, message: Message):
+async def update(_, message: Message):
     """
     Update the bot with latest commit changes from GitHub.
     """
@@ -23,11 +22,12 @@ async def update(client, message: Message):
     os.execl(sys.executable, sys.executable, "-m", "TelegramBot")
     sys.exit()
 
+    
 
-commands = ["restart", f"restart@{BOT_USERNAME}"]
+commands = ["restart"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def restart(client, message: Message):
+async def restart(_, message: Message):
     """
     This function just Restart the bot.
     """
