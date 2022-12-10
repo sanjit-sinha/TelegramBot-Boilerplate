@@ -4,10 +4,8 @@ from pyrogram.types import Message
 from TelegramBot.config import *
 import httpx
 
-prefixes = COMMAND_PREFIXES
-commands = ["ip", f"ip@{BOT_USERNAME}"]
 
-
+commands = ["ip"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
 async def ipinfo(client, message: Message):
