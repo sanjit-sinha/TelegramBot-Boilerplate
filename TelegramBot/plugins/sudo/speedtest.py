@@ -14,13 +14,11 @@ def speedtestcli():
     test.results.share()
     result = test.results.dict()
     return result 
-		
-prefixes = COMMAND_PREFIXES
-commands = ["speedtest", f"speedtest@{BOT_USERNAME}"]
 
+commands = ["speedtest", f"speedtest@{BOT_USERNAME}"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
-async def speedtest(client, message):
+async def speedtest(_, message: Message):
     """
     Give speedtest of server where bot is running
     """
