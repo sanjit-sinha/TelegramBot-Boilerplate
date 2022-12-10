@@ -17,7 +17,7 @@ import os
 
 
 shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n**Example: **<pre>/shell pip install requests</pre>"
-commands = ["shell"]
+commands = ["shell", "sh"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
