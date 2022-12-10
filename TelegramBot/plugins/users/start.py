@@ -88,7 +88,7 @@ GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_
 
 
 prefixes = COMMAND_PREFIXES
-commands = ["start", f"start@{BOT_USERNAME}", "help", f"help@{BOT_USERNAME}"]
+commands = ["start", "help"]
 
 
 @Client.on_message(filters.command(commands, **prefixes) & filters.private)
