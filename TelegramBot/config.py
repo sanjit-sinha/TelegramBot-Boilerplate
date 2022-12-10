@@ -9,9 +9,10 @@ COMMAND_PREFIXES = dict(prefixes=json.loads(getenv("COMMAND_PREFIXES")))
 prefixes=COMMAND_PREFIXES
 
 OWNER_USERID = json.loads(getenv("OWNER_USERID"))
-SUDO_USERID = OWNER_USERID #
+SUDO_USERID = OWNER_USERID 
 try: SUDO_USERID += json.loads(getenv("SUDO_USERID")) 
 except: pass
+SUDO_USERID = list(set(SUDO_USERID))
 
 API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
