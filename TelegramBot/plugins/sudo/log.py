@@ -4,7 +4,6 @@ from pyrogram.types import Message
 from TelegramBot.config import *
 
 
-
 commands = ["log", "logs"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
