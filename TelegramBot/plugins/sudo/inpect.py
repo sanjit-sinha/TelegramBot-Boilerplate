@@ -13,6 +13,8 @@ async def inspect(_, message: Message):
 	"""
 	isnpect the message and give reply in json format.
 	"""
+	
+	
 	try:
 	   await message.reply_text(message, quote=True)
 	except MessageTooLong:
