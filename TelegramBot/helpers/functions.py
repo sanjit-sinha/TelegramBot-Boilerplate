@@ -22,11 +22,9 @@ async def isAdmin(message: Message) -> bool:
         return True
     elif check_status.status in [
         ChatMemberStatus.OWNER,
-        ChatMemberStatus.ADMINISTRATOR,
-    ]:
+        ChatMemberStatus.ADMINISTRATOR]:
         return True
-    else:
-        return False
+    else: return False
 
 
 def get_readable_time(seconds: int) -> str:
@@ -39,48 +37,37 @@ def get_readable_time(seconds: int) -> str:
     days = int(days)
 
     if days != 0:
-        result += f"{days}d"
+        result += f"{days}d "
     (hours, remainder) = divmod(remainder, 3600)
     hours = int(hours)
 
     if hours != 0:
-        result += f"{hours}h"
+        result += f"{hours}h "
     (minutes, seconds) = divmod(remainder, 60)
     minutes = int(minutes)
 
     if minutes != 0:
-        result += f"{minutes}m"
+        result += f"{minutes}m "
 
     seconds = int(seconds)
-    result += f"{seconds}s"
+    result += f"{seconds}s "
     return result
-
-
-def get_readable_bytes(value, digits=2, delim="", postfix=""):
-    """
-    Return a human-readable file size.
-    """
-
-    if value is None:
-        return None
-    chosen_unit = "B"
-    for unit in ("KiB", "MiB", "GiB", "TiB"):
-        if value > 1000:
-            value /= 1024
-            chosen_unit = unit
-        else:
-            break
-    return f"{value:.{digits}f}" + delim + chosen_unit + postfix
-
-
-def get_readable_size(size):
-    if not size:
-        return ""
-    power = 2**10
-    raised_to_pow = 0
-    dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
-
-    while size > power:
-        size /= power
-        raised_to_pow += 1
-    return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+    
+    
+def get_readable_bytes(size):
+	"""
+	Return a human readable file size from bytes.
+	"""
+	
+	dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
+	
+	if not size: return ""
+	power = 2**10
+	raised_to_pow = 0
+	
+	while size > power:
+	    size /= power
+	    raised_to_pow += 1
+	    
+	return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+	
