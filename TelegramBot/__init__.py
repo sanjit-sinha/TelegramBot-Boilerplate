@@ -1,4 +1,4 @@
-from asyncio import get_event_loop, new_event_loop, set_event_loop, sleep
+from asyncio import get_event_loop, new_event_loop, set_event_loop
 from TelegramBot.config import BOT_TOKEN, API_ID, API_HASH
 from TelegramBot.logging import LOGGER
 from pyrogram import Client
