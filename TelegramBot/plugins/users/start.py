@@ -64,13 +64,11 @@ async def botCallbacks(client, CallbackQuery):
         await CallbackQuery.edit_message_text(USER_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON))
 
     elif CallbackQuery.data == "SUDO_BUTTON":
-        if clicker_user_id not in SUDO_USERID:
-            return await CallbackQuery.answer("You are not in the sudo user list.", show_alert=True)
-        else:
-            await CallbackQuery.edit_message_text(SUDO_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON) )
+        if clicker_user_id not in SUDO_USERID: return await CallbackQuery.answer("You are not in the sudo user list.", show_alert=True)
+        else: await CallbackQuery.edit_message_text(SUDO_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON) )
 
     elif CallbackQuery.data == "DEV_BUTTON":
-        if clicker_user_id not in OWNER_USERID:
-            return await CallbackQuery.answer( "This is developer restricted command.", show_alert=True)
-        else:
-            await CallbackQuery.edit_message_text(DEV_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON))
+        if clicker_user_id not in OWNER_USERID: return await CallbackQuery.answer( "This is developer restricted command.", show_alert=True)
+        else: await CallbackQuery.edit_message_text(DEV_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON))
+
+            
