@@ -16,9 +16,8 @@ import sys
 import os
 
 
-prefixes = COMMAND_PREFIXES
-shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n<pre>/shell pip install requests</pre>"
-commands = ["shell", f"shell@{BOT_USERNAME}"]
+shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n**Example: **<pre>/shell pip install requests</pre>"
+commands = ["shell", "sh"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
@@ -52,16 +51,17 @@ async def shell(client, message: Message):
 
 
 
-exec_usage = f"**USAGE:** Executes python commands directly via bot.\n\n<pre>/exec print('hello world')</pre>"
-commands = ["exec", f"exec@{BOT_USERNAME}", "py",f"py@{BOT_USERNAME}"]
+	
+	
+exec_usage = f"**Usage:** Executes python commands directly via bot.\n\n**Example: **<pre>/exec print('hello world')</pre>"
+commands = ["exec", "py"]
 
 async def aexec(code, client, message):
     exec("async def __aexec(client, message): "
-        + "".join(f"\n {a}" for a in code.split("\n")))
-        
+        + "".join(f"\n {a}" for a in code.split("\n")))        
     return await locals()["__aexec"](client, message)
     
-async def runexec(client, message, replymsg):
+async def py_runexec(client, message, replymsg):
  
     old_stderr = sys.stderr
     old_stdout = sys.stdout
@@ -70,15 +70,14 @@ async def runexec(client, message, replymsg):
     stdout, stderr, exc = None, None, None
     
     try:
-    	await replymsg.edit("ㅤ") 	    
+    	await replymsg.edit("executing...") 	    
     	code = message.text.split(None, 1)[1]  	
     except IndexError:
-    	return await replymsg.edit("`No codes found to execute`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
+    	return await replymsg.edit("No codes found to execute.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
     	
     if "config.env" in code:
-        return await replymsg.edit("`That's a dangerous operation! Not Permitted!`", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄",  callback_data="refresh")]]))
-               
-                               
+        return await replymsg.edit("That's a dangerous operation! Not Permitted!", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄",  callback_data="refresh")]]))
+                                            
     try:
     	await aexec(code, client, message)
     except Exception:
@@ -88,7 +87,6 @@ async def runexec(client, message, replymsg):
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
-
  
     evaluation = ""
     if exc:
@@ -114,7 +112,7 @@ async def runexec(client, message, replymsg):
     	return await replymsg.edit(final_output,  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("refresh 🔄",callback_data="refresh")]]))
 
 
-@Client.on_callback_query()
+@Client.on_callback_query(filters.regex("refresh"))
 async def botCallbacks(client, CallbackQuery):
     
     cliker_user_id = CallbackQuery.from_user.id
@@ -127,17 +125,22 @@ async def botCallbacks(client, CallbackQuery):
     replymsg = await client.get_messages(CallbackQuery.message.chat.id, CallbackQuery.message.id)
 
     if CallbackQuery.data == "refresh":
-        await runexec(client, message, replymsg)
+        await py_runexec(client, message, replymsg)
   
   
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def executor(client, message):
+async def py_exec(client, message):
+	"""
+	Executes python command via bot with refresh button.
+	"""
 	
 	if len(message.command) < 2:
 		await message.reply_text(exec_usage)				
 	else:
-	   replymsg = await message.reply_text("executing....", quote=True)
-	   await runexec(client, message, replymsg)
+	   replymsg = await message.reply_text("executing..", quote=True)
+	   await py_runexec(client, message, replymsg)
     
     
+
+
