@@ -2,7 +2,6 @@ import aioredis
 from typing import List, Any 
 from TelegramBot.config import *
 
-redis = aioredis.from_url(REDIS_URI, decode_responses=True)
 
 class RedisDB:
    		
