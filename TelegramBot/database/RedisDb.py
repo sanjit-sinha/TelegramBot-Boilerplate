@@ -12,6 +12,7 @@ class RedisDB:
 	   Getting and setting data in redis. It take key and value argument pair as string. 
 	   return 'True' if the operation is successful.
 	   """
+	
 	   result = await redis.set(key, value)
 	   return result
 
@@ -20,9 +21,9 @@ class RedisDB:
 	async def get(key: str) -> str:
 	   """
 	   Take key as argument and return string value.
-	   ( It won't return value if that key don't store string values.)
-	   
+	   ( It won't return value if that key don't store string values.)	   
 	   """
+	
 	   value = await redis.get(key)
 	   return value
 
@@ -33,7 +34,8 @@ class RedisDB:
 	   Take key as argument and delete the value from database.
 	   (It cane delete any type of pair including  list, set, hash )
 	   return 'True' if the operation is successful.
-	   """        
+	   """
+	
 	   value = await redis.delete(key) 
 	   return False if value == 0 else True
 
@@ -47,7 +49,8 @@ class RedisDB:
 		
 		Example: redisdb.list_append("my_list", 1, 2, 3)
 		return 'True' if the operation is successful.
-		"""     	
+		"""
+		
 		try: await redis.rpush(key, *args) ; return True
 		except: return False
 
@@ -58,6 +61,7 @@ class RedisDB:
 		Take key as argument wich is name of the list.
 		return value of the whole list.
 		"""
+		
 		value = await redis.lrange(key, 0, -1)
 		return value
 
@@ -76,6 +80,7 @@ class RedisDB:
 	     	      
 	    return 'True' if the operation is successfull.
 	    """
+	
 	    count = 0 if remove_all else 1
 	    value = await redis.lrem(key, count, value)
 	    return False if value == 0 else True
