@@ -85,8 +85,3 @@ class RedisDB:
 		value = await redis.lrem(key, count, value)
 		return False if value == 0 else True
 		
-
-    	
-     
-     
-     
