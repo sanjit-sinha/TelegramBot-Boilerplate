@@ -6,6 +6,7 @@
 ------
 
 **You can read the v2.0.0 Changelogs [here](https://github.com/sanjit-sinha/TelegramBot-Boilerplate/blob/main/CHANGELOGS.md)**
+
 ------
 
 <div align="center">
