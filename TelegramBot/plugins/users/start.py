@@ -48,7 +48,7 @@ async def botCallbacks(client, CallbackQuery):
     clicker_user_id = CallbackQuery.from_user.id
     user_id = CallbackQuery.message.reply_to_message.from_user.id
     
-    if user_id != check_id:
+    if user_id != user_id:
     	return await CallbackQuery.answer ("This command is not initiated by you.")
     
     if CallbackQuery.data == "ABOUT_BUTTON":
