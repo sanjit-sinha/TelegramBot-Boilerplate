@@ -33,7 +33,7 @@ GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_
 
 
 commands = ["start", "help"]
-@Client.on_message(filters.command(commands, **prefixes) & filters.private)
+@Client.on_message(filters.command(commands, **prefixes))
 async def start(client, message):
     await message.reply_animation(
         animation=START_ANIMATION,
