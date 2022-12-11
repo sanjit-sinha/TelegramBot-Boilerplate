@@ -9,7 +9,7 @@ class RedisDB:
 	@staticmethod
 	async def set(key: str, value: str) -> bool:
 		"""
-		Getting and setting data in redis. It take key and value argument pair as string. 
+		Getting and setting data in redis. It take key and value pair argument as string. 
 		return 'True' if the operation is successful.
 		"""
 		
@@ -21,7 +21,7 @@ class RedisDB:
 	async def get(key: str) -> str:
 		"""
 		Take key as argument and return string value.
-		( It won't return value if that key don't store string values.)	   
+		(It won't return value if that key don't store string class values.)	   
 		"""
 		
 		value = await redis.get(key)
@@ -32,7 +32,7 @@ class RedisDB:
 	async def delete(key: str ) -> bool:
 		"""
 		Take key as argument and delete the value from database.
-		(It cane delete any type of pair including  list, set, hash )
+		(It can delete any type of key, value pair including  list, set, hash )
 		return 'True' if the operation is successful.
 		"""
 		
@@ -47,7 +47,7 @@ class RedisDB:
 		to append in that list.
 		( values can be either string , integer, float etc. but it all will get saved in string format)
 		
-		Example: redisdb.list_append("my_list", 1, 2, 3)
+		Example: redisdb.append_list("my_list", 1, 2, 3)
 		return 'True' if the operation is successful.
 		"""
 		
