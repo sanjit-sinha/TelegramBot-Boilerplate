@@ -6,7 +6,12 @@ from TelegramBot.config import *
 from datetime import datetime
 import time
 import httpx
+import asyncio
 
+async def test():
+	time.sleep(10)
+	print("Ok")
+	
 
 commands = ["ping", "alive"]
 @Client.on_message(filters.command(commands, **prefixes))
@@ -21,6 +26,8 @@ async def ping(_, message: Message):
    async with httpx.AsyncClient() as client:
      	await client.get("http://api.telegram.org") 	
    end = datetime.now()
+   await asyncio.ensure_future(test())
+
    
    botuptime = get_readable_time(time.time() - BotStartTime)
    pong = (end - start).microseconds / 1000
