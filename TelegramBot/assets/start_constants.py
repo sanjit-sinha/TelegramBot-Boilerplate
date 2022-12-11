@@ -1,17 +1,5 @@
 from TelegramBot.version import (__python_version__, __version__, __pyro_version__,  __license__)
 
-START_ANIMATION = "https://telegra.ph/file/c0857672b427bec8542f6.mp4"
-
-START_CAPTION = """**Hey there!! I am simple TelegramBot wich is made for the purpose for trying, testing, deploying and learnig about telegram bot using python pyrogram framework. \n\n Use buttons to navigate and know more about me :)**"""
-
-COMMAND_CAPTION = """**Here are the list of commands wich you can use in bot.\n**"""
-
-ABOUT_CAPTION = f"""• Python version : {__python_version__}
-• Bot version : {__version__}
-• pyrogram  version : {__pyro_version__}
-• License : {__license__}
-
-**Github Repo**: https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate"""
 
 USER_TEXT = """🗒️ Documentation for commands available to user's 
 	
@@ -49,4 +37,17 @@ DEV_TEXT = """
 
 • /py: To run the python commands via bot
 """
+
+ABOUT_CAPTION = f"""• Python version : {__python_version__}
+• Bot version : {__version__}
+• pyrogram  version : {__pyro_version__}
+• License : {__license__}
+
+**Github Repo**: https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate"""
+
+START_ANIMATION = "https://telegra.ph/file/c0857672b427bec8542f6.mp4"
+
+START_CAPTION = """**Hey there!! I am simple TelegramBot wich is made for the purpose for trying, testing, deploying and learnig about telegram bot using python pyrogram framework. \n\n Use buttons to navigate and know more about me :)**"""
+
+COMMAND_CAPTION = """**Here are the list of commands wich you can use in bot.\n**"""
 
