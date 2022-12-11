@@ -5,6 +5,10 @@
 
 ------
 
+**You can read the v2.0.0 Changelogs [here](https://github.com/sanjit-sinha/TelegramBot-Boilerplate/blob/main/CHANGELOGS.md)**
+
+------
+
 <div align="center">
 <h1><b>About this repository?</b></h1>
 </div>
@@ -167,8 +171,7 @@ DirectoryLayout <b></h1>
 │   │
 │   ├── plugins                       ( plugins folder contain all the plugins commands via wich user interact)          
 │   │   │
-│   │   ├── __init__.py
-│   │    
+│   │   ├── __init__.py 
 │   │   ├── developer
 │   │   │   ├── __init__.py
 │   │   │   ├── terminal.py
