@@ -3,6 +3,5 @@ TgCrypto==1.2.4
 python-dotenv
 psutil 
 speedtest-cli
-requests 
 aiofiles
 httpx
