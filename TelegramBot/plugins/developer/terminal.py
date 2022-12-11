@@ -70,7 +70,7 @@ async def py_runexec(client, message, replymsg):
     stdout, stderr, exc = None, None, None
     
     try:
-    	await replymsg.edit("executing.....") 	    
+    	await replymsg.edit("executing...") 	    
     	code = message.text.split(None, 1)[1]  	
     except IndexError:
     	return await replymsg.edit("No codes found to execute.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
@@ -138,7 +138,7 @@ async def py_exec(client, message):
 	if len(message.command) < 2:
 		await message.reply_text(exec_usage)				
 	else:
-	   replymsg = await message.reply_text("executing....", quote=True)
+	   replymsg = await message.reply_text("executing..", quote=True)
 	   await py_runexec(client, message, replymsg)
     
     
