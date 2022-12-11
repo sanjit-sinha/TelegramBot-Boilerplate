@@ -2,6 +2,8 @@ import aioredis
 from typing import List, Any 
 from TelegramBot.config import *
 
+REDIS_URI = "redis://default:BO44Y0Dim3FkS74Q10WB@containers-us-west-163.railway.app:6825" #(URI_EXAMPLE)
+redis = aioredis.from_url(REDIS_URI, decode_responses=True)
 
 class RedisDB:
    		
