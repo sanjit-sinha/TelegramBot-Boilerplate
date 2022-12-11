@@ -5,9 +5,9 @@ from pyrogram import __version__ as __pyro_version__
 https://github.com/UsergeTeam/Userge/blob/alpha/userge/versions.py
 """
 
-__major__ = 1
+__major__ = 2
 __minor__ = 0
-__micro__ = 1
+__micro__ = 0
 
 def get_version() -> str:
     return f"{__major__}.{__minor__}.{__micro__}"
