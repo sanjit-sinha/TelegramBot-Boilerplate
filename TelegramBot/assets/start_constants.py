@@ -43,7 +43,7 @@ ABOUT_CAPTION = f"""• Python version : {__python_version__}
 • pyrogram  version : {__pyro_version__}
 • License : {__license__}
 
-**Github Repo**: https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate"""
+**Github Repo**: https://github.com/sanjit-sinha/TelegramBot-Boilerplate"""
 
 START_ANIMATION = "https://telegra.ph/file/c0857672b427bec8542f6.mp4"
 
