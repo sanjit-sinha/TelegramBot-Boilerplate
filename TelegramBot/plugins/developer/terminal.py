@@ -33,21 +33,22 @@ async def shell(client, message: Message):
     args = shlex.split(user_input)
     
     try:
+        shell_replymsg = await message.reply_text("running...", quote=True)    
         shell = await asyncio.create_subprocess_exec(*args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         stdout, stderr = await shell.communicate()
         result = str(stdout.decode().strip()) + str(stderr.decode().strip())
 
     except Exception as error:
         LOGGER(__name__).warning(f"{error}")
-        return await message.reply_text(f"Error :-\n\n{error}", quote=True)
+        return await shell_replymsg.edit(f"Error :-\n\n{error}")
 
-    if len(result) > 2000:
+    if len(result) > 4000:
         file = BytesIO(result.encode())
         file.name = "output.txt"
-        await message.reply_text("output too large. sending it as a file..", quote=True)
+        await shell_replymsg.edit("output too large. sending it as a file..")
         await client.send_document(message.chat.id, file, caption=file.name)
     else:
-        await message.reply_text(f"Output :-\n\n{result}", quote=True)
+        await shell_replymsg.edit(f"Output :-\n\n{result}")
 
 
 
@@ -100,7 +101,7 @@ async def py_runexec(client, message, replymsg):
     final_output = f"{evaluation.strip()}"    
 
         
-    if len(final_output) > 2000:
+    if len(final_output) > 4000:
         async with aiofiles.open("output.txt", "w+", encoding="utf8") as file:
             await file.write(str(evaluation.strip()))
        
