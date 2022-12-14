@@ -17,7 +17,7 @@ async def paste(client, message):
 
    replied_message = message.reply_to_message   
    if len(message.command) > 1:
-   	content = message.text.split(None, 1)[1]
+       content = message.text.split(None, 1)[1]
      
    elif replied_message:
    		
@@ -32,7 +32,7 @@ async def paste(client, message):
    		else: return await message.reply_text(paste_usage, quote=True)
       		
    elif len(message.command) < 2:
-   	return await message.reply_text(paste_usage, quote=True)
+       return await message.reply_text(paste_usage, quote=True)
    	
    paste_reply = await message.reply_text("pasting...", quote=True)
    	 
