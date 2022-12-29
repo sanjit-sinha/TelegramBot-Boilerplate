@@ -1,6 +1,6 @@
 from asyncio import get_event_loop, new_event_loop, set_event_loop
-from TelegramBot.config import BOT_TOKEN, API_ID, API_HASH
 from TelegramBot.logging import LOGGER
+from TelegramBot.config import *
 from pyrogram import Client
 import time
 import sys
@@ -33,6 +33,7 @@ ____________________________________________________________________
 
 # https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 
+LOGGER(__name__).info("setting up event loop....")
 
 try:
 	loop = get_event_loop()
@@ -41,13 +42,13 @@ except RuntimeError:
 	loop = get_event_loop()
 
 LOGGER(__name__).info(BANNER)
-LOGGER(__name__).info("initiating the client")
+LOGGER(__name__).info("initiating the client....")
 
-
+#https://docs.pyrogram.org/topics/smart-plugins
 plugins = dict(root="TelegramBot/plugins")
 bot = Client(
     "TelegramBot",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
-    plugins=plugins)  #https://docs.pyrogram.org/topics/smart-plugins
+    plugins=plugins)  
