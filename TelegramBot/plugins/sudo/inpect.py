@@ -1,4 +1,4 @@
-from TelegramBot.helpers.pasting_services import katbin_paste
+from TelegramBot.helpers.pasting_services import *
 from TelegramBot.helpers.decorators import sudo_commands
 from pyrogram.errors import MessageTooLong
 from pyrogram import Client, filters
@@ -17,7 +17,7 @@ async def inspect(_, message: Message):
   try:
       await message.reply_text(message, quote=True)
   except MessageTooLong:
-      output = await katbin_paste(message)
+      output = await telegraph_paste(message)
       await message.reply_text(output, quote=True)
 	   
 	
