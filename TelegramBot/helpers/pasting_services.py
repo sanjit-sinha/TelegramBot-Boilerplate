@@ -4,7 +4,7 @@ import httpx
 
 async def katbin_paste(text: str) -> str:
 	"""
-	paste the text to katb.in website.
+	paste the text in katb.in website.
 	"""
 	
 	katbin_url = "https://katb.in"
