@@ -29,7 +29,7 @@ async def isAdmin(message: Message) -> bool:
 
 def get_readable_time(seconds: int) -> str:
     """
-    Return a human-readable time format
+    Return a human-readable time format seconds.
     """
 
     result = ""
