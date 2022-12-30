@@ -1,6 +1,7 @@
 from TelegramBot.database.MongoDb import *
 from datetime import datetime
 
+
 async def saveUser(user):
     """
     Saves new user in the database if they start the bot.
@@ -14,3 +15,5 @@ async def saveUser(user):
         	
     if not await users.read_document(document_id = user.id):
         await users.insert_document(format)
+
+        
