@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from telegraph.aio import  Telegraph
 import httpx
-import asyncio
+
 
 
 async def katbin_paste(text: str) -> str:
