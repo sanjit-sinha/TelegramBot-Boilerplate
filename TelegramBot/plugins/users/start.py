@@ -1,19 +1,17 @@
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from TelegramBot.database import MongoDb 
+from TelegramBot.database import database
 from TelegramBot.assets.start_constants import *
 from pyrogram import Client, filters
 from TelegramBot.config import *
+
 
 START_BUTTON = [
     [
         InlineKeyboardButton("📖 Commands", callback_data="COMMAND_BUTTON"),
         InlineKeyboardButton("👨‍💻 About me", callback_data="ABOUT_BUTTON"),
     ],
-    [
-        InlineKeyboardButton(
-            "🔭 Original Repo",
-            url=f"https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate",
-        )
-    ],
+    [InlineKeyboardButton("🔭 Original Repo", url=f"https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate")],
 ]
 
 
@@ -28,13 +26,14 @@ COMMAND_BUTTON = [
 
 
 GOBACK_1_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")]]
-
 GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_BUTTON")]]
+
 
 
 commands = ["start", "help"]
 @Client.on_message(filters.command(commands, **prefixes))
 async def start(client, message):
+    await database.saveUser(message.from_user)
     await message.reply_animation(
         animation=START_ANIMATION,
         caption=START_CAPTION,
