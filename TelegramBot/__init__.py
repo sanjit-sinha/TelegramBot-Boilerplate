@@ -1,4 +1,5 @@
 from asyncio import get_event_loop, new_event_loop, set_event_loop
+from TelegramBot.database.MongoDb import check_mongo_uri
 from TelegramBot.logging import LOGGER
 from TelegramBot.config import *
 from pyrogram import Client
@@ -43,6 +44,10 @@ except RuntimeError:
 
 LOGGER(__name__).info(BANNER)
 LOGGER(__name__).info("initiating the client....")
+
+
+LOGGER(__name__).info("checking MongoDb URI....")
+loop.run_until_complete(check_mongo_uri(MONGO_URI))		
 
 #https://docs.pyrogram.org/topics/smart-plugins
 plugins = dict(root="TelegramBot/plugins")
