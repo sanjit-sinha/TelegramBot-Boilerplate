@@ -23,3 +23,16 @@ async def katbin_paste(text: str) -> str:
 	except: return "something went wrong while pasting text in katb.in."
 	
 
+async def telegraph_paste(content: str) -> str:
+	"""
+	paste the text in telegra.ph (graph.org) website.
+	"""
+	
+	telegraph = Telegraph(domain="graph.org")
+	await telegraph.create_account(short_name='TelegramBot')
+	
+	content = "<p>" + content.replace('\n', '<br>') + "</p>"
+
+	response = await telegraph.create_page(title="TelegramBot",  html_content=content)
+	return response["url"]
+	
