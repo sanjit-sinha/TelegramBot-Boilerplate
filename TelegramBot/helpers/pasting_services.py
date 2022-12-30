@@ -21,6 +21,7 @@ async def katbin_paste(text: str) -> str:
 		return output_url
 	
 	except: return "something went wrong while pasting text in katb.in."
+
 	
 
 async def telegraph_paste(content: str) -> str:
