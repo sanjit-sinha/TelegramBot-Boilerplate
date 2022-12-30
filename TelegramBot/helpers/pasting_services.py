@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
+from telegraph.aio import  Telegraph
 import httpx
+import asyncio
 
 
 async def katbin_paste(text: str) -> str:
@@ -32,8 +34,12 @@ async def telegraph_paste(content: str) -> str:
 	telegraph = Telegraph(domain="graph.org")
 	await telegraph.create_account(short_name='TelegramBot')
 	
-	content = "<p>" + content.replace('\n', '<br>') + "</p>"
-
-	response = await telegraph.create_page(title="TelegramBot",  html_content=content)
-	return response["url"]
+	html_content = "<p>" + content.replace('\n', '<br>') + "</p>"
 	
+	try:
+		response = await telegraph.create_page(title="TelegramBot",  html_content=html_content)
+		response = response["url"]
+	except:
+		response = await katbin_paste(content )
+	
+	return response
