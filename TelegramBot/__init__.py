@@ -45,7 +45,6 @@ except RuntimeError:
 LOGGER(__name__).info(BANNER)
 LOGGER(__name__).info("initiating the client....")
 
-
 LOGGER(__name__).info("checking MongoDb URI....")
 loop.run_until_complete(check_mongo_uri(MONGO_URI))		
 
