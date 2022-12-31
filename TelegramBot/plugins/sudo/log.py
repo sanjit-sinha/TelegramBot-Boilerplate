@@ -7,7 +7,7 @@ from TelegramBot.config import *
 commands = ["log", "logs"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
-async def log(client, message: Message):
+async def log(client: Client, message: Message):
     """
     upload log file of the bot.
     """
