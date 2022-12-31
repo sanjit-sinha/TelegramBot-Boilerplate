@@ -10,7 +10,7 @@ import os
 commands = ["update"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def update(_, message: Message):
+async def update(client: Client, message: Message):
     """
     Update the bot with latest commit changes from GitHub.
     """
@@ -27,7 +27,7 @@ async def update(_, message: Message):
 commands = ["restart"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def restart(_, message: Message):
+async def restart(client: Client, message: Message):
     """
     This function just Restart the bot.
     """
