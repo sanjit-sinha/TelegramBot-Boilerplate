@@ -21,7 +21,7 @@ commands = ["shell", "sh"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def shell(client, message: Message):
+async def shell(client: Client, message: Message):
     """
     Executes command in terminal via bot.
     """
