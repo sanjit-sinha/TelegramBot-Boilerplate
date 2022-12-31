@@ -3,6 +3,8 @@ TgCrypto==1.2.4
 python-dotenv 
 speedtest-cli
 telegraph[aio]
+pyrate_limiter 
+cachetools 
 aiofiles
 psutil
 httpx
