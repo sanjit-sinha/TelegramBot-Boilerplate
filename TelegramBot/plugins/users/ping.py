@@ -1,5 +1,4 @@
 from TelegramBot.helpers.functions import get_readable_time    
-from TelegramBot.helpers.decorators import ratelimit
 from pyrogram import Client, filters
 from TelegramBot import BotStartTime
 from pyrogram.types import Message
@@ -12,7 +11,6 @@ import asyncio
 	
 
 commands = ["ping", "alive"]
-@ratelimit
 @Client.on_message(filters.command(commands, **prefixes))
 async def ping(_, message: Message):
    """
