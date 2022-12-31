@@ -8,7 +8,7 @@ import httpx
 commands = ["ip"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
-async def ipinfo(client, message: Message):
+async def ipinfo(client: Client, message: Message):
     """
     Give ip of the server where bot is running.
     """
