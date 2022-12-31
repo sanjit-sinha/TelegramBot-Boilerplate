@@ -114,7 +114,7 @@ async def py_runexec(client, message, replymsg):
 
 
 @Client.on_callback_query(filters.regex("refresh"))
-async def botCallbacks(client, CallbackQuery):
+async def pyCallbacks(client, CallbackQuery):
     
     cliker_user_id = CallbackQuery.from_user.id
     message_user_id = CallbackQuery.message.reply_to_message.from_user.id
