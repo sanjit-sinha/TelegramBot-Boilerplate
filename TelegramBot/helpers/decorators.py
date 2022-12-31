@@ -64,3 +64,5 @@ def errors(func: Callable) -> Callable:
             await message.reply(f"{type(error).__name__}: {error}")
 
     return decorator
+
+
