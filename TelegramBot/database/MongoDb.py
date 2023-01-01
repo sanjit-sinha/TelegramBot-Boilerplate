@@ -38,7 +38,7 @@ class MongoDb:
     	"""	
     	return await self.collection.count_documents({})
     
-    async def document_id_list(self):
+    async def get_all_id(self):
        """
        return list of all document "_id" in that collection. 
        """
