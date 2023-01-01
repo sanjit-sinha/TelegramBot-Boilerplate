@@ -36,12 +36,14 @@ class MongoDb:
     	"""
     	return total numner of documents in that collection. 
     	"""
+	
     	return await self.collection.count_documents({})
     
     async def document_id_list(self):
        """
-       return list of all document "_id" of the collection. 
+       return list of all document "_id" in that collection. 
        """
+
        id_list = self.collection.distinct("_id")
        return id_list
          
