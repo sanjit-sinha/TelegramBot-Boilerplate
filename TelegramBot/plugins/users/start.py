@@ -4,6 +4,7 @@ from TelegramBot.database import database
 from TelegramBot.assets.start_constants import *
 from pyrogram import Client, filters
 from TelegramBot.config import *
+from TelegramBot import app
 
 
 START_BUTTON = [
@@ -71,3 +72,17 @@ async def botCallbacks(client, CallbackQuery):
         else: await CallbackQuery.edit_message_text(DEV_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON))
 
             
+            
+@Client.on_message(filters.new_chat_members, group=1)
+async def newChat(client: Client, message: Message):
+    """
+    Get notified when someone add bot in the group , then it save that group chat_id
+    in the database. 
+    """
+ 
+    chatid = message.chat.id 
+    for new_user in message.new_chat_members:
+    	if new_user.id == bot.me.id:
+            await database.saveChat(chatid)
+ 
+           
