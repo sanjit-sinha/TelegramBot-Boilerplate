@@ -1,5 +1,5 @@
 from TelegramBot.helpers.functions import get_readable_bytes
-from TelegramBot.helpers.decorators import sudo_commands
+from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
 from TelegramBot.logging import LOGGER
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -19,6 +19,7 @@ def speedtestcli():
 commands = ["speedtest", f"speed"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
+@ratelimiter
 async def speedtest(client: Client, message: Message):
     """
     Give speedtest of server where bot is running
