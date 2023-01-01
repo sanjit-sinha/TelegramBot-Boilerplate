@@ -42,7 +42,7 @@ class MongoDb:
        """
        return list of all document "_id" in that collection. 
        """
-       id_list = self.collection.distinct("_id")
+       id_list = await self.collection.distinct("_id")
        return id_list
       
 	
