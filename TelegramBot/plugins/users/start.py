@@ -82,7 +82,6 @@ async def newChat(client: Client, message: Message):
  
     chatid = message.chat.id 
     for new_user in message.new_chat_members:
-    	if new_user.id == bot.me.id:
-            await database.saveChat(chatid)
+    	if new_user.id == bot.me.id: await database.saveChat(chatid)
  
            
