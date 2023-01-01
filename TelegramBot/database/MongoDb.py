@@ -47,15 +47,14 @@ async def check_mongo_uri(MONGO_URI: str):
 		LOGGER(__name__).error(f"Error in Establishing connection with MongoDb URI. Please enter valid uri in the config section.")
 		exiter(1)
 
-		
 #Initiating MongoDb motor client
-mongo = AsyncIOMotorClient(MONGO_URI) 
+mongodb = AsyncIOMotorClient(MONGO_URI) 
 
 #Database Name (TelegramBot).
-database = mongo.TelegramBot 
+database = mongodb.TelegramBot 
 
 #initiating  collections from database TelegramBot.  
 users = MongoDb(database.users)
-
+chats = MongoDb(database.chats) 
 
 
