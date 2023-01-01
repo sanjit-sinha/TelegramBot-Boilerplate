@@ -19,7 +19,7 @@ warned_users = TTLCache(maxsize=128, ttl=600)
 warning_message = "Spam detected! ignoring your all requests for few minutes."
     
 
-def enableratelimit(func: Callable) -> Callable:
+def ratelimit(func: Callable) -> Callable:
     """
     Restricts user's from spamming commands or pressing buttons multiple times
     using leaky bucket algorithm and pyrate_limiter.
