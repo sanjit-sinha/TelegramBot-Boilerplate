@@ -44,7 +44,8 @@ class MongoDb:
        """
        id_list = self.collection.distinct("_id")
        return id_list
-         
+      
+	
        
 async def check_mongo_uri(MONGO_URI: str):
 	try:
