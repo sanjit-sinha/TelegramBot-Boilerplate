@@ -1,5 +1,5 @@
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from TelegramBot.helpers.decorators import dev_commands
+from TelegramBot.helpers.decorators import dev_commands, ratelimiter
 from pyrogram.errors import MessageNotModified
 from TelegramBot.logging import LOGGER
 from pyrogram import Client, filters
@@ -21,6 +21,7 @@ commands = ["shell", "sh"]
 
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
+@ratelimiter
 async def shell(client: Client, message: Message):
     """
     Executes command in terminal via bot.
@@ -114,6 +115,7 @@ async def py_runexec(client, message, replymsg):
 
 
 @Client.on_callback_query(filters.regex("refresh"))
+@ratelimiter
 async def pyCallbacks(client, CallbackQuery):
     
     cliker_user_id = CallbackQuery.from_user.id
@@ -131,6 +133,7 @@ async def pyCallbacks(client, CallbackQuery):
   
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
+@ratelimiter
 async def py_exec(client, message):
 	"""
 	Executes python command via bot with refresh button.
