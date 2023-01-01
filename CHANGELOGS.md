@@ -5,3 +5,4 @@
 - Improved terminal for executing python command with refresh button.
 - Added paste command.
 - Added Asynchronous Redis Database boilerplate code (in database folder) for those who want to work with database. 
+
