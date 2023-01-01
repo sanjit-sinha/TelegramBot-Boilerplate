@@ -38,6 +38,13 @@ class MongoDb:
     	"""
     	return await self.collection.count_documents({})
     
+    async def document_id_list(self):
+       """
+       return list of all document "_id" of the collection. 
+       """
+       id_list = self.collection.distinct("_id")
+       return id_list
+         
        
 async def check_mongo_uri(MONGO_URI: str):
 	try:
