@@ -37,7 +37,7 @@ async def broadcast(client, message):
    	except Exception as error:
    		failed += 1
    	
-   await broadcast_msg.edit(f"**Successfully Broadcasted Message.**\n\nTotal sucess = {success}\nTotal Failure = {failed}")
-   return
+   return await broadcast_msg.edit(f"**Successfully Broadcasted Message.**\n\nTotal sucess = {success}\nTotal Failure = {failed}")
+   
    
  
