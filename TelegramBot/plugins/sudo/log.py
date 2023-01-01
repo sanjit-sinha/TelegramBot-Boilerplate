@@ -1,4 +1,4 @@
-from TelegramBot.helpers.decorators import sudo_commands
+from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from TelegramBot.config import *
@@ -7,6 +7,7 @@ from TelegramBot.config import *
 commands = ["log", "logs"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
+@ratelimiter
 async def log(client: Client, message: Message):
     """
     upload log file of the bot.
