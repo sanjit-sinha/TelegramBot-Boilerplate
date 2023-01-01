@@ -1,4 +1,4 @@
-from TelegramBot.helpers.decorators import dev_commands
+from TelegramBot.helpers.decorators import dev_commands,ratelimiter
 from TelegramBot.logging import LOGGER
 from pyrogram import Client, filters
 from pyrogram.types import Message
@@ -10,6 +10,7 @@ import os
 commands = ["update"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
+@ratelimiter
 async def update(client: Client, message: Message):
     """
     Update the bot with latest commit changes from GitHub.
@@ -27,6 +28,7 @@ async def update(client: Client, message: Message):
 commands = ["restart"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
+@ratelimiter
 async def restart(client: Client, message: Message):
     """
     This function just Restart the bot.
