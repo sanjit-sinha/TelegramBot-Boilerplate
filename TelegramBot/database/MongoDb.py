@@ -54,7 +54,6 @@ async def check_mongo_uri(MONGO_URI: str):
 	except:
 		LOGGER(__name__).error(f"Error in Establishing connection with MongoDb URI. Please enter valid uri in the config section.")
 		exiter(1)
-
 		
 		
 #Initiating MongoDb motor client
