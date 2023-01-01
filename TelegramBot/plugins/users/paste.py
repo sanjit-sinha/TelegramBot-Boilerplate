@@ -1,4 +1,5 @@
 from TelegramBot.helpers.pasting_services import katbin_paste
+from TelegramBot.helpers.decorators import ratelimiter
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from TelegramBot.config import *
@@ -10,6 +11,7 @@ commands = ["paste", "p"]
 paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
 
 @Client.on_message(filters.command(commands, **prefixes))
+@ratelimiter
 async def paste(client, message):
    """
    Paste the text to katb.in website.
