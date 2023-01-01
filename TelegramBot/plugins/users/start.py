@@ -1,5 +1,5 @@
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
-from TelegramBot.helpers.decorators import enableratelimiter
+from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.database import MongoDb 
 from TelegramBot.database import database
 from TelegramBot.assets.start_constants import *
@@ -34,7 +34,7 @@ GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_
 
 commands = ["start", "help"]
 @Client.on_message(filters.command(commands, **prefixes))
-@enableratelimiter
+@ratelimiter
 async def start(client, message):
     await database.saveUser(message.from_user)
     await message.reply_animation(
@@ -45,7 +45,7 @@ async def start(client, message):
 
 
 @Client.on_callback_query(filters.regex("_BUTTON"))
-@enableratelimiter
+@ratelimiter
 async def botCallbacks(client, CallbackQuery):
 
     clicker_user_id = CallbackQuery.from_user.id
