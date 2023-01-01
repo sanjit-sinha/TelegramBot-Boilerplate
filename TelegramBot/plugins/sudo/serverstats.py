@@ -6,12 +6,13 @@ from pyrogram.types import Message
 from TelegramBot import BotStartTime
 from TelegramBot.config import *
 from TelegramBot.helpers.functions import get_readable_bytes, get_readable_time
-from TelegramBot.helpers.decorators import sudo_commands
+from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
 
 
 commands = ["stats", "serverstats"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
+@ratelimiter
 async def stats(client: Client, message: Message):
 
     currentTime = get_readable_time(time.time() - BotStartTime)
