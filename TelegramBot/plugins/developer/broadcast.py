@@ -9,6 +9,7 @@ broadcast_usage = f"**Usage:** Broadcast the message to all users as well as cha
 
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
+@ratelimiter
 async def broadcast(client, message):
    """
    Broadcast the message via bot.
