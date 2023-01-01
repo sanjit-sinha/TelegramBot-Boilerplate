@@ -17,3 +17,15 @@ async def saveUser(user):
         await users.insert_document(format)
 
         
+async def saveChat(chatid):
+    """
+    Saves new group in the database if bot is added in new group.
+    """
+    print("test")
+    format = {
+           '_id': chatid,
+           'date': str(datetime.now().date())    
+    }
+    
+    if not await chats.read_document(document_id = chatid):
+        await chats.insert_document(format)
