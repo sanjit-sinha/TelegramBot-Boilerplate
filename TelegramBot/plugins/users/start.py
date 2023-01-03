@@ -2,7 +2,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.database import MongoDb, database 
 from TelegramBot.assets.start_constants import *
-from pyrogram import filters
+from pyrogram import filters, Client
 from TelegramBot.config import prefixes 
 from TelegramBot import bot
 
