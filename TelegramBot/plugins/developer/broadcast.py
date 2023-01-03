@@ -30,8 +30,7 @@ async def broadcast(client, message):
    total_list += await MongoDb.users.get_all_id()	
    	   
    failed = 0
-   success = 0
-   
+   success = 0   
    for id in total_list:
    	try:
    		await client.send_message(chat_id=id, text=user_message)
