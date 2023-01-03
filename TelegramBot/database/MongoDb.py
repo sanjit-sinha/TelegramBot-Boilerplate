@@ -47,7 +47,7 @@ class MongoDb:
       
 	
        
-async def check_mongo_uri(MONGO_URI: str)-> None:
+async def check_mongo_uri(MONGO_URI: str) -> None:
 	try:
 		mongo = AsyncIOMotorClient(MONGO_URI)
 		await mongo.server_info()
