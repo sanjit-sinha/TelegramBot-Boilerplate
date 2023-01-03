@@ -1,6 +1,6 @@
 from TelegramBot.database import MongoDb
-from TelegramBot.helpers.decorators import *
-from TelegramBot.config import *
+from TelegramBot.helpers.decorators import dev_commands, ratelimiter 
+from TelegramBot.config import prefixes 
 from pyrogram import Client, filters
 import asyncio
 
@@ -37,7 +37,7 @@ async def broadcast(client, message):
    		await client.send_message(chat_id=id, text=user_message)
    		success += 1
          
-         #prevent flood.
+         #prevent flood wait.
          await asyncio.sleep(4)
    	except Exception as error:
    		failed += 1
