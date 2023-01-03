@@ -2,6 +2,7 @@ from TelegramBot.database import MongoDb
 from TelegramBot.helpers.decorators import dev_commands, ratelimiter 
 from TelegramBot.config import prefixes 
 from pyrogram import Client, filters
+from pyrogram.types import Message 
 import asyncio
 
 
@@ -11,7 +12,7 @@ broadcast_usage = f"**Usage:** Broadcast the message to all users as well as cha
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
 @ratelimiter
-async def broadcast(client, message):
+async def broadcast(client: Client, message: Message):
    """
    Broadcast the message via bot.
    """
