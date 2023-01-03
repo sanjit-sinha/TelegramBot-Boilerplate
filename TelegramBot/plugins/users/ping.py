@@ -1,6 +1,6 @@
 from TelegramBot.helpers.functions import get_readable_time    
 from TelegramBot.helpers.decorators import ratelimiter
-from pyrogram import filters
+from pyrogram import filters, Client
 from TelegramBot import BotStartTime
 from pyrogram.types import Message
 from TelegramBot.config import prefixes 
