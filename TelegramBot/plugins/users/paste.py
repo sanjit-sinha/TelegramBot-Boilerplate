@@ -1,6 +1,6 @@
 from TelegramBot.helpers.pasting_services import katbin_paste
 from TelegramBot.helpers.decorators import ratelimiter
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 from TelegramBot.config import prefixes 
 import aiofiles

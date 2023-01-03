@@ -1,7 +1,7 @@
 from TelegramBot.helpers.functions import get_readable_bytes
 from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
 from TelegramBot.logging import LOGGER
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 from TelegramBot.config import prefixes 
 from speedtest import Speedtest

@@ -1,7 +1,7 @@
 from TelegramBot.helpers.pasting_services import telegraph_paste
 from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
 from pyrogram.errors import MessageTooLong
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 from TelegramBot.config import prefixes 
 

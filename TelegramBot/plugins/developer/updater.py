@@ -1,8 +1,8 @@
 from TelegramBot.helpers.decorators import dev_commands,ratelimiter
 from TelegramBot.logging import LOGGER
-from pyrogram import filters
+from TelegramBot.config import prefixes 
+from pyrogram import filters, Client
 from pyrogram.types import Message
-from TelegramBot.config import *
 import sys
 import os
 
