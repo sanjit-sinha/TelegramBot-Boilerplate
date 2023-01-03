@@ -1,7 +1,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from TelegramBot.database import MongoDb
-from TelegramBot.config import *
+from TelegramBot.config import prefixes 
 from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
 
 
@@ -9,7 +9,7 @@ commands = ["dbstats"]
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
 @ratelimiter
-async def dbstats(client: Client, message: Message):
+async def dbstats(_, message: Message):
 	TotalUsers =await MongoDb.users.total_documents()
 	TotalChats =await MongoDb.chats.total_documents()
 	

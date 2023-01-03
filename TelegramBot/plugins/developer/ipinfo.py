@@ -1,7 +1,7 @@
 from TelegramBot.helpers.decorators import dev_commands, ratelimiter
-from pyrogram import Client, filters
+from pyrogram import filters
 from pyrogram.types import Message
-from TelegramBot.config import *
+from TelegramBot.config import prefixes 
 import httpx
 
 
@@ -9,7 +9,7 @@ commands = ["ip"]
 @Client.on_message(filters.command(commands, **prefixes))
 @dev_commands
 @ratelimiter
-async def ipinfo(client: Client, message: Message):
+async def ipinfo(_, message: Message):
     """
     Give ip of the server where bot is running.
     """

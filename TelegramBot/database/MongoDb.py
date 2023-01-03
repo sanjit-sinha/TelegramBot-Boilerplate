@@ -1,6 +1,6 @@
 from motor.motor_asyncio import AsyncIOMotorClient 
 from TelegramBot.logging import LOGGER 
-from TelegramBot.config import *
+from TelegramBot.config import MONGO_URI, prefixes 
 from sys import exit as exiter
 
 
@@ -47,7 +47,7 @@ class MongoDb:
       
 	
        
-async def check_mongo_uri(MONGO_URI: str):
+async def check_mongo_uri(MONGO_URI: str) -> None:
 	try:
 		mongo = AsyncIOMotorClient(MONGO_URI)
 		await mongo.server_info()

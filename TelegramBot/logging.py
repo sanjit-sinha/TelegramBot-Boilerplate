@@ -1,5 +1,5 @@
-import logging
 from logging.handlers import RotatingFileHandler
+import logging
 import os
 
 #removing old logs file if they exist.

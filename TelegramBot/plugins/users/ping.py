@@ -1,14 +1,12 @@
 from TelegramBot.helpers.functions import get_readable_time    
 from TelegramBot.helpers.decorators import ratelimiter
-from pyrogram import Client, filters
+from pyrogram import filters
 from TelegramBot import BotStartTime
 from pyrogram.types import Message
-from TelegramBot.config import *
+from TelegramBot.config import prefixes 
 from datetime import datetime
 import time
 import httpx
-import asyncio
-
 	
 
 commands = ["ping", "alive"]

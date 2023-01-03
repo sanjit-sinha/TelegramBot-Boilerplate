@@ -5,7 +5,7 @@ from TelegramBot.logging import LOGGER
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from io import StringIO, BytesIO
-from TelegramBot.config import *
+from TelegramBot.config import prefixes 
 from TelegramBot import bot
 import subprocess
 import traceback
