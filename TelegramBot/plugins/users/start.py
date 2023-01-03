@@ -36,7 +36,7 @@ commands = ["start", "help"]
 @ratelimiter
 async def start(_, message: Message):
     await database.saveUser(message.from_user)
-    await message.reply_animation(
+    return await message.reply_animation(
         animation=START_ANIMATION,
         caption=START_CAPTION,
         reply_markup=InlineKeyboardMarkup(START_BUTTON),
