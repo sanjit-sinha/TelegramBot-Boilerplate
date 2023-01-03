@@ -1,7 +1,7 @@
 from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from TelegramBot.config import *
+from TelegramBot.config import prefixes 
 
 
 commands = ["log", "logs"]
