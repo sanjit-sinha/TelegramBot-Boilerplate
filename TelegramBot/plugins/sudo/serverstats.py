@@ -1,7 +1,7 @@
 import shutil
 import psutil
 import time
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import Message
 from TelegramBot import BotStartTime
 from TelegramBot.config import prefixes 
