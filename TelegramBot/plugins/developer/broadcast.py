@@ -21,7 +21,7 @@ async def broadcast(client: Client, message: Message):
    else:
        user_message =  message.text.split(None, 1)[1]
    
-   broadcast_msg = await message.reply_text("**Broadcasting started. Please wait for few minutes to get completed.")
+   broadcast_msg = await message.reply_text("**Broadcasting started. Please wait for few minutes for it to get completed.")
    total_list = []
    
    if "-all" in user_message:
@@ -42,7 +42,7 @@ async def broadcast(client: Client, message: Message):
    	except Exception as error:
    		failed += 1
    	
-   return await broadcast_msg.edit(f"**Successfully Broadcasted Message.**\n\nTotal sucess = {success}\nTotal Failure = {failed}")
+   return await broadcast_msg.edit(f"**The message has been successfully broadcasted.**\n\nTotal sucess = {success}\nTotal Failure = {failed}")
    
    
  
