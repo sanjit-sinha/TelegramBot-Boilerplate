@@ -36,9 +36,9 @@ async def broadcast(client: Client, message: Message):
    	try:
    		await client.send_message(chat_id=id, text=user_message)
    		success += 1
-         
-         #prevent flood wait.
-         await asyncio.sleep(4)
+   		
+   		#prevent flood wait.
+   		await asyncio.sleep(4)
    	except Exception as error:
    		failed += 1
    	
