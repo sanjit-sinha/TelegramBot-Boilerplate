@@ -3,7 +3,7 @@ from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.database import MongoDb, database 
 from TelegramBot.assets.start_constants import *
 from pyrogram import filters, Client
-from TelegramBot.config import prefixes 
+from TelegramBot.config import prefixes, SUDO_USERID, OWNER_USERID 
 from TelegramBot import bot
 
 
