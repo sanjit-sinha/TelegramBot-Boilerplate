@@ -1,5 +1,5 @@
 from TelegramBot.helpers.decorators import dev_commands, ratelimiter
-from pyrogram import Client, filters
+from pyrogram import filters
 from pyrogram.types import Message
 from TelegramBot.config import prefixes 
 import httpx
