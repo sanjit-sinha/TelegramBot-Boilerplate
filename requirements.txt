@@ -10,3 +10,4 @@ psutil
 httpx
 motor
 bs4
+uvloop
