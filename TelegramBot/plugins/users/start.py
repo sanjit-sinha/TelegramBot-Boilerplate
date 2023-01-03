@@ -1,10 +1,9 @@
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from TelegramBot.helpers.decorators import ratelimiter
-from TelegramBot.database import MongoDb 
-from TelegramBot.database import database
+from TelegramBot.database import MongoDb, database 
 from TelegramBot.assets.start_constants import *
-from pyrogram import Client, filters
-from TelegramBot.config import *
+from pyrogram import filters
+from TelegramBot.config import prefixes 
 from TelegramBot import bot
 
 
@@ -35,7 +34,7 @@ GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_
 commands = ["start", "help"]
 @Client.on_message(filters.command(commands, **prefixes))
 @ratelimiter
-async def start(client, message):
+async def start(_, message: Message):
     await database.saveUser(message.from_user)
     await message.reply_animation(
         animation=START_ANIMATION,
@@ -77,7 +76,7 @@ async def botCallbacks(client, CallbackQuery):
             
             
 @Client.on_message(filters.new_chat_members, group=1)
-async def newChat(client: Client, message: Message):
+async def newChat(_, message: Message):
     """
     Get notified when someone add bot in the group , then it save that group chat_id
     in the database. 
