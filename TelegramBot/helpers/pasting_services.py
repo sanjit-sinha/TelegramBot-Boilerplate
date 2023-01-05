@@ -26,18 +26,18 @@ async def katbin_paste(text: str) -> str:
 
 	
 
-async def telegraph_paste(content: str) -> str:
+async def telegraph_paste(content: str, title="TelegramBot") -> str:
 	"""
 	paste the text in telegra.ph (graph.org) website.
 	"""
 	
 	telegraph = Telegraph(domain="graph.org")
-	await telegraph.create_account(short_name='TelegramBot')
+	await telegraph.create_account(short_name=title)
 	
 	html_content = "<pre>" + str(content).replace('\n', '<br>') + "</pre>"
 	
 	try:
-		response = await telegraph.create_page(title="TelegramBot",  html_content=html_content)
+		response = await telegraph.create_page(title=title,  html_content=html_content)
 		response = response["url"]
 	except:
 		response = await katbin_paste(content )
