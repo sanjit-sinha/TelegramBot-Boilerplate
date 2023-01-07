@@ -54,7 +54,7 @@ def get_readable_time(seconds: int) -> str:
     return result
     
     
-def get_readable_bytes(size):
+def get_readable_bytes(size: str) -> str:
 	"""
 	Return a human readable file size from bytes.
 	"""
