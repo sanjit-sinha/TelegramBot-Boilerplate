@@ -78,7 +78,7 @@ async def botCallbacks(client, CallbackQuery):
 @Client.on_message(filters.new_chat_members, group=1)
 async def newChat(_, message: Message):
     """
-    Get notified when someone add bot in the group , then it save that group chat_id
+    Get notified when someone add bot in the group, then saves that group chat_id
     in the database. 
     """
  
