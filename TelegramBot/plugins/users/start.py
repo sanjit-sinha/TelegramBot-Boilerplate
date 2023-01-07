@@ -12,8 +12,7 @@ START_BUTTON = [
         InlineKeyboardButton("📖 Commands", callback_data="COMMAND_BUTTON"),
         InlineKeyboardButton("👨‍💻 About me", callback_data="ABOUT_BUTTON"),
     ],
-    [InlineKeyboardButton("🔭 Original Repo", url=f"https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate")],
-]
+    [InlineKeyboardButton("🔭 Original Repo", url=f"https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate")]]
 
 
 COMMAND_BUTTON = [
@@ -22,8 +21,7 @@ COMMAND_BUTTON = [
         InlineKeyboardButton("Sudo", callback_data="SUDO_BUTTON"),
     ],
     [InlineKeyboardButton("Developer", callback_data="DEV_BUTTON")],
-    [InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")],
-]
+    [InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")]]
 
 
 GOBACK_1_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")]]
