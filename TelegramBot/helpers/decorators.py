@@ -4,10 +4,10 @@ https://www.geeksforgeeks.org/decorators-in-python/
 https://realpython.com/primer-on-python-decorators/
 """
 
+from TelegramBot.config import SUDO_USERID, OWNER_USERID 
 from pyrogram.types import Message, CallbackQuery
 from TelegramBot.helpers.functions import isAdmin
 from TelegramBot.helpers.ratelimiter import RateLimiter 
-from TelegramBot.config import *
 from typing import Callable, Union
 from cachetools import TTLCache
 from functools import wraps
