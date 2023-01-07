@@ -1,6 +1,6 @@
 """
 Basic class structure for using and helping out with redis database.
-Although this repository use mongodb instead of redis.
+Although this repository uses mongodb instead of redis.
 """
 
 import aioredis
