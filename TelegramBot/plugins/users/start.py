@@ -1,9 +1,9 @@
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from TelegramBot.config import prefixes, SUDO_USERID, OWNER_USERID
 from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.database import MongoDb, database 
 from TelegramBot.assets.start_constants import *
-from pyrogram import filters, Client
-from TelegramBot.config import prefixes, SUDO_USERID, OWNER_USERID 
+from pyrogram import filters, Client 
 from TelegramBot import bot
 
 
@@ -12,8 +12,7 @@ START_BUTTON = [
         InlineKeyboardButton("📖 Commands", callback_data="COMMAND_BUTTON"),
         InlineKeyboardButton("👨‍💻 About me", callback_data="ABOUT_BUTTON"),
     ],
-    [InlineKeyboardButton("🔭 Original Repo", url=f"https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate")],
-]
+    [InlineKeyboardButton("🔭 Original Repo", url=f"https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate")]]
 
 
 COMMAND_BUTTON = [
@@ -22,8 +21,7 @@ COMMAND_BUTTON = [
         InlineKeyboardButton("Sudo", callback_data="SUDO_BUTTON"),
     ],
     [InlineKeyboardButton("Developer", callback_data="DEV_BUTTON")],
-    [InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")],
-]
+    [InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")]]
 
 
 GOBACK_1_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="START_BUTTON")]]
@@ -78,12 +76,13 @@ async def botCallbacks(client, CallbackQuery):
 @Client.on_message(filters.new_chat_members, group=1)
 async def newChat(_, message: Message):
     """
-    Get notified when someone add bot in the group , then it save that group chat_id
+    Get notified when someone add bot in the group, then saves that group chat_id
     in the database. 
     """
  
     chatid = message.chat.id 
     for new_user in message.new_chat_members:
-    	if new_user.id == bot.me.id: await database.saveChat(chatid)
+    	if new_user.id == bot.me.id:
+    		await database.saveChat(chatid)
  
            

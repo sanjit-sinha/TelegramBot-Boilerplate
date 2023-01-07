@@ -1,9 +1,9 @@
-from uvloop import install
 from asyncio import get_event_loop, new_event_loop, set_event_loop
 from TelegramBot.database.MongoDb import check_mongo_uri
 from TelegramBot.logging import LOGGER
-from TelegramBot.config import *
+from TelegramBot import config
 from pyrogram import Client
+from uvloop import install
 import time
 import sys
 
@@ -49,13 +49,13 @@ LOGGER(__name__).info(BANNER)
 LOGGER(__name__).info("initiating the client....")
 
 LOGGER(__name__).info("checking MongoDb URI....")
-loop.run_until_complete(check_mongo_uri(MONGO_URI))		
+loop.run_until_complete(check_mongo_uri(config.MONGO_URI))		
 
 #https://docs.pyrogram.org/topics/smart-plugins
 plugins = dict(root="TelegramBot/plugins")
 bot = Client(
     "TelegramBot",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
+    api_id=config.API_ID,
+    api_hash=config.API_HASH,
+    bot_token=config.BOT_TOKEN,
     plugins=plugins)  

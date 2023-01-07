@@ -1,6 +1,6 @@
-from TelegramBot.config import *
 from pyrogram.types import Message
 from pyrogram.enums import ChatType, ChatMemberStatus
+from TelegramBot.helpers.config import SUDO_USERID, OWNER_USERID 
 
 
 async def isAdmin(message: Message) -> bool:
@@ -54,7 +54,7 @@ def get_readable_time(seconds: int) -> str:
     return result
     
     
-def get_readable_bytes(size):
+def get_readable_bytes(size: str) -> str:
 	"""
 	Return a human readable file size from bytes.
 	"""
@@ -70,4 +70,3 @@ def get_readable_bytes(size):
 	    raised_to_pow += 1
 	    
 	return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
-	
