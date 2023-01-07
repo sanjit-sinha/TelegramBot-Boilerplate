@@ -38,7 +38,7 @@ async def broadcast(client: Client, message: Message):
    		success += 1
    		
    		#prevent flood wait.
-   		await asyncio.sleep(0,3)
+   		await asyncio.sleep(0,4)
    	except Exception as error:
    		failed += 1
    	
