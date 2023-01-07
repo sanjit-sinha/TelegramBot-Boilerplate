@@ -6,6 +6,7 @@ async def saveUser(user):
     """
     Saves new user in the database if they start the bot.
     """
+    
     insert_format = {
             '_id': user.id,
             'name': (user.first_name or " ") + (user.last_name or ""),
@@ -21,7 +22,7 @@ async def saveChat(chatid):
     """
     Saves new group in the database if bot is added in new group.
     """
-    print("test")
+  
     insert_format = {
            '_id': chatid,
            'date': str(datetime.now().date())    
