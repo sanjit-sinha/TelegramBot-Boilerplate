@@ -1,6 +1,6 @@
 from pyrogram.types import Message
 from pyrogram.enums import ChatType, ChatMemberStatus
-from TelegramBot.helpers.config import SUDO_USERID, OWNER_USERID 
+from TelegramBot.config import SUDO_USERID, OWNER_USERID 
 
 
 async def isAdmin(message: Message) -> bool:
