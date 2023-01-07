@@ -1,6 +1,6 @@
-from motor.motor_asyncio import AsyncIOMotorClient 
-from TelegramBot.logging import LOGGER 
-from TelegramBot.config import MONGO_URI, prefixes 
+from motor.motor_asyncio import AsyncIOMotorClient
+from TelegramBot.config import MONGO_URI, prefixes
+from TelegramBot.logging import LOGGER  
 from sys import exit as exiter
 
 
