@@ -258,7 +258,7 @@ Codes and structure of this bot is heavily inspired by open source projects like
  Special Thanks to <br>
 • <a href="https://github.com/delivrance"><strong>Dan</strong></a> for creating <a href="https://github.com/pyrogram/pyrogram"><strong>Pyrogram.</strong></a><br>
 • <a href="https://github.com/starry69"> Starry</a> for guiding and acutebot repository. <br>
-• <a href="https://github.com/annihilatorrrr">Annihilator</a> for helping me out for pyrogram stuff.
+• <a href="https://github.com/annihilatorrrr">Annihilator</a> for helping me out with pyrogram stuff.
 
 <br>
 <br>
