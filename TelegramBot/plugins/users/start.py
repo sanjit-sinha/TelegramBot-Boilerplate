@@ -12,7 +12,7 @@ START_BUTTON = [
         InlineKeyboardButton("📖 Commands", callback_data="COMMAND_BUTTON"),
         InlineKeyboardButton("👨‍💻 About me", callback_data="ABOUT_BUTTON"),
     ],
-    [InlineKeyboardButton("🔭 Original Repo", url=f"https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate")]]
+    [InlineKeyboardButton("🔭 Original Repo", url=f"https://github.com/sanjit-sinha/TelegramBot-Boilerplate")]]
 
 
 COMMAND_BUTTON = [
