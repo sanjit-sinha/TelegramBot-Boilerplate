@@ -1,6 +1,6 @@
-from logging.handlers import RotatingFileHandler
 import logging
 import os
+from logging.handlers import RotatingFileHandler
 
 #removing old logs file if they exist.
 try: os.remove("logs.txt")

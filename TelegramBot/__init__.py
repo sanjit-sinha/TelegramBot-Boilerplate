@@ -1,29 +1,39 @@
+import sys
+import time
 from asyncio import get_event_loop, new_event_loop, set_event_loop
-from TelegramBot.database.MongoDb import check_mongo_uri
-from TelegramBot.logging import LOGGER
-from TelegramBot import config
+
 from pyrogram import Client
 from uvloop import install
-import time
-import sys
+
+from TelegramBot import config
+from TelegramBot.database.MongoDb import check_mongo_uri
+from TelegramBot.logging import LOGGER
 
 install()
 
 LOGGER(__name__).info("Starting TelegramBot....")
 BotStartTime = time.time()
 
-VERSION_ASCII ="""
-  =============================================================
-  You MUST need to be on python 3.7 or above, shutting down the bot...
-  =============================================================
-  """
-  
+
 if sys.version_info[0] < 3 or sys.version_info[1] < 7:
-    LOGGER(__name__).critical(VERSION_ASCII)
+    LOGGER(__name__).critical("""
+=============================================================
+You MUST need to be on python 3.7 or above, shutting down the bot...
+=============================================================
+""")
     sys.exit(1)
 
 
-BANNER = """
+LOGGER(__name__).info("setting up event loop....")
+
+try:
+	loop = get_event_loop()
+except RuntimeError:
+	set_event_loop(new_event_loop())
+	loop = get_event_loop()
+
+LOGGER(__name__).info(
+"""
 ____________________________________________________________________
 |  _______   _                                ____        _        |
 | |__   __| | |                              |  _ \      | |       |
@@ -34,18 +44,8 @@ ____________________________________________________________________
 |                    __/ |                                         |
 |__________________________________________________________________|   
 """
-
 # https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
-
-LOGGER(__name__).info("setting up event loop....")
-
-try:
-	loop = get_event_loop()
-except RuntimeError:
-	set_event_loop(new_event_loop())
-	loop = get_event_loop()
-
-LOGGER(__name__).info(BANNER)
+)
 LOGGER(__name__).info("initiating the client....")
 
 LOGGER(__name__).info("checking MongoDb URI....")

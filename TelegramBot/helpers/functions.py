@@ -1,6 +1,7 @@
+from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import Message
-from pyrogram.enums import ChatType, ChatMemberStatus
-from TelegramBot.config import SUDO_USERID, OWNER_USERID 
+
+from TelegramBot.config import SUDO_USERID
 
 
 async def isAdmin(message: Message) -> bool:
@@ -22,9 +23,11 @@ async def isAdmin(message: Message) -> bool:
         return True
     elif check_status.status in [
         ChatMemberStatus.OWNER,
-        ChatMemberStatus.ADMINISTRATOR]:
+        ChatMemberStatus.ADMINISTRATOR,
+    ]:
         return True
-    else: return False
+    else:
+        return False
 
 
 def get_readable_time(seconds: int) -> str:
@@ -52,21 +55,22 @@ def get_readable_time(seconds: int) -> str:
     seconds = int(seconds)
     result += f"{seconds}s "
     return result
-    
-    
+
+
 def get_readable_bytes(size: str) -> str:
-	"""
-	Return a human readable file size from bytes.
-	"""
-	
-	dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
-	
-	if not size: return ""
-	power = 2**10
-	raised_to_pow = 0
-	
-	while size > power:
-	    size /= power
-	    raised_to_pow += 1
-	    
-	return str(round(size, 2)) + " " + dict_power_n[raised_to_pow] + "B"
+    """
+    Return a human readable file size from bytes.
+    """
+
+    dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
+
+    if not size:
+        return ""
+    power = 2**10
+    raised_to_pow = 0
+
+    while size > power:
+        size /= power
+        raised_to_pow += 1
+
+    return f"{str(round(size, 2))} {dict_power_n[raised_to_pow]}B"
