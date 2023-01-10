@@ -13,7 +13,6 @@ async def saveUser(user):
             'username': user.username,
             'date': str(datetime.now().date())
     }
-        	
     if not await db.users.read_document(document_id = user.id):
         await db.users.insert_document(insert_format)
 

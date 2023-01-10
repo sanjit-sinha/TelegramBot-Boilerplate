@@ -19,8 +19,7 @@ class RedisDB:
 		return 'True' if the operation is successful.
 		"""
 		
-		result = await redis.set(key, value)
-		return result
+		return await redis.set(key, value)
 		
 	
 	@staticmethod
@@ -30,8 +29,7 @@ class RedisDB:
 		(It won't return value if that key don't store string class values.)	   
 		"""
 		
-		value = await redis.get(key)
-		return value
+		return await redis.get(key)
 		
 
 	@staticmethod
@@ -42,8 +40,8 @@ class RedisDB:
 		return 'True' if the operation is successful.
 		"""
 		
-		value = await redis.delete(key) 
-		return False if value == 0 else True
+		value = await redis.delete(key)
+		return value != 0
 		
            	           
 	@staticmethod
@@ -68,8 +66,7 @@ class RedisDB:
 		return value of the whole list.
 		"""
 		
-		value = await redis.lrange(key, 0, -1)
-		return value
+		return await redis.lrange(key, 0, -1)
 		
 
 	@staticmethod
@@ -89,5 +86,5 @@ class RedisDB:
 		
 		count = 0 if remove_all else 1
 		value = await redis.lrem(key, count, value)
-		return False if value == 0 else True
+		return value != 0
 		

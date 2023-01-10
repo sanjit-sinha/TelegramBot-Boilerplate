@@ -1,11 +1,13 @@
-from TelegramBot.helpers.functions import get_readable_bytes
-from TelegramBot.helpers.decorators import sudo_commands, ratelimiter
-from TelegramBot.logging import LOGGER
-from pyrogram import filters, Client
+from pyrogram import Client, filters
 from pyrogram.types import Message
-from TelegramBot.config import prefixes 
 from speedtest import Speedtest
+
 from TelegramBot import loop
+from TelegramBot.config import prefixes
+from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
+from TelegramBot.helpers.functions import get_readable_bytes
+from TelegramBot.logging import LOGGER
+
 
 def speedtestcli():
     test = Speedtest()
@@ -13,10 +15,12 @@ def speedtestcli():
     test.download()
     test.upload()
     test.results.share()
-    result = test.results.dict()
-    return result 
+    return test.results.dict()
 
-commands = ["speedtest", f"speed"]
+
+commands = ["speedtest", "speed"]
+
+
 @Client.on_message(filters.command(commands, **prefixes))
 @sudo_commands
 @ratelimiter
@@ -27,13 +31,14 @@ async def speedtest(_, message: Message):
     speed = await message.reply("Running speedtest....", quote=True)
     LOGGER(__name__).info("Running speedtest....")
     result = await loop.run_in_executor(None, speedtestcli)
-	
-    photo = result["share"]
+
     speed_string = f"""
-× Upload: {get_readable_bytes(result["upload"] / 8)}/s
-× Download: {get_readable_bytes(result["download"] / 8)}/s
-× Ping: {result["ping"]} ms
-× ISP: {result["client"]["isp"]}
+Upload: {get_readable_bytes(result["upload"] / 8)}/s
+Download: {get_readable_bytes(result["download"] / 8)}/s
+Ping: {result["ping"]} ms
+ISP: {result["client"]["isp"]}
 """
     await speed.delete()
-    return await message.reply_photo(photo=photo, caption=speed_string, quote=True)
+    return await message.reply_photo(
+        photo=result["share"], caption=speed_string, quote=True
+    )
