@@ -12,8 +12,6 @@ USER_TEXT = """🗒️ Documentation for commands available to user's
 • /ping: Alias command for alive.
 
 • /paste: paste text to katb.in website.
-
-• /broadcast: broadcast the message to bot user.
 """
 
 SUDO_TEXT = """
@@ -40,6 +38,8 @@ DEV_TEXT = """
 • /shell: To run the terminal commands via bot.
 
 • /py: To run the python commands via bot
+
+• /broadcast: broadcast the message to bot user.
 """
 
 ABOUT_CAPTION = f"""• Python version : {__python_version__}
