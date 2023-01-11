@@ -4,7 +4,7 @@ from pyrogram import Client, filters
 from TelegramBot.helpers.decorators import ratelimiter
 
 
-@Client.on_message(filters.command(["log", "logs"]) & SUDO_USERS)
+@Client.on_message(filters.command(["log", "logs"]) & SUDO_COMMAND)
 @ratelimiter
 async def log(_, message: Message):
     """
