@@ -17,6 +17,9 @@ from TelegramBot.helpers.functions import get_readable_bytes, get_readable_time
 @sudo_commands
 @ratelimiter
 async def stats(_, message: Message):
+    """
+    Give system stats of the server.
+    """
 
     currentTime = get_readable_time(time() - BotStartTime)
     total, used, free = disk_usage(".")
