@@ -1,4 +1,6 @@
+from pyrogram.types import Message 
 from pyrogram import Client, filters
+
 from TelegramBot.helpers.decorators import ratelimiter
 
 
