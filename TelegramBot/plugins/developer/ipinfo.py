@@ -2,13 +2,10 @@ from httpx import AsyncClient
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from TelegramBot.config import prefixes
 from TelegramBot.helpers.decorators import dev_commands, ratelimiter
 
-commands = ["ip"]
 
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["ip"]))
 @dev_commands
 @ratelimiter
 async def ipinfo(_, message: Message):

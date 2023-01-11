@@ -17,18 +17,20 @@ class MongoDb:
     def __init__(self, collection):
         self.collection = collection
 
-    async def insert_document(self, document_data):
-        await self.collection.insert_one(document_data)
-
-    async def create_document(self, document_data):
-        await self.collection.insert_one(document_data)
-
     async def read_document(self, document_id):
+        """_summary_
+
+        Args:
+            document_id (_type_): _description_
+
+        Returns:
+            _type_: _description_
+        """
         return await self.collection.find_one({"_id": document_id})
 
     async def update_document(self, document_id , updated_data):
         updated_data = {"$set": updated_data}
-        await self.collection.update_one({"_id": document_id}, updated_data)
+        await self.collection.update_one({"_id": document_id}, updated_data, upsert=True)
 
     async def delete_document(self, document_id):
         await self.collection.delete_one({'_id': document_id})

@@ -7,14 +7,11 @@ from psutil import virtual_memory
 from pyrogram import Client, filters
 
 from TelegramBot import BotStartTime
-from TelegramBot.config import prefixes
 from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
 from TelegramBot.helpers.functions import get_readable_bytes, get_readable_time
 
-commands = ["stats", "serverstats"]
 
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["stats", "serverstats"]))
 @sudo_commands
 @ratelimiter
 async def stats(_, message):

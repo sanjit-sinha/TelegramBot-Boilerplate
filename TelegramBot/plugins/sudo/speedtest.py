@@ -3,7 +3,6 @@ from pyrogram.types import Message
 from speedtest import Speedtest
 
 from TelegramBot import loop
-from TelegramBot.config import prefixes
 from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
 from TelegramBot.helpers.functions import get_readable_bytes
 from TelegramBot.logging import LOGGER
@@ -18,10 +17,7 @@ def speedtestcli():
     return test.results.dict()
 
 
-commands = ["speedtest", "speed"]
-
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["speedtest", "speed"]))
 @sudo_commands
 @ratelimiter
 async def speedtest(_, message: Message):

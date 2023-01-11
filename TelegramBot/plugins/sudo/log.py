@@ -1,12 +1,9 @@
 from pyrogram import Client, filters
 
-from TelegramBot.config import prefixes
 from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
 
-commands = ["log", "logs"]
 
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["log", "logs"]))
 @sudo_commands
 @ratelimiter
 async def log(_, message):

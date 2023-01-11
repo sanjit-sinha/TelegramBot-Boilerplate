@@ -10,24 +10,16 @@ async def isAdmin(message: Message) -> bool:
     """
 
     if not message.from_user:
-        return False
+        return
     if message.chat.type not in [ChatType.SUPERGROUP, ChatType.CHANNEL]:
-        return False
+        return
 
-    client = message._client
-    chat_id = message.chat.id
     user_id = message.from_user.id
-    check_status = await client.get_chat_member(chat_id, user_id)
-
     if user_id in SUDO_USERID:
         return True
-    elif check_status.status in [
-        ChatMemberStatus.OWNER,
-        ChatMemberStatus.ADMINISTRATOR,
-    ]:
-        return True
-    else:
-        return False
+
+    check_status = await message.chat.get_member(user_id)
+    return check_status.status in [ChatMemberStatus.OWNER,ChatMemberStatus.ADMINISTRATOR]
 
 
 def get_readable_time(seconds: int) -> str:

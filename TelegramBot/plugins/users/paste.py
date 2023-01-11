@@ -3,20 +3,17 @@ from os import remove
 import aiofiles
 from pyrogram import Client, filters
 
-from TelegramBot.config import prefixes
 from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.helpers.pasting_services import katbin_paste
 
-commands = ["paste"]
-paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
 
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["paste"]))
 @ratelimiter
 async def paste(_, message):
     """
     Paste the text to katb.in website.
     """
+    paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
     replied_message = message.reply_to_message
     if len(message.command) > 1:
         content = message.text.split(None, 1)[1]

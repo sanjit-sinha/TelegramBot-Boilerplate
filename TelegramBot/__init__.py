@@ -52,10 +52,9 @@ LOGGER(__name__).info("checking MongoDb URI....")
 loop.run_until_complete(check_mongo_uri(config.MONGO_URI))		
 
 #https://docs.pyrogram.org/topics/smart-plugins
-plugins = dict(root="TelegramBot/plugins")
 bot = Client(
     "TelegramBot",
     api_id=config.API_ID,
     api_hash=config.API_HASH,
     bot_token=config.BOT_TOKEN,
-    plugins=plugins)  
+    plugins=dict(root="TelegramBot/plugins"))  

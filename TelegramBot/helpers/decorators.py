@@ -22,9 +22,13 @@ warning_message = "Spam detected! ignoring your all requests for few minutes."
 
 
 def ratelimiter(func: Callable) -> Callable:
-    """
-    Restricts user's from spamming commands or pressing buttons multiple times
-    using leaky bucket algorithm and pyrate_limiter.
+    """_summary_
+
+    Args:
+        func (Callable): _description_
+
+    Returns:
+        Callable: _description_
     """
 
     @wraps(func)

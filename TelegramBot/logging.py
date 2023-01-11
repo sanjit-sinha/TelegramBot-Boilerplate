@@ -16,4 +16,12 @@ logging.basicConfig(
 
 logging.getLogger("pyrogram").setLevel(logging.ERROR)
 def LOGGER(name: str) -> logging.Logger:
+    """_summary_
+
+    Args:
+        name (str): _description_
+
+    Returns:
+        logging.Logger: _description_
+    """
     return logging.getLogger(name)

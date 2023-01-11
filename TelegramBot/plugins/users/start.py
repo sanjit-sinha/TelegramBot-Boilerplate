@@ -1,9 +1,10 @@
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
+from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
+                            InlineKeyboardMarkup, Message)
 
 from TelegramBot import bot
 from TelegramBot.assets.start_constants import *
-from TelegramBot.config import OWNER_USERID, SUDO_USERID, prefixes
+from TelegramBot.config import OWNER_USERID, SUDO_USERID
 from TelegramBot.database import database
 from TelegramBot.helpers.decorators import ratelimiter
 
@@ -35,10 +36,7 @@ GOBACK_1_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="START_BU
 GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_BUTTON")]]
 
 
-commands = ["start", "help"]
-
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["start", "help"]))
 @ratelimiter
 async def start(_, message: Message):
     await database.saveUser(message.from_user)
@@ -52,7 +50,7 @@ async def start(_, message: Message):
 
 @Client.on_callback_query(filters.regex("_BUTTON"))
 @ratelimiter
-async def botCallbacks(client, CallbackQuery):
+async def botCallbacks(_, CallbackQuery: CallbackQuery):
 
     clicker_user_id = CallbackQuery.from_user.id
     user_id = CallbackQuery.message.reply_to_message.from_user.id
@@ -60,6 +58,22 @@ async def botCallbacks(client, CallbackQuery):
     if clicker_user_id != user_id:
         return await CallbackQuery.answer("This command is not initiated by you.")
 
+    if CallbackQuery.data == "SUDO_BUTTON":
+        if clicker_user_id not in SUDO_USERID:
+            return await CallbackQuery.answer(
+                "You are not in the sudo user list.", show_alert=True
+            )
+        await CallbackQuery.edit_message_text(
+            SUDO_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
+        )
+    elif CallbackQuery.data == "DEV_BUTTON":
+        if clicker_user_id not in OWNER_USERID:
+            return await CallbackQuery.answer(
+                "This is developer restricted command.", show_alert=True
+            )
+        await CallbackQuery.edit_message_text(
+            DEV_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
+        )
     if CallbackQuery.data == "ABOUT_BUTTON":
         await CallbackQuery.edit_message_text(
             ABOUT_CAPTION, reply_markup=InlineKeyboardMarkup(GOBACK_1_BUTTON)
@@ -79,26 +93,7 @@ async def botCallbacks(client, CallbackQuery):
         await CallbackQuery.edit_message_text(
             USER_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
         )
-
-    elif CallbackQuery.data == "SUDO_BUTTON":
-        if clicker_user_id not in SUDO_USERID:
-            return await CallbackQuery.answer(
-                "You are not in the sudo user list.", show_alert=True
-            )
-        else:
-            await CallbackQuery.edit_message_text(
-                SUDO_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
-            )
-
-    elif CallbackQuery.data == "DEV_BUTTON":
-        if clicker_user_id not in OWNER_USERID:
-            return await CallbackQuery.answer(
-                "This is developer restricted command.", show_alert=True
-            )
-        else:
-            await CallbackQuery.edit_message_text(
-                DEV_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
-            )
+    await CallbackQuery.answer()
 
 
 @Client.on_message(filters.new_chat_members, group=1)
