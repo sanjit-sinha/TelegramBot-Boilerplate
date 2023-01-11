@@ -8,7 +8,7 @@ from TelegramBot.helpers.decorators import ratelimiter
 @ratelimiter
 async def log(_, message: Message):
     """
-    uploads the log file of the bot.
+    upload the log file of the bot.
     """
 
     try:
