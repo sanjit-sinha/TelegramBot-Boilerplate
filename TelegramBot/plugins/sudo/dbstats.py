@@ -9,8 +9,10 @@ from TelegramBot.helpers.decorators import ratelimiter
 @ratelimiter
 async def dbstats(_, message):
     """
-    Returns database stats of MongoDB.
+    Returns database stata of MongoDB, which includes Total includes
+    of group bot user ans total number of bot chats.
     """ 
+    
     TotalUsers = await MongoDb.users.total_documents()
     TotalChats = await MongoDb.chats.total_documents()
     stats_string = f"**Bot Database Statics.\n\n**Total Number of users = {TotalUsers}\nTotal number of chats  = {TotalChats}"
