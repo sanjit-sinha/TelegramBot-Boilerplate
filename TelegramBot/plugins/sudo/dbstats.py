@@ -7,7 +7,7 @@ from TelegramBot.helpers.decorators import ratelimiter
 
 @Client.on_message(filters.command(["dbstats"]) & SUDO_USERS)
 @ratelimiter
-async def dbstats(_, message):
+async def dbstats(_, message: Message):
     """
     Returns database stats of MongoDB, which includes Total number
     of bot user and total number of bot chats.
