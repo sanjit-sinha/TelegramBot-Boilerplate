@@ -1,6 +1,7 @@
 from os import remove
 
 import aiofiles
+from pyrogram.types  import Message
 from pyrogram import Client, filters
 
 from TelegramBot.helpers.decorators import ratelimiter
@@ -9,7 +10,7 @@ from TelegramBot.helpers.pasting_services import katbin_paste
 
 @Client.on_message(filters.command(["paste"]))
 @ratelimiter
-async def paste(_, message):
+async def paste(_, message: Message):
     """
     Paste the text to katb.in website.
     """
