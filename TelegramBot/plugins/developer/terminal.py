@@ -5,17 +5,17 @@ import traceback
 from io import BytesIO, StringIO
 
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message, CallbackQuery
+from pyrogram.types import (
+    CallbackQuery,
+    InlineKeyboardButton,
+    InlineKeyboardMarkup,
+    Message)
 
-from TelegramBot.config import prefixes
-from TelegramBot.helpers.decorators import dev_commands, ratelimiter
+from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.logging import LOGGER
 
-shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n**Example: **<pre>/shell pip install requests</pre>"
-commands = ["shell", "sh"]
 
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["shell", "sh"]) & DEV_COMMANDS 
 @dev_commands
 @ratelimiter
 async def shell(_, message: Message):
@@ -24,6 +24,7 @@ async def shell(_, message: Message):
     """
 
     if len(message.command) < 2:
+        shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n**Example: **<pre>/shell pip install requests</pre>"
         return await message.reply_text(shell_usage, quote=True)
 
     user_input = message.text.split(maxsplit=1)[1]
@@ -45,10 +46,6 @@ async def shell(_, message: Message):
         await shell_replymsg.reply_document(file, caption=file.name, quote=True)
     else:
         await shell_replymsg.edit(f"Output :-\n\n{result}")
-
-
-exec_usage = f"**Usage:** Executes python commands directly via bot.\n\n**Example: **<pre>/exec print('hello world')</pre>"
-commands = ["exec", "py"]
 
 
 async def aexec(code, client, message):
@@ -127,27 +124,20 @@ async def py_runexec(client: Client, message: Message, replymsg: Message):
 
 @Client.on_callback_query(filters.regex("refresh"))
 @ratelimiter
-async def pyCallbacks(client, CallbackQuery:CallbackQuery):
+async def pyCallbacks(client, CallbackQuery: CallbackQuery):
     cliker_user_id = CallbackQuery.from_user.id
     message_user_id = CallbackQuery.message.reply_to_message.from_user.id
     if cliker_user_id != message_user_id:
         return await CallbackQuery.answer(
-            "That command is not initiated by you.", show_alert=True
-        )
-
-    message = await client.get_messages(
-        CallbackQuery.message.chat.id, CallbackQuery.message.reply_to_message.id
-    )
-    replymsg = await client.get_messages(
-        CallbackQuery.message.chat.id, CallbackQuery.message.id
-    )
-
+            "That command is not initiated by you.", show_alert=True)
+                   
+    await CallbackQuery.answer()
     if CallbackQuery.data == "refresh":
-        await py_runexec(client, message, replymsg)
+        await py_runexec(
+            client, CallbackQuery.message.reply_to_message, CallbackQuery.message)
 
 
-@Client.on_message(filters.command(commands, **prefixes))
-@dev_commands
+@Client.on_message(filters.command(["exec", "py"]) & DEV_COMMANDS)
 @ratelimiter
 async def py_exec(client, message):
     """
@@ -155,6 +145,7 @@ async def py_exec(client, message):
     """
 
     if len(message.command) < 2:
+        exec_usage = f"**Usage:** Executes python commands directly via bot.\n\n**Example: **<pre>/exec print('hello world')</pre>"
         await message.reply_text(exec_usage)
     else:
         replymsg = await message.reply_text("executing..", quote=True)
