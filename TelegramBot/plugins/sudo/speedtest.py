@@ -22,8 +22,9 @@ def speedtestcli():
 @ratelimiter
 async def speedtest(_, message: Message):
     """
-    Give speedtest of server where bot is running
+    Give speedtest of the server where bot is running.
     """
+    
     speed = await message.reply("Running speedtest....", quote=True)
     LOGGER(__name__).info("Running speedtest....")
     result = await loop.run_in_executor(None, speedtestcli)
