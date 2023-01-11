@@ -4,20 +4,19 @@ from time import time
 from psutil import cpu_percent
 from psutil import disk_usage as disk_usage_percent
 from psutil import virtual_memory
+
+from pyrogram.types import Message 
 from pyrogram import Client, filters
 
 from TelegramBot import BotStartTime
-from TelegramBot.config import prefixes
 from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
 from TelegramBot.helpers.functions import get_readable_bytes, get_readable_time
 
-commands = ["stats", "serverstats"]
 
-
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["stats", "serverstats"]))
 @sudo_commands
 @ratelimiter
-async def stats(_, message):
+async def stats(_, message: Message):
 
     currentTime = get_readable_time(time() - BotStartTime)
     total, used, free = disk_usage(".")
