@@ -9,13 +9,12 @@ from pyrogram.types import Message
 from pyrogram import Client, filters
 
 from TelegramBot import BotStartTime
-from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
+from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.helpers.functions import get_readable_bytes, get_readable_time
 
 
-@Client.on_message(filters.command(["stats", "serverstats"]))
-@sudo_commands
-@ratelimiter
+@Client.on_message(filters.command(["stats", "serverstats"]) & SUDO_USERS)
+@ratelimiter 
 async def stats(_, message: Message):
     """
     Give system stats of the server.
