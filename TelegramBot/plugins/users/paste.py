@@ -15,7 +15,7 @@ async def paste(_, message: Message):
     Paste the text to katb.in website.
     """
     
-    paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after commamd.\n\n**Example:** /paste type your text"
+    paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after command.\n\n**Example:** /paste type your text"
     replied_message = message.reply_to_message
     
     if len(message.command) > 1:

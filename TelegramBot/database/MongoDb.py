@@ -32,7 +32,7 @@ class MongoDb:
 
     async def delete_document(self, document_id):
         """
-        Delete the document usinb document_id from collection.
+        Delete the document using document_id from collection.
         """        
         await self.collection.delete_one({'_id': document_id})
    
