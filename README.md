@@ -164,14 +164,15 @@ DirectoryLayout <b></h1>
 │   │   ├── font.ttf
 │   │   └── template.png
 │   │
-│   ├── database                      ( Sperate folder to manage database related stuff for bigger projects.)
+│   ├── database                      (Sperate folder to manage database related stuff for bigger projects.)
 │   │   ├── __init__.py
-│   │   ├── database.py         (contain functions related to handle database operations all over the bor)
-│   │   └── MongoDb.py        (Contain a MongoDB class to handle CRUD operations on MongoDB collection )
+│   │   ├── database.py              (contain functions related to handle database operations all over the bor)
+│   │   └── MongoDb.py               (Contain a MongoDB class to handle CRUD operations on MongoDB collection )
 │   │  
-│   ├── helpers                       ( Contain all the file wich is imported and  used all over the code. It act as backbone of code. )
+│   ├── helpers                       ( Contain all the file wich is imported and  used all over the code. It act as backbone of code.)
 │   │   ├── __init__.py
-│   │   ├── decorators.py            ( Contain all the python decorators)
+│   │   ├── filters.py 
+│   │   ├── decorators.py            ( Contain all the python decorators)
 │   │   ├── ratelimiter.py           (Contain RateLimiter class that handle ratelimiting part of the bot.)
 │   │   └── functions.py             ( Contain all the functions wich is used all over the code. )
 │   │
@@ -229,13 +230,11 @@ DirectoryLayout <b></h1>
 
 ```py
 from TelegramBot.helpers.decorators import ratelimiter
-from TelegramBot.config import prefixes 
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
-commands = ["hello", "hi"]
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["hello", "hi"]))
 @ratelimiter
 async def hello(client: Client, message: Message):
     """

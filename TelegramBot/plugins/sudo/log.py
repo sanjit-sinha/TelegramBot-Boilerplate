@@ -1,20 +1,18 @@
+from pyrogram.types import Message 
 from pyrogram import Client, filters
 
-from TelegramBot.config import prefixes
-from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
-
-commands = ["log", "logs"]
+from TelegramBot.helpers.filters import sudo_cmd
+from TelegramBot.helpers.decorators import ratelimiter
 
 
-@Client.on_message(filters.command(commands, **prefixes))
-@sudo_commands
+@Client.on_message(filters.command(["log", "logs"]) & sudo_cmd)
 @ratelimiter
-async def log(_, message):
+async def log(_, message: Message):
     """
-    upload log file of the bot.
+    upload the logs file of the bot.
     """
 
     try:
-        await message.reply_document("logs.txt", caption="logs.txt", quote=True)
+        return await message.reply_document("logs.txt", caption="logs.txt", quote=True)
     except Exception as error:
-        await message.reply_text(f"{error}", quote=True)
+        return await message.reply_text(f"{error}", quote=True)

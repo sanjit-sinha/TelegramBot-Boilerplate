@@ -1,22 +1,21 @@
+from pyrogram.types import Message 
 from pyrogram import Client, filters
 from pyrogram.errors import MessageTooLong
 
-from TelegramBot.config import prefixes
-from TelegramBot.helpers.decorators import ratelimiter, sudo_commands
+from TelegramBot.helpers.filters import sudo_cmd
+from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.helpers.pasting_services import telegraph_paste
 
-commands = ["inspect"]
 
-
-@Client.on_message(filters.command(commands, **prefixes))
-@sudo_commands
+@Client.on_message(filters.command(["inspect"]) & sudo_cmd)
 @ratelimiter
-async def inspect(_, message):
+async def inspect(_, message: Message):
     """
-    isnpect the message and give reply in json format.
+    isnpects the message and give reply in json format.
     """
+    
     try:
-        await message.reply_text(message, quote=True)
+        return await message.reply_text(message, quote=True)
     except MessageTooLong:
         output = await telegraph_paste(message)
-        await message.reply_text(output, quote=True)
+        return await message.reply_text(output, quote=True)
