@@ -3,11 +3,12 @@ from pyrogram.types import Message
 from speedtest import Speedtest
 
 from TelegramBot import loop
-from TelegramBot.helpers.decorators import ratelimiter
+from TelegramBot.helpers.decorators import ratelimiter, run_sync_in_thread
 from TelegramBot.helpers.functions import get_readable_bytes
 from TelegramBot.logging import LOGGER
 
 
+@run_sync_in_thread
 def speedtestcli():
     test = Speedtest()
     test.get_best_server()
@@ -26,7 +27,7 @@ async def speedtest(_, message: Message):
     
     speed = await message.reply("Running speedtest....", quote=True)
     LOGGER(__name__).info("Running speedtest....")
-    result = await loop.run_in_executor(None, speedtestcli)
+    result = await speedtestcli()
 
     speed_string = f"""
 Upload: {get_readable_bytes(result["upload"] / 8)}/s
