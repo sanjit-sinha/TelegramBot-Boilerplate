@@ -24,6 +24,6 @@ async def ping(_, message: Message):
     end = time()
     
     botuptime = get_readable_time(time() - BotStartTime)
-    pong = (end - start) / 1000
+    pong = (end - start).microseconds / 1000
     return await pong_reply.edit(
         f"**Ping Time:** `{pong}`ms | **Bot is alive since:** `{botuptime}`")
