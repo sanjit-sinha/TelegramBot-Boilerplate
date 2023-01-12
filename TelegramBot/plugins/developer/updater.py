@@ -32,5 +32,5 @@ async def restart(_, message: Message):
 
     LOGGER(__name__).info("Restarting the bot. shutting down this instance")
     await message.reply_text(
-        "Starting a new instance and shutting down this one.", quote=True)
+        "Starting a new instance and shutting down this one...", quote=True)
     os.execl(sys.executable, sys.executable, "-m", "TelegramBot")
