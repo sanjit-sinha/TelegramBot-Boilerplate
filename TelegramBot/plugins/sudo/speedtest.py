@@ -4,6 +4,7 @@ from speedtest import Speedtest
 
 from TelegramBot.helpers.decorators import ratelimiter, run_sync_in_thread
 from TelegramBot.helpers.functions import get_readable_bytes
+from TelegramBot.helpers.filters import sudo_cmd
 from TelegramBot.logging import LOGGER
 
 
@@ -17,7 +18,7 @@ def speedtestcli():
     return test.results.dict()
 
 
-@Client.on_message(filters.command(["speedtest", "speed"]) & SUDO_USERS)
+@Client.on_message(filters.command(["speedtest", "speed"]) & sudo_cmd)
 @ratelimiter
 async def speedtest(_, message: Message):
     """
