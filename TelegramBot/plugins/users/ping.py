@@ -1,3 +1,4 @@
+import time 
 from httpx import AsyncClient
 from datetime import datetime
 
