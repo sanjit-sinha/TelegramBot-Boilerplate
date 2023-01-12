@@ -6,12 +6,11 @@ https://realpython.com/primer-on-python-decorators/
 
 from functools import wraps
 from typing import Callable, Union
-
 from cachetools import TTLCache
+
 from pyrogram import Client
 from pyrogram.types import CallbackQuery, Message
 
-from TelegramBot.config import OWNER_USERID, SUDO_USERID
 from TelegramBot.helpers.functions import isAdmin
 from TelegramBot.helpers.ratelimiter import RateLimiter
 
@@ -49,32 +48,6 @@ def ratelimiter(func: Callable) -> Callable:
     return decorator
 
 
-def sudo_commands(func: Callable) -> Callable:
-    """
-    Restricts user's from executing certain sudo user's' related commands.
-    """
-
-    @wraps(func)
-    async def decorator(client: Client, message: Message):
-        if message.from_user.id in SUDO_USERID:
-            return await func(client, message)
-
-    return decorator
-
-
-def dev_commands(func: Callable) -> Callable:
-    """
-    Restricts user's from executing certain developer's related commands.
-    """
-
-    @wraps(func)
-    async def decorator(client: Client, message: Message):
-        if message.from_user.id in OWNER_USERID:
-            return await func(client, message)
-
-    return decorator
-
-
 def admin_commands(func: Callable) -> Callable:
     """
     Restricts user's from using group admin commands.
@@ -102,7 +75,8 @@ def errors(func: Callable) -> Callable:
 
     return decorator
 
-#=========================================================================================
+
+#====================================================================================
 #SOME MORE USEFUL DECORATORS
 
 from TelegramBot import loop
