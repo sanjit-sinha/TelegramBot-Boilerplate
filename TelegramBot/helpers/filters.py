@@ -3,9 +3,8 @@ Creating custom filters
 https://docs.pyrogram.org/topics/create-filters
 """
 
-from pyrogram import filters as
+from pyrogram import filters
 from pyrogram.types import Message
-
 from TelegramBot.config import SUDO_USERID,  OWNER_USERID 
 
 
