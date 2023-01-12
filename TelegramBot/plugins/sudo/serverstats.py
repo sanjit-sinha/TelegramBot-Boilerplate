@@ -9,11 +9,12 @@ from pyrogram.types import Message
 from pyrogram import Client, filters
 
 from TelegramBot import BotStartTime
+from TelegramBot.helpers.filters import sudo_cmd
 from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.helpers.functions import get_readable_bytes, get_readable_time
 
 
-@Client.on_message(filters.command(["stats", "serverstats"]) & SUDO_USERS)
+@Client.on_message(filters.command(["stats", "serverstats"]) & sudo_cmd)
 @ratelimiter 
 async def stats(_, message: Message):
     """
@@ -38,5 +39,4 @@ RAM Usage: `{virtual_memory().percent}%`"
     return await message.reply_animation(
         animation="https://telegra.ph/file/fd2495f0465f5293bd052.mp4",
         caption=caption,
-        quote=True,
-    )
+        quote=True)
