@@ -7,7 +7,7 @@ USER_TEXT = """🗒️ Documentation for commands available to user's
 	
 • /help: Alias command for start
 	
-• /alive: To check if bot is alive or not.
+• /alive: Check if bot is alive or not.
 
 • /ping: Alias command for alive.
 
@@ -23,23 +23,23 @@ SUDO_TEXT = """
 
 • /dbstats: Get the stats of database 
 
-• /stats: alias command for serverstats
+• /stats: Alias command for serverstats
 
-• /log: To get the log file of bot.
+• /log: To get the log file of the bot.
 """
 
 DEV_TEXT = """
 🗒️ Documentation for Developers Commands.
 	
-• /update: To update the bot to latest commit from repository. 
+• /update: Rpdate the bot to latest commit from repository. 
 
 • /restart: Restart the bot.
 
-• /shell: To run the terminal commands via bot.
+• /shell: Run the terminal commands via bot.
 
-• /py: To run the python commands via bot
+• /py: Run the python commands via bot
 
-• /broadcast: broadcast the message to bot user.
+• /broadcast: Broadcast the message to bot users and chats.
 """
 
 ABOUT_CAPTION = f"""• Python version : {__python_version__}
