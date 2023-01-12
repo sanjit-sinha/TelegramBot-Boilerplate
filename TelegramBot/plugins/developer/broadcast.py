@@ -4,12 +4,14 @@ from pyrogram import Client, filters
 from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
-from TelegramBot.database import MongoDb
-from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.logging import LOGGER
+from TelegramBot.database import MongoDb
+from TelegramBot.helpers.filters import dev_cmd
+from TelegramBot.helpers.decorators import ratelimiter
 
 
-@Client.on_message(filters.command(["broadcast"]) & DEV_COMMANDS)
+
+@Client.on_message(filters.command(["broadcast"]) & dev_cmd)
 @ratelimiter
 async def broadcast(client: Client, message: Message):
     """
