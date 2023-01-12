@@ -1,4 +1,4 @@
-from os import remove
+import os
 
 import aiofiles
 from pyrogram.types  import Message
@@ -31,7 +31,7 @@ async def paste(_, message: Message):
             await message.reply_to_message.download(os.path.join(os.getcwd(),"temp_file"))
             async with aiofiles.open("temp_file", "r+") as file:
                 content = await file.read()
-            remove("temp_file")
+            os.remove("temp_file")
             
         else:
             return await message.reply_text(paste_usage, quote=True)
