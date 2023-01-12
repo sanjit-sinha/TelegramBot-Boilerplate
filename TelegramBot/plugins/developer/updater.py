@@ -4,11 +4,12 @@ import sys
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
-from TelegramBot.helpers.decorators import dev_commands, ratelimiter
+from TelegramBot.helpers.decorators import ratelimiter
+from TelegramBot.helpers.filters import dev_cmd
 from TelegramBot.logging import LOGGER
 
 
-@Client.on_message(filters.command(["update"]) & DEV_COMMANDS)
+@Client.on_message(filters.command(["update"]) & dev_cmd)
 @ratelimiter
 async def update(_, message: Message):
     """
@@ -22,7 +23,7 @@ async def update(_, message: Message):
     os.execl(sys.executable, sys.executable, "-m", "TelegramBot")
 
 
-@Client.on_message(filters.command(["restart"]) & DEV_COMMANDS)
+@Client.on_message(filters.command(["restart"]) & dev_cmd)
 @ratelimiter
 async def restart(_, message: Message):
     """
