@@ -28,10 +28,11 @@ async def paste(_, message: Message):
         elif replied_message.document and any(
             format in replied_message.document.mime_type for format in ["text", "json"]):
             
-            await message.reply_to_message.download(os.path.join(os.getcwd(),"temp_file")
+            await message.reply_to_message.download(os.path.join(os.getcwd(),"temp_file"))
             async with aiofiles.open("temp_file", "r+") as file:
                 content = await file.read()
             remove("temp_file")
+            
         else:
             return await message.reply_text(paste_usage, quote=True)
         
