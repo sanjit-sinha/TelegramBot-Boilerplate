@@ -1,5 +1,5 @@
-from time import time
 from httpx import AsyncClient
+from datetime import datetime
 
 from pyrogram.types import Message
 from pyrogram import Client, filters 
@@ -18,10 +18,10 @@ async def ping(_, message: Message):
     
     pong_reply = await message.reply_text("pong!", quote=True)
     
-    start = time()
+    start = datetime.now()
     async with AsyncClient() as client:
         await client.get("http://api.telegram.org")
-    end = time()
+    end = datetime.now()
     
     botuptime = get_readable_time(time() - BotStartTime)
     pong = (end - start).microseconds / 1000
