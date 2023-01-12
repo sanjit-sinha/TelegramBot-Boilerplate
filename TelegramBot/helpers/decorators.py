@@ -5,8 +5,8 @@ https://realpython.com/primer-on-python-decorators/
 """
 
 from functools import wraps
-from typing import Callable, Union
 from cachetools import TTLCache
+from typing import Callable, Union
 
 from pyrogram import Client
 from pyrogram.types import CallbackQuery, Message
@@ -43,6 +43,7 @@ def ratelimiter(func: Callable) -> Callable:
                 await update.answer(warning_message, show_alert=True)
                 warned_users[userid] = 1
                 return
+            
         elif is_limited and userid in warned_users: pass
         else: return await func(client, update)
 
