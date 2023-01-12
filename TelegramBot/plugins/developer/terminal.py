@@ -12,11 +12,11 @@ from pyrogram.types import (
     Message)
 
 from TelegramBot.helpers.decorators import ratelimiter
+from TelegramBot.helpers.filters import dev_cmd
 from TelegramBot.logging import LOGGER
 
 
-@Client.on_message(filters.command(["shell", "sh"]) & DEV_COMMANDS 
-@dev_commands
+@Client.on_message(filters.command(["shell", "sh"]) & dev_cmd)
 @ratelimiter
 async def shell(_, message: Message):
     """
@@ -137,7 +137,7 @@ async def pyCallbacks(client, CallbackQuery: CallbackQuery):
             client, CallbackQuery.message.reply_to_message, CallbackQuery.message)
 
 
-@Client.on_message(filters.command(["exec", "py"]) & DEV_COMMANDS)
+@Client.on_message(filters.command(["exec", "py"]) & dev_cmd)
 @ratelimiter
 async def py_exec(client, message):
     """
