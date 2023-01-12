@@ -6,7 +6,7 @@ from pyrate_limiter import (BucketFullException, Duration, Limiter,
 
 class RateLimiter:
     """
-    Impliments rate limit logic using leaky bucket
+    Implement rate limit logic using leaky bucket
     algorithm, via pyrate_limiter.
     (https://pypi.org/project/pyrate-limiter/)
     """

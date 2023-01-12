@@ -11,7 +11,7 @@ from TelegramBot.helpers.pasting_services import telegraph_paste
 @ratelimiter
 async def inspect(_, message: Message):
     """
-    isnpects the message and give reply in json format.
+    inspects the message and give reply in json format.
     """
     
     try:

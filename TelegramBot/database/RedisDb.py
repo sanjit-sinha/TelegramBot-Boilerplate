@@ -47,7 +47,7 @@ class RedisDB:
 	@staticmethod
 	async def append_list(key: str , *args: Any) -> bool:
 		"""
-		First argument is "key" wich take name of list as string and args take multiple values
+		First argument is "key" which take name of list as string and args take multiple values
 		to append in that list.
 		( values can be either string , integer, float etc. but it all will get saved in string format)
 		
@@ -62,7 +62,7 @@ class RedisDB:
 	@staticmethod
 	async def get_list(key:str ) -> List[str]:
 		"""
-		Take key as argument wich is name of the list.
+		Take key as argument which is name of the list.
 		return value of the whole list.
 		"""
 		
@@ -72,16 +72,16 @@ class RedisDB:
 	@staticmethod
 	async def remove_element_from_list(key:str, value: Any, remove_all=False ) -> bool:
 		"""
-		Take key as first  argument wich is name of the list and
+		Take key as first  argument which is name of the list and
 		value as second argument to remove that element from list 
 		
-		If remove_all is set to be True then it will delete all the matching elemnet value
+		If remove_all is set to be True then it will delete all the matching element value
 		from the list.
 		
 		If remove_all is set to be False ( default ) then it will delete first matching element value
 		from the list.
 			      
-		return 'True' if the operation is successfull.
+		return 'True' if the operation is successful.
 		"""
 		
 		count = 0 if remove_all else 1

@@ -125,9 +125,9 @@ async def py_runexec(client: Client, message: Message, replymsg: Message):
 @Client.on_callback_query(filters.regex("refresh"))
 @ratelimiter
 async def pyCallbacks(client, CallbackQuery: CallbackQuery):
-    cliker_user_id = CallbackQuery.from_user.id
+    clicker_user_id = CallbackQuery.from_user.id
     message_user_id = CallbackQuery.message.reply_to_message.from_user.id
-    if cliker_user_id != message_user_id:
+    if clicker_user_id != message_user_id:
         return await CallbackQuery.answer(
             "That command is not initiated by you.", show_alert=True)
                    

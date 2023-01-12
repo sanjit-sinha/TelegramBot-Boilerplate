@@ -32,7 +32,7 @@ SUDO_TEXT = """
 DEV_TEXT = """
 🗒️ Documentation for Developers Commands.
 	
-• /update: Rpdate the bot to latest commit from repository. 
+• /update: Update the bot to latest commit from repository. 
 
 • /restart: Restart the bot.
 
@@ -52,7 +52,7 @@ ABOUT_CAPTION = f"""• Python version : {__python_version__}
 
 START_ANIMATION = "https://telegra.ph/file/c0857672b427bec8542f6.mp4"
 
-START_CAPTION = """**Hey there!! I am simple TelegramBot wich is made for the purpose for trying, testing, deploying and learnig about telegram bot using python pyrogram framework. \n\n Use buttons to navigate and know more about me :)**"""
+START_CAPTION = """**Hey there!! I am simple TelegramBot which is made for the purpose for trying, testing, deploying and learning about telegram bot using python pyrogram framework. \n\n Use buttons to navigate and know more about me :)**"""
 
-COMMAND_CAPTION = """**Here are the list of commands wich you can use in bot.\n**"""
+COMMAND_CAPTION = """**Here are the list of commands which you can use in bot.\n**"""
 
