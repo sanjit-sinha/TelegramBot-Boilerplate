@@ -8,15 +8,11 @@ from pyrogram.types import Message
 from TelegramBot.config import SUDO_USERID,  OWNER_USERID 
 
 
-def dev_users(_, __, message: Message) -> bool:
-    if not message.from_user:
-        return False
+def dev_users(_, __, message: Message) -> bool:   
     return message.from_user.id == OWNER_USERID
     
     
-def sudo_users(_, __, message: Message) -> bool:
-    if not message.from_user:
-        return False
+def sudo_users(_, __, message: Message) -> bool: 
     return message.from_user.id == SUDO_USERID 
 
 
