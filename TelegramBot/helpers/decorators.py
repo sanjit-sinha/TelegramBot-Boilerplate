@@ -90,8 +90,6 @@ def run_sync_in_thread(func: Callable) -> Callable:
     To use this decorator, apply it to any synchronous function, then you can then call that function to anywhere
     in your program and can use it along with await keyword. This will allow the function to be run asynchronously, 
     and avoid blocking of the main event loop.
-    
-    Usage Example :- https://github.com/sanjit-sinha/TelegramBot-Boilerplate/blob/a28dc431eaefb45cdf053498711fa7246c65067b/TelegramBot/plugins/sudo/speedtest.py#L31
     """
 
     @wraps(func)
