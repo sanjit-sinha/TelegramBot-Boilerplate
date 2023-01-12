@@ -230,13 +230,11 @@ DirectoryLayout <b></h1>
 
 ```py
 from TelegramBot.helpers.decorators import ratelimiter
-from TelegramBot.config import prefixes 
 from pyrogram import Client, filters
 from pyrogram.types import Message
 
 
-commands = ["hello", "hi"]
-@Client.on_message(filters.command(commands, **prefixes))
+@Client.on_message(filters.command(["hello", "hi"]))
 @ratelimiter
 async def hello(client: Client, message: Message):
     """
