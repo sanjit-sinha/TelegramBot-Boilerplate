@@ -11,6 +11,7 @@ from cachetools import TTLCache
 from pyrogram import Client
 from pyrogram.types import CallbackQuery, Message
 
+from TelegramBot import loop
 from TelegramBot.helpers.functions import isAdmin
 from TelegramBot.helpers.ratelimiter import RateLimiter
 
@@ -32,18 +33,18 @@ def ratelimiter(func: Callable) -> Callable:
         is_limited = await ratelimit.acquire(userid)
 
         if is_limited and userid not in warned_users:
+            
             if isinstance(update, Message):
                 await update.reply_text(warning_message)
                 warned_users[userid] = 1
                 return
+            
             elif isinstance(update, CallbackQuery):
                 await update.answer(warning_message, show_alert=True)
                 warned_users[userid] = 1
                 return
-        elif is_limited and userid in warned_users:
-            pass
-        else:
-            return await func(client, update)
+        elif is_limited and userid in warned_users: pass
+        else: return await func(client, update)
 
     return decorator
 
@@ -79,7 +80,6 @@ def errors(func: Callable) -> Callable:
 #====================================================================================
 #SOME MORE USEFUL DECORATORS
 
-from TelegramBot import loop
 
 def run_sync_in_thread(func: Callable) -> Callable:
     """
