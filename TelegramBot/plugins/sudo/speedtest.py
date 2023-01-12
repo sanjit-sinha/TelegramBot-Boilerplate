@@ -2,7 +2,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message
 from speedtest import Speedtest
 
-from TelegramBot import loop
 from TelegramBot.helpers.decorators import ratelimiter, run_sync_in_thread
 from TelegramBot.helpers.functions import get_readable_bytes
 from TelegramBot.logging import LOGGER
