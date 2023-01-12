@@ -2,10 +2,11 @@ from pyrogram.types import Message
 from pyrogram import Client, filters
 
 from TelegramBot.database import MongoDb
+from TelegramBot.helpers.filters import sudo_cmd
 from TelegramBot.helpers.decorators import ratelimiter
 
 
-@Client.on_message(filters.command(["dbstats"]) & SUDO_USERS)
+@Client.on_message(filters.command(["dbstats"]) & sudo_cmd)
 @ratelimiter
 async def dbstats(_, message: Message):
     """
