@@ -41,10 +41,8 @@ def ratelimiter(func: Callable) -> Callable:
                 warned_users[userid] = 1
                 return
 
-        elif is_limited and userid in warned_users:
-            pass
-        else:
-            return await func(client, update)
+        elif is_limited and userid in warned_users: pass
+        else: return await func(client, update)
 
     return decorator
 
