@@ -3,7 +3,7 @@ from pyrogram.types import (CallbackQuery, InlineKeyboardButton,
                             InlineKeyboardMarkup, Message)
 
 from TelegramBot import bot
-from TelegramBot.assets.start_constants import *
+from TelegramBot.helpers.start_constants import *
 from TelegramBot.config import OWNER_USERID, SUDO_USERID
 from TelegramBot.database import database
 from TelegramBot.helpers.decorators import ratelimiter
