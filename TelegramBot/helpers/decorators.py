@@ -1,13 +1,8 @@
-"""
-More about python decorators.
-https://www.geeksforgeeks.org/decorators-in-python/
-https://realpython.com/primer-on-python-decorators/
-"""
-
+import asyncio
 from functools import wraps
 from cachetools import TTLCache
 from typing import Callable, Union
-import asyncio
+
 from pyrogram import Client
 from pyrogram.types import CallbackQuery, Message
 
@@ -15,7 +10,9 @@ from TelegramBot import loop
 from TelegramBot.helpers.functions import isAdmin
 from TelegramBot.helpers.ratelimiter import RateLimiter
 
+
 ratelimit = RateLimiter()
+
 # storing spammy user in cache for 1minute before allowing them to use commands again.
 warned_users = TTLCache(maxsize=128, ttl=60)
 warning_message = "Spam detected! ignoring your all requests for few minutes."
@@ -44,10 +41,8 @@ def ratelimiter(func: Callable) -> Callable:
                 warned_users[userid] = 1
                 return
 
-        elif is_limited and userid in warned_users:
-            pass
-        else:
-            return await func(client, update)
+        elif is_limited and userid in warned_users: pass
+        else: return await func(client, update)
 
     return decorator
 

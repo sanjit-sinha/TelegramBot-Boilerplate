@@ -1,9 +1,11 @@
-from shutil import disk_usage
+import os
 from time import time
+from shutil import disk_usage
 
+from psutil import Process 
 from psutil import cpu_percent
-from psutil import disk_usage as disk_usage_percent
 from psutil import virtual_memory
+from psutil import disk_usage as disk_usage_percent
 
 from pyrogram.types import Message 
 from pyrogram import Client, filters
@@ -26,16 +28,21 @@ async def stats(_, message: Message):
     total = get_readable_bytes(total)
     used = get_readable_bytes(used)
     free = get_readable_bytes(free)
+    process = Process(os.getpid())
+    
     caption = f"""
-f"**≧◉◡◉≦ Bot is Up and Running successfully.**
+**≧◉◡◉≦ Bot is Up and Running successfully.**
 
-Bot Uptime: `{currentTime}`
 Total Disk Space: `{total}`
 Used: `{used}({disk_usage_percent("/").percent}%)`
 Free: `{free}`
-CPU Usage: `{cpu_percent()}%`
-RAM Usage: `{virtual_memory().percent}%`"
+
+Cpu Usage: `{cpu_percent()}%`
+Ram Usage: `{virtual_memory().percent}%`
+Bot Uptime: `{currentTime}`
+Bot Usage: `{round(process.memory_info()[0]/1024 ** 2)} MiB`
 """
+
     return await message.reply_animation(
         animation="https://telegra.ph/file/fd2495f0465f5293bd052.mp4",
         caption=caption,
