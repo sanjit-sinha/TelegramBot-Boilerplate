@@ -18,7 +18,7 @@ async def broadcast(client: Client, message: Message):
     """
 
     if not (broadcast_msg := message.reply_to_message):
-        broadcast_usage = f"**Usage:** Broadcast the message to all users as well as chats which are saved in database.\n\n/broadcast type your message\n\nuse the flag '-all' to send broadcast message to both users as well as chats.\n\n/broadcast -all type your message."
+        broadcast_usage = f"Reply with command /broadcast to the message you want to broadcast.\n\n/broadcast users - to broadcast message to users only.\n\n/broadcast chats - to broadcast message to chats only.\n\n/broadcast all - to broadcast message everywhere."
         return await message.reply_text(broadcast_usage, quote=True)
 
     proses_msg = await message.reply_text(
@@ -62,7 +62,7 @@ async def broadcast(client: Client, message: Message):
             success += 1
             
             #preventing flood wait
-            await sleep(0.2)
+            await sleep(0.3)
         except Exception as error:
         	LOGGER(__name__).error(str(error))
         	failed += 1
