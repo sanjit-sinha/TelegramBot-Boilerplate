@@ -65,7 +65,7 @@ async def broadcast(client: Client, message: Message):
             success += 1
             
             #preventing flood wait
-            sleep(0.2)
+            await sleep(0.2)
         except Exception as error:
         	LOGGER(__name__).error(str(error))
         	failed += 1
