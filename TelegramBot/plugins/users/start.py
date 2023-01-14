@@ -37,18 +37,17 @@ GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_
 
 
 @Client.on_message(filters.command(["start", "help"]))
-@ratelimiter
+#@ratelimiter
 async def start(_, message: Message):
     await database.saveUser(message.from_user)
-    return await message.reply_animation(
-        animation=START_ANIMATION,
-        caption=START_CAPTION,
+    return await message.reply_text(
+        START_CAPTION,
         reply_markup=InlineKeyboardMarkup(START_BUTTON),
         quote=True)
 
 
 @Client.on_callback_query(filters.regex("_BUTTON"))
-@ratelimiter
+#@ratelimiter
 async def botCallbacks(_, CallbackQuery: CallbackQuery):
 
     clicker_user_id = CallbackQuery.from_user.id
@@ -60,38 +59,32 @@ async def botCallbacks(_, CallbackQuery: CallbackQuery):
     if CallbackQuery.data == "SUDO_BUTTON":
         if clicker_user_id not in SUDO_USERID:
             return await CallbackQuery.answer(
-                "You are not in the sudo user list.", show_alert=True
-            )
+                "You are not in the sudo user list.", show_alert=True)              
         await CallbackQuery.edit_message_text(
-            SUDO_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
-        )
+            SUDO_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON))
+            
     elif CallbackQuery.data == "DEV_BUTTON":
         if clicker_user_id not in OWNER_USERID:
             return await CallbackQuery.answer(
-                "This is developer restricted command.", show_alert=True
-            )
+                "This is developer restricted command.", show_alert=True)                
         await CallbackQuery.edit_message_text(
-            DEV_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
-        )
+            DEV_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON))
+            
     if CallbackQuery.data == "ABOUT_BUTTON":
         await CallbackQuery.edit_message_text(
-            ABOUT_CAPTION, reply_markup=InlineKeyboardMarkup(GOBACK_1_BUTTON)
-        )
+            ABOUT_CAPTION, reply_markup=InlineKeyboardMarkup(GOBACK_1_BUTTON))
 
     elif CallbackQuery.data == "START_BUTTON":
         await CallbackQuery.edit_message_text(
-            START_CAPTION, reply_markup=InlineKeyboardMarkup(START_BUTTON)
-        )
+            START_CAPTION, reply_markup=InlineKeyboardMarkup(START_BUTTON))
 
     elif CallbackQuery.data == "COMMAND_BUTTON":
         await CallbackQuery.edit_message_text(
-            COMMAND_CAPTION, reply_markup=InlineKeyboardMarkup(COMMAND_BUTTON)
-        )
+            COMMAND_CAPTION, reply_markup=InlineKeyboardMarkup(COMMAND_BUTTON))
 
     elif CallbackQuery.data == "USER_BUTTON":
         await CallbackQuery.edit_message_text(
-            USER_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON)
-        )
+            USER_TEXT, reply_markup=InlineKeyboardMarkup(GOBACK_2_BUTTON))
     await CallbackQuery.answer()
 
 
