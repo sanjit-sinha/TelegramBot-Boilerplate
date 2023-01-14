@@ -16,6 +16,7 @@ async def paste(_, message: Message):
     """
     
     paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after command.\n\n**Example:** /paste type your text"
+    paste_reply = await message.reply_text("pasting...", quote=True)
     replied_message = message.reply_to_message
     
     if len(message.command) > 1:
@@ -39,6 +40,5 @@ async def paste(_, message: Message):
     elif len(message.command) < 2:
         return await message.reply_text(paste_usage, quote=True)
     
-    paste_reply = await message.reply_text("pasting...", quote=True)
     output = await katbin_paste(content)
     return await paste_reply.edit(f"{output}", disable_web_page_preview=True)
