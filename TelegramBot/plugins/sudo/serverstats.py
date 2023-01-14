@@ -2,8 +2,6 @@ import os
 from time import time
 from shutil import disk_usage
 
-
-
 from psutil import Process 
 from psutil import cpu_percent
 from psutil import virtual_memory
