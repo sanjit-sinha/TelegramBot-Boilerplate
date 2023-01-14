@@ -35,15 +35,14 @@ async def stats(_, message: Message):
     caption = f"""
 **≧◉◡◉≦ Bot is Up and Running successfully.**
 
-Bot Uptime: `{currentTime}`
-
 Total Disk Space: `{total}`
 Used: `{used}({disk_usage_percent("/").percent}%)`
 Free: `{free}`
 
-CPU Usage: `{cpu_percent()}%`
-RAM Usage: `{virtual_memory().percent}%`
-BOT Usage: `{round(process.memory_info()[0]/1024 ** 2)} MiB`
+Cpu Usage: `{cpu_percent()}%`
+Ram Usage: `{virtual_memory().percent}%`
+Bot Uptime: `{currentTime}`
+Bot Usage: `{round(process.memory_info()[0]/1024 ** 2)} MiB`
 """
 
     return await message.reply_animation(
