@@ -37,7 +37,7 @@ GOBACK_2_BUTTON = [[InlineKeyboardButton("🔙 Go Back", callback_data="COMMAND_
 
 
 @Client.on_message(filters.command(["start", "help"]))
-#@ratelimiter
+@ratelimiter
 async def start(_, message: Message):
     await database.saveUser(message.from_user)
     return await message.reply_text(
@@ -47,7 +47,7 @@ async def start(_, message: Message):
 
 
 @Client.on_callback_query(filters.regex("_BUTTON"))
-#@ratelimiter
+@ratelimiter
 async def botCallbacks(_, CallbackQuery: CallbackQuery):
 
     clicker_user_id = CallbackQuery.from_user.id
