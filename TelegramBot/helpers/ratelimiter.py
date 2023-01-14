@@ -13,11 +13,11 @@ class RateLimiter:
 
     def __init__(self) -> None:
 
-        # 3 requests per seconds
-        self.second_rate = RequestRate(3, Duration.SECOND)
+        # 2 requests per seconds
+        self.second_rate = RequestRate(2, Duration.SECOND)
 
-        # 20 requests per minute.
-        self.minute_rate = RequestRate(20, Duration.MINUTE)
+        # 17 requests per minute.
+        self.minute_rate = RequestRate(17, Duration.MINUTE)
 
         # 1000 requests per hour
         self.hourly_rate = RequestRate(1000, Duration.HOUR)
