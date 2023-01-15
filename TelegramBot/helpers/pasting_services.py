@@ -7,7 +7,7 @@ async def katbin_paste(text: str) -> str:
     """
     paste the text in katb.in website.
     """
-    
+
     katbin_url = "https://katb.in"
     client = AsyncClient()
     response = await client.get(katbin_url)
@@ -29,7 +29,7 @@ async def telegraph_paste(content: str, title="TelegramBot") -> str:
     """
     paste the text in telegra.ph (graph.org) website.
     """
-    
+
     telegraph = Telegraph(domain="graph.org")
     await telegraph.create_account(short_name=title)
     html_content = "<pre>" + content.replace("\n", "<br>") + "</pre>"
@@ -39,6 +39,8 @@ async def telegraph_paste(content: str, title="TelegramBot") -> str:
     except:
         response = await katbin_paste(content)
 
-    try: await telegraph.revoke_access_token()
-    except: pass
+    try:
+        await telegraph.revoke_access_token()
+    except:
+        pass
     return response

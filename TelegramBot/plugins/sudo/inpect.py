@@ -7,7 +7,7 @@ from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.helpers.pasting_services import telegraph_paste
 
 
-@Client.on_message(filters.command(["inspect"]) & sudo_cmd)
+@Client.on_message(filters.command("inspect") & sudo_cmd)
 @ratelimiter
 async def inspect(_, message: Message):
     """
