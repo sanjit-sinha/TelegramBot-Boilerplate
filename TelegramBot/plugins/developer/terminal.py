@@ -63,16 +63,16 @@ async def py_runexec(client: Client, message: Message, replymsg: Message):
     redirected_output = sys.stdout = StringIO()
     redirected_error = sys.stderr = StringIO()
     stdout, stderr, exc = None, None, None
-    
+
     try:
     	await replymsg.edit("executing...") 	    
     	code = message.text.split(None, 1)[1]  	
     except IndexError:
     	return await replymsg.edit("No codes found to execute.", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
-    	
+
     if "config.env" in code:
         return await replymsg.edit("That's a dangerous operation! Not Permitted!", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Refresh  🔄",  callback_data="refresh")]]))
-                                            
+
     try:
     	await aexec(code, client, message)
     except Exception:
@@ -82,7 +82,7 @@ async def py_runexec(client: Client, message: Message, replymsg: Message):
     stderr = redirected_error.getvalue()
     sys.stdout = old_stdout
     sys.stderr = old_stderr
- 
+
     evaluation = ""
     if exc:
     	evaluation = exc
@@ -91,20 +91,18 @@ async def py_runexec(client: Client, message: Message, replymsg: Message):
     elif stdout:
         evaluation = stdout
     else:
-        evaluation = "success" 
+        evaluation = "success"
     final_output = f"{evaluation.strip()}"    
 
-        
-    if len(final_output) > 4000:
-        async with aiofiles.open("output.txt", "w+", encoding="utf8") as file:
-            await file.write(str(evaluation.strip()))
-       
-        await replymsg.edit("output too large. sending it as a file...",  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("refresh 🔄",callback_data="refresh")]]))
-        await client.send_document(message.chat.id, "output.txt", caption="output.txt")
-        os.remove("output.txt")
-    
-    else:
-    	return await replymsg.edit(final_output,  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("refresh 🔄",callback_data="refresh")]]))
+
+    if len(final_output) <= 4000:
+        return await replymsg.edit(final_output,  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("refresh 🔄",callback_data="refresh")]]))
+    async with aiofiles.open("output.txt", "w+", encoding="utf8") as file:
+        await file.write(str(evaluation.strip()))
+
+    await replymsg.edit("output too large. sending it as a file...",  reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("refresh 🔄",callback_data="refresh")]]))
+    await client.send_document(message.chat.id, "output.txt", caption="output.txt")
+    os.remove("output.txt")
 
 
 @Client.on_callback_query(filters.regex("refresh"))
