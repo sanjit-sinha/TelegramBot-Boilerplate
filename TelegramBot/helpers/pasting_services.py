@@ -39,8 +39,6 @@ async def telegraph_paste(content: str, title="TelegramBot") -> str:
     except:
         response = await katbin_paste(content)
 
-    try:
-        await telegraph.revoke_access_token()
-    except:
-        pass
+    try: await telegraph.revoke_access_token()
+    except: pass
     return response
