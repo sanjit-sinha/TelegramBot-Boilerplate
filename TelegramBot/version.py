@@ -1,5 +1,4 @@
 from sys import version_info
-
 from pyrogram import __version__ as __pyro_version__
 
 __major__ = 3
