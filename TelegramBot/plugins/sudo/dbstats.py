@@ -6,7 +6,7 @@ from TelegramBot.helpers.filters import sudo_cmd
 from TelegramBot.helpers.decorators import ratelimiter
 
 
-@Client.on_message(filters.command(["dbstats"]) & sudo_cmd)
+@Client.on_message(filters.command("dbstats") & sudo_cmd)
 @ratelimiter
 async def dbstats(_, message: Message):
     """

@@ -1,7 +1,6 @@
-from asyncio import sleep 
+from asyncio import sleep
 
 from pyrogram import Client, filters
-from pyrogram.errors import FloodWait
 from pyrogram.types import Message
 
 from TelegramBot.database import MongoDb
@@ -12,7 +11,7 @@ from TelegramBot.logging import LOGGER
 
 @Client.on_message(filters.command(["broadcast"]) & dev_cmd)
 @ratelimiter
-async def broadcast(client: Client, message: Message):
+async def broadcast(_: Client, message: Message):
     """
     Broadcast the message via bot to bot users and groups..
     """
@@ -31,7 +30,7 @@ async def broadcast(client: Client, message: Message):
 
     if len(commands) > 3:
         return await proses_msg.edit("Invalid Command")
-         
+
     for command in message.command:
         if command.lower() == "all":
             to_chats = True
@@ -48,25 +47,23 @@ async def broadcast(client: Client, message: Message):
     total_list = []
     if to_chats:
         total_list += await MongoDb.chats.get_all_id()
-        
+
     if to_users:
         total_list += await MongoDb.users.get_all_id()
-        
+
     failed = 0
     success = 0
-        
+
     for __id in total_list:
         try:
             await broadcast_msg.copy(
-            __id, broadcast_msg.caption, disable_notification=disable_notification)
+                __id, broadcast_msg.caption, disable_notification=disable_notification)
             success += 1
-            
-            #preventing flood wait
+            # preventing flood wait
             await sleep(0.3)
         except Exception as error:
-        	LOGGER(__name__).error(str(error))
-        	failed += 1
-        	
+            LOGGER(__name__).error(str(error))
+            failed += 1
+
     return await proses_msg.edit(
         f"**The message has been successfully broadcasted.**\n\nTotal success = {success}\nTotal Failure = {failed}")
-
