@@ -6,8 +6,10 @@ __major__ = 3
 __minor__ = 7
 __micro__ = 0
 
+
 def get_version() -> str:
     return f"{__major__}.{__minor__}.{__micro__}"
+
 
 __python_version__ = f"{version_info[0]}.{version_info[1]}.{version_info[2]}"
 __version__ = get_version()

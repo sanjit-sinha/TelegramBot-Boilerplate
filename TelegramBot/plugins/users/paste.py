@@ -1,7 +1,7 @@
 import os
 
 import aiofiles
-from pyrogram.types  import Message
+from pyrogram.types import Message
 from pyrogram import Client, filters
 
 from TelegramBot.helpers.decorators import ratelimiter
@@ -27,7 +27,7 @@ async def paste(_, message: Message):
             content = replied_message.text
             
         elif replied_message.document and any(
-            format in replied_message.document.mime_type for format in ["text", "json"]):
+            format in replied_message.document.mime_type for format in {"text", "json"}):
             
             await message.reply_to_message.download(os.path.join(os.getcwd(), "temp_file"))
             async with aiofiles.open("temp_file", "r+") as file:
