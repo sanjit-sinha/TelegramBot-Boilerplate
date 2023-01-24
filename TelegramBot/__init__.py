@@ -1,8 +1,7 @@
-from uvloop import intsall #making asyncio faster
-
 import sys
 import time
 from asyncio import get_event_loop, new_event_loop, set_event_loop
+from uvloop import intsall #making asyncio faster
 
 from pyrogram import Client
 from TelegramBot import config
