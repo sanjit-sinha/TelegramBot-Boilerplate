@@ -2,7 +2,6 @@ from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import Message
 
 from TelegramBot.config import SUDO_USERID
-
 from Typing import Union 
 
 
