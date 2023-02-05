@@ -52,5 +52,5 @@ async def telegraph_image_paste(filepath: str) -> str:
 	try:
 		image_url = await telegraph.upload_file(filepath)
 		return "https://graph.org/" + image_url[0]["src"]
-	except Exception as e: return f"something went wrong while posting image. "
+	except Exception as e: return f"something went wrong while posting image."
 	
