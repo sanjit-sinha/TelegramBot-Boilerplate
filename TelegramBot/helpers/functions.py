@@ -3,6 +3,8 @@ from pyrogram.types import Message
 
 from TelegramBot.config import SUDO_USERID
 
+from Typing import Union 
+
 
 async def isAdmin(message: Message) -> bool:
     """
@@ -22,33 +24,29 @@ async def isAdmin(message: Message) -> bool:
     return check_status.status in [ChatMemberStatus.OWNER,ChatMemberStatus.ADMINISTRATOR]
 
 
-def get_readable_time(seconds: int) -> str:
+def get_readable_bytes(size: Union[int, str]) -> str:
     """
-    Return a human-readable time format seconds.
+    Return a human readable file size from bytes.
     """
 
-    result = ""
-    (days, remainder) = divmod(seconds, 86400)
-    days = int(days)
+    UNIT_SUFFIXES = ['B', 'KiB', 'MiB', 'GiB', 'TiB']
 
-    if days != 0:
-        result += f"{days}d "
-    (hours, remainder) = divmod(remainder, 3600)
-    hours = int(hours)
+    if isinstance(size, str):
+        size = int(size)
 
-    if hours != 0:
-        result += f"{hours}h "
-    (minutes, seconds) = divmod(remainder, 60)
-    minutes = int(minutes)
+    if size < 0:
+        raise ValueError('Size must be positive')
+    if size == 0:
+        return '0 B'
 
-    if minutes != 0:
-        result += f"{minutes}m "
+    i = 0
+    while size >= 1024 and i < len(UNIT_SUFFIXES) - 1:
+        size /= 1024
+        i += 1
 
-    seconds = int(seconds)
-    result += f"{seconds}s "
-    return result
-
-
+    return f"{size:.2f} {UNIT_SUFFIXES[i]}"
+      
+    
 def get_readable_bytes(size: str) -> str:
     """
     Return a human readable file size from bytes.
