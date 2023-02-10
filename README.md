@@ -71,7 +71,7 @@ sudo apt install python3-pip -y
 sudo pip3 install -U pip
 ```
 
-Cloning Github Respository and Starting the Bot in Server.
+Cloning Github Repository and Starting the Bot in Server.
  
 ```
 git clone https://github.com/sanjit-sinha/Telegram-Bot-Boilerplate && cd Telegram-Bot-Boilerplate 
