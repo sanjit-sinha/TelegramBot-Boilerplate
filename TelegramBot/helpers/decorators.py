@@ -66,9 +66,9 @@ def errors(func: Callable) -> Callable:
     """
 
     @wraps(func)
-    async def decorator(client: Client, message: Message):
+    async def decorator(client, message, *args,**kwargs):
         try:
-            return await func(client, message)
+            return await func(client, message, *args, **kwargs)
         except Exception as error:
             await message.reply(f"{type(error).__name__}: {error}")
 
