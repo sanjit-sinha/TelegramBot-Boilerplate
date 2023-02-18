@@ -27,12 +27,11 @@ async def katbin_paste(text: str) -> str:
 
 async def telegraph_paste(content: str, title="TelegramBot") -> str:
     """
-    paste the text in telegra.ph (graph.org) website.
+    paste the text in telegra.ph (graph.org) website (text should follow proper html tags).
     """
 
     telegraph = Telegraph(domain="graph.org")
-    print(content)
-    print(type(content))
+    
     await telegraph.create_account(short_name=title)
     html_content = "<pre>" + content.replace("\n", "<br>") + "</pre>"
     try:
