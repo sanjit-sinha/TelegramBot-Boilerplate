@@ -31,6 +31,8 @@ async def telegraph_paste(content: str, title="TelegramBot") -> str:
     """
 
     telegraph = Telegraph(domain="graph.org")
+    print(content)
+    print(type(content))
     await telegraph.create_account(short_name=title)
     html_content = "<pre>" + content.replace("\n", "<br>") + "</pre>"
     try:
