@@ -50,14 +50,14 @@ async def stats(_, message: Message):
     draw.text((225,153), f"( {cpu_count} core, {cpu_percentage}% )", (255, 255, 255), font=IronFont)
 	
     disk_percenatge = psutil.disk_usage("/").percent
-    disk_total = get_readable_size(total)
-    disk_used = get_readable_size(used)
+    disk_total = get_readable_bytes(total)
+    disk_used = get_readable_bytes(used)
     draw_progressbar(395, int(disk_percenatge))
     draw.text((335,302), f"( {disk_used} / {disk_total}, {disk_percenatge}% )", (255, 255, 255), font=IronFont)
                   
     ram_percentage = psutil.virtual_memory().percent
-    ram_total = get_readable_size(psutil.virtual_memory().total)
-    ram_used = get_readable_size(psutil.virtual_memory().used)	
+    ram_total = get_readable_bytes(psutil.virtual_memory().total)
+    ram_used = get_readable_bytes(psutil.virtual_memory().used)	
     draw_progressbar(533, int(ram_percentage))
     draw.text((225,445), f"( {ram_used} / {ram_total} , {ram_percentage}% )", (255, 255, 255), font=IronFont)
     
