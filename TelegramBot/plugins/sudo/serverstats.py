@@ -5,10 +5,6 @@ import psutil
 from shutil import disk_usage
 from datetime import datetime 
 from PIL import Image, ImageDraw, ImageFont
-
-from psutil import Process 
-from psutil import cpu_percent
-from psutil import virtual_memory
 from psutil import disk_usage as disk_usage_percent
 
 from pyrogram import Client, filters
