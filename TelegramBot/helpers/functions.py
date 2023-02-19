@@ -23,29 +23,33 @@ async def isAdmin(message: Message) -> bool:
     return check_status.status in [ChatMemberStatus.OWNER,ChatMemberStatus.ADMINISTRATOR]
 
 
-def get_readable_bytes(size: Union[int, str]) -> str:
+def get_readable_time(seconds: int) -> str:
     """
-    Return a human readable file size from bytes.
+    Return a human-readable time format
     """
 
-    UNIT_SUFFIXES = ['B', 'KiB', 'MiB', 'GiB', 'TiB']
+    result = ""
+    (days, remainder) = divmod(seconds, 86400)
+    days = int(days)
 
-    if isinstance(size, str):
-        size = int(size)
+    if days != 0:
+        result += f"{days}d "
+    (hours, remainder) = divmod(remainder, 3600)
+    hours = int(hours)
 
-    if size < 0:
-        raise ValueError('Size must be positive')
-    if size == 0:
-        return '0 B'
+    if hours != 0:
+        result += f"{hours}h "
+    (minutes, seconds) = divmod(remainder, 60)
+    minutes = int(minutes)
 
-    i = 0
-    while size >= 1024 and i < len(UNIT_SUFFIXES) - 1:
-        size /= 1024
-        i += 1
+    if minutes != 0:
+        result += f"{minutes}m "
 
-    return f"{size:.2f} {UNIT_SUFFIXES[i]}"
-      
-    
+    seconds = int(seconds)
+    result += f"{seconds}s "
+    return result
+
+
 def get_readable_bytes(size: str) -> str:
     """
     Return a human readable file size from bytes.
