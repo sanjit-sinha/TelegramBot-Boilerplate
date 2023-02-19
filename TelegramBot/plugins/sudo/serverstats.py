@@ -1,7 +1,7 @@
 import os
 import time 
-import datetime
 from shutil import disk_usage
+from datetime import datetime 
 from PIL import Image, ImageDraw, ImageFont
 
 from psutil import Process 
