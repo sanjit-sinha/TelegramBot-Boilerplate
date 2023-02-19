@@ -72,7 +72,7 @@ async def stats(_, message: Message):
     draw.text((857,607), f"{(end-start).microseconds/1000} ms", (255, 255, 255), font=IronFont)
     
     image.save("stats.png")
-    await msg.edit_media(media=InputMediaPhoto("stats.png"), caption=caption)
+    await msg.edit_media(media=InputMediaPhoto("stats.png", caption=caption))
     os.remove("stats.png")
 	
      
