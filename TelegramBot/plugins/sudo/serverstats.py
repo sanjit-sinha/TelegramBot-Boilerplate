@@ -35,7 +35,7 @@ async def stats(_, message: Message):
     total, used, free = shutil.disk_usage(".")
 	
     botuptime = get_readable_time(time.time() - BotStartTime)
-    osuptime  =  get_readable_time(time() - psutil.boot_time())
+    osuptime  =  get_readable_time(time.time() - psutil.boot_time())
     botusage = round(psutil.process.memory_info()[0]/1024 ** 2) + " MiB"
     
     upload= get_readable_bytes(psutil.net_io_counters().bytes_sent)
