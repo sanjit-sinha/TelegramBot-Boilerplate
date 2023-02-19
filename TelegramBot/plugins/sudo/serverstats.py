@@ -11,7 +11,6 @@ from pyrogram import Client, filters
 from pyrogram.types import Message 
 from pyrogram.types import Message, InputMediaPhoto
 
-
 from TelegramBot import BotStartTime
 from TelegramBot.helpers.filters import sudo_cmd
 from TelegramBot.helpers.decorators import ratelimiter
@@ -33,10 +32,11 @@ async def stats(_, message: Message):
     	draw.ellipse((progress-7, coordinate-25, progress+15, coordinate), fill='#FFFFFF')
     
     total, used, free = shutil.disk_usage(".")
+    process = psutil.Process(os.getpid())
 	
     botuptime = get_readable_time(time.time() - BotStartTime)
     osuptime  =  get_readable_time(time.time() - psutil.boot_time())
-    botusage = round(psutil.Process.memory_info()[0]/1024 ** 2) + " MiB"
+    botusage = round(psutil.process.memory_info()[0]/1024 ** 2) + " MiB"
     
     upload= get_readable_bytes(psutil.net_io_counters().bytes_sent)
     download= get_readable_bytes(psutil.net_io_counters().bytes_recv) 
