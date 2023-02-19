@@ -28,7 +28,7 @@ async def stats(_, message: Message):
 	
 	
     image = Image.open('TelegramBot/helpers/assets/statsbg.jpg').convert('RGB')
-    IronFont = ImageFont.truetype("TelegramBot/helpers/assets/IronFont.otf", 38)
+    IronFont = ImageFont.truetype("TelegramBot/helpers/assets/IronFont.otf", 4)
     draw = ImageDraw.Draw(image)
     
     def draw_progressbar(coordinate, progress):
