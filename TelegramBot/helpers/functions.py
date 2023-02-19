@@ -2,6 +2,7 @@ from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import Message
 
 from TelegramBot.config import SUDO_USERID
+from typing import Union 
 
 
 async def isAdmin(message: Message) -> bool:
@@ -24,7 +25,7 @@ async def isAdmin(message: Message) -> bool:
 
 def get_readable_time(seconds: int) -> str:
     """
-    Return a human-readable time format seconds.
+    Return a human-readable time format
     """
 
     result = ""

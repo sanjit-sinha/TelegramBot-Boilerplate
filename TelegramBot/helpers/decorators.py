@@ -66,9 +66,9 @@ def errors(func: Callable) -> Callable:
     """
 
     @wraps(func)
-    async def decorator(client: Client, message: Message):
+    async def decorator(client, message, *args,**kwargs):
         try:
-            return await func(client, message)
+            return await func(client, message, *args, **kwargs)
         except Exception as error:
             await message.reply(f"{type(error).__name__}: {error}")
 
@@ -92,32 +92,5 @@ def run_sync_in_thread(func: Callable) -> Callable:
     @wraps(func)
     async def wrapper(*args, **kwargs):
         return await loop.run_in_executor(None, func, *args, **kwargs)
-
-    return wrapper
-
-
-def run_async_in_thread(func: Callable) -> Callable:
-    """
-    A decorator for running time blocking asynchronous function in a separate thread,
-    without blocking the main event loop, causing unresponsiveness of the program/bot.
-
-    This decorator run a new event loop in separate thread without blocking the main thread and causing
-    conflicting problem with current loop.
-
-    To use this decorator, apply it to any asynchronous function which is time blocking and using some
-    synchronous library/Apis.
-    """
-
-    def new_event_loop(func, *args, **kwargs):
-        """Creating a new event loop."""
-
-        new_loop = asyncio.new_event_loop()
-        result = new_loop.run_until_complete(func, *args, **kwargs)
-        new_loop.close()
-        return result
-
-    @wraps(func)
-    async def wrapper(*args, **kwargs):
-        return await loop.run_in_executor(None, new_event_loop, func(*args, **kwargs))
-
+    
     return wrapper

@@ -1,16 +1,15 @@
 import sys
 import time
 from asyncio import get_event_loop, new_event_loop, set_event_loop
+import uvloop 
 
 from pyrogram import Client
-from uvloop import install
-
 from TelegramBot import config
 from TelegramBot.database.MongoDb import check_mongo_uri
 from TelegramBot.logging import LOGGER
 
 
-install()
+uvloop.install()
 LOGGER(__name__).info("Starting TelegramBot....")
 BotStartTime = time.time()
 
