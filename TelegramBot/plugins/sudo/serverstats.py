@@ -53,9 +53,11 @@ async def stats(_, message: Message):
     disk_used = get_readable_bytes(used)
     disk_free = get_readable_bytes(free)
         
-    caption = f"**OS Uptime :** {osuptime}\n**Bot Usage :** {botusage}\n\n**Total Space :**{disk_total}\n**Free Space :** {disk_free}\n\n**Download :**{download}\n**Upload :**{upload}"
+    caption = f"**OS Uptime:** {osuptime}\n**Bot Usage:** {botusage}\n\n**Total Space:** {disk_total}\n**Free Space:** {disk_free}\n\n**Download:** {download}\n**Upload:** {upload}"
            
+    start = datetime.now()
     msg = await message.reply_photo(photo="https://te.legra.ph/file/30a82c22854971d0232c7.jpg", caption=caption, quote=True)     
+    end = datetime.now()
                     
     draw_progressbar(243, int(cpu_percentage))
     draw.text((225,153), f"( {cpu_count} core, {cpu_percentage}% )", (255, 255, 255), font=IronFont)	
