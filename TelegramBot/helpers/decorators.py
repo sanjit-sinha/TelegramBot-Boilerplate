@@ -92,4 +92,5 @@ def run_sync_in_thread(func: Callable) -> Callable:
     @wraps(func)
     async def wrapper(*args, **kwargs):
         return await loop.run_in_executor(None, func, *args, **kwargs)
+    
     return wrapper
