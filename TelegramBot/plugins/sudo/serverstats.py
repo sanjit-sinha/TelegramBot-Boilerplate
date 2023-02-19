@@ -29,7 +29,7 @@ async def stats(_, message: Message):
     end = datetime.now()
 	
 	
-    image = Image.open('TelegramBot/helpers/assets/statsbg.png').convert('RGB')
+    image = Image.open('TelegramBot/helpers/assets/statsbg.jpg').convert('RGB')
     IronFont = ImageFont.truetype("TelegramBot/helpers/assets/IronFont.otf", 38)
     draw = ImageDraw.Draw(image)
     
