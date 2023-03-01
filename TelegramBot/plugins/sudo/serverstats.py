@@ -66,7 +66,7 @@ async def stats(_, message: Message):
     draw.text((335,302), f"( {disk_used} / {disk_total}, {disk_percenatge}% )", (255, 255, 255), font=IronFont)
                   
     draw_progressbar(533, int(ram_percentage))
-    draw.text((225,445), f"( {ram_used} / {ram_total} , {ram_percentage}% )", (255, 255, 255), font=IronFont)
+    draw.text((225,445), f"( {ram_used} / {ram_total}, {ram_percentage}% )", (255, 255, 255), font=IronFont)
     
     draw.text((335,600), f"{botuptime}", (255, 255, 255), font=IronFont)
     draw.text((857,607), f"{(end-start).microseconds/1000} ms", (255, 255, 255), font=IronFont)
