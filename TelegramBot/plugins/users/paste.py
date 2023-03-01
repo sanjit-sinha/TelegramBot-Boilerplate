@@ -35,10 +35,10 @@ async def paste(_, message: Message):
             os.remove("temp_file")
             
         else:
-            return await message.reply_text(paste_usage, quote=True)
+            return await paste_reply.edit(paste_usage)
         
     elif len(message.command) < 2:
-        return await message.reply_text(paste_usage, quote=True)
+        return await paste_reply.edit(paste_usage)
     
     output = await katbin_paste(content)
     return await paste_reply.edit(f"{output}", disable_web_page_preview=True)
