@@ -12,7 +12,7 @@ from TelegramBot.helpers.pasting_services import katbin_paste
 @ratelimiter
 async def paste(_, message: Message):
     """
-    Paste the text to katb.in website.
+    Paste the text in katb.in website.
     """
     
     paste_usage = f"**Usage:** paste the text to katb.in website. Reply to a text file, text message or just type the text after command.\n\n**Example:** /paste type your text"
