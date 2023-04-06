@@ -11,3 +11,4 @@ httpx
 motor
 bs4
 uvloop
+pillow
