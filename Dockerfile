@@ -1,7 +1,21 @@
-FROM python:3.9.7-slim-buster
+# Use an official Python runtime as the base image.
+# https://hub.docker.com/_/python
+FROM python:3.10-slim
+
+# Set the working directory in the container.
 WORKDIR /app
+
+# Allowing read, write, and execute permissions .
 RUN chmod 777 /app
-RUN python3 -m pip install -U pip
+
+# Copy the requirements.txt file to the container.
+COPY requirements.txt .
+
+# Install the Python dependencies.
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the Python script to the container.
 COPY . .
-RUN pip3 install --no-cache-dir -U -r requirements.txt
-CMD ["bash", "start"]
+
+# Set the default command to run when the container starts.
+CMD ["python3", "-m", "TelegramBot"]
