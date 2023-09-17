@@ -1,13 +1,13 @@
 import sys
 import time
+import uvloop
 from asyncio import get_event_loop, new_event_loop, set_event_loop
-import uvloop 
+
 
 from pyrogram import Client
 from TelegramBot import config
-from TelegramBot.database.MongoDb import check_mongo_uri
+from TelegramBot.database.mongodb import check_mongo_uri
 from TelegramBot.logging import LOGGER
-
 
 uvloop.install()
 LOGGER(__name__).info("Starting TelegramBot....")
@@ -15,14 +15,16 @@ BotStartTime = time.time()
 
 
 if sys.version_info[0] < 3 or sys.version_info[1] < 7:
-    LOGGER(__name__).critical("""
+    LOGGER(__name__).critical(
+        """
 =============================================================
 You MUST need to be on python 3.7 or above, shutting down the bot...
 =============================================================
-""")
+"""
+    )
     sys.exit(1)
 
-    
+
 LOGGER(__name__).info("setting up event loop....")
 try:
     loop = get_event_loop()
@@ -30,7 +32,7 @@ except RuntimeError:
     set_event_loop(new_event_loop())
     loop = get_event_loop()
 
-    
+
 LOGGER(__name__).info(
     r"""
 ____________________________________________________________________
@@ -41,8 +43,9 @@ ____________________________________________________________________
 |    | |  __/ |  __/ (_| | | | (_| | | | | | | |_) | (_) | |_      |
 |    |_|\___|_|\___|\__, |_|  \__,_|_| |_| |_|____/ \___/ \__|     |
 |                    __/ |                                         |
-|__________________________________________________________________|   
-""")
+|__________________________________________________________________|
+"""
+)
 # https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 
 
@@ -58,4 +61,5 @@ bot = Client(
     api_id=config.API_ID,
     api_hash=config.API_HASH,
     bot_token=config.BOT_TOKEN,
-    plugins=plugins)
+    plugins=plugins,
+)
