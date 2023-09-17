@@ -119,7 +119,7 @@ async def py_runexec(client: Client, message: Message, replymsg: Message):
         final_output, reply_markup=refresh_button)
 
 
-@Client.on_callback_query(filters.regex("refresh"))
+@bot.on_callback_query(filters.regex("refresh"))
 async def py_callback(client: Client, callbackquery: CallbackQuery):
     """Refreshes the output of python code execution."""
 
@@ -138,7 +138,7 @@ async def py_callback(client: Client, callbackquery: CallbackQuery):
         await py_runexec(client, message, replymsg)
 
 
-@Client.on_message(filters.command(["exec", "py"]) & dev_cmd)
+@bot.on_message(filters.command(["exec", "py"]) & dev_cmd)
 async def py_execute(client: Client, message: Message):
     """Executes python command via bot with inbuilt refresh button."""
 
