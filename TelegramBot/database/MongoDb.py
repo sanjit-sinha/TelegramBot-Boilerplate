@@ -6,7 +6,6 @@ from TelegramBot.logging import LOGGER
 from TelegramBot.config import MONGO_URI
 
 
-
 """
 from one String URI you can create multiple databases for different projects/bots.
 within each database you can store multiple collections, and within each collection
