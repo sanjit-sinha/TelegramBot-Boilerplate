@@ -1,14 +1,11 @@
-from pyrogram.enums import ChatMemberStatus, ChatType
 from pyrogram.types import Message
+from pyrogram.enums import ChatMemberStatus, ChatType
 
 from TelegramBot.config import SUDO_USERID
-from typing import Union 
 
 
 async def isAdmin(message: Message) -> bool:
-    """
-    Return True if the message is from owner or admin of the group or sudo of the bot.
-    """
+    """ Return True if the message is from owner or admin of the group or sudo of the bot. """
 
     if not message.from_user:
         return
@@ -20,13 +17,14 @@ async def isAdmin(message: Message) -> bool:
         return True
 
     check_status = await message.chat.get_member(user_id)
-    return check_status.status in [ChatMemberStatus.OWNER,ChatMemberStatus.ADMINISTRATOR]
+    return check_status.status in [
+        ChatMemberStatus.OWNER,
+        ChatMemberStatus.ADMINISTRATOR,
+    ]
 
 
 def get_readable_time(seconds: int) -> str:
-    """
-    Return a human-readable time format
-    """
+    """ Return a human-readable time format from seconds. """
 
     result = ""
     (days, remainder) = divmod(seconds, 86400)
@@ -51,9 +49,7 @@ def get_readable_time(seconds: int) -> str:
 
 
 def get_readable_bytes(size: str) -> str:
-    """
-    Return a human readable file size from bytes.
-    """
+    """ Return a human readable file size from bytes."""
 
     dict_power_n = {0: "", 1: "Ki", 2: "Mi", 3: "Gi", 4: "Ti"}
 
