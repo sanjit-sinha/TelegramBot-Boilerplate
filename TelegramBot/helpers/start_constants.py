@@ -1,7 +1,7 @@
 from TelegramBot.version import (__python_version__, __version__, __pyro_version__, __license__)
 
 USER_TEXT = """
-🗒️ Documentation for commands available to user's 
+🗒️ Documentation for commands available to user's
 
 • /start: To Get this message
 
@@ -51,6 +51,6 @@ ABOUT_CAPTION = f"""• Python version : {__python_version__}
 
 START_ANIMATION = "https://telegra.ph/file/c0857672b427bec8542f6.mp4"
 
-START_CAPTION = """Hey there!! I am simple TelegramBot which is made for the purpose for trying, testing, deploying and learning about telegram bot using python pyrogram framework. \n\nUse buttons to navigate and know more about me :)"""
+START_CAPTION = """Hey there!! I am simple Telegram Bot which is made for the purpose for trying, testing, deploying and learning about Telegram Bot using python pyrogram framework. \n\nUse buttons to navigate and know more about me :)"""
 
 COMMAND_CAPTION = """**Here are the list of commands which you can use in bot.\n**"""
