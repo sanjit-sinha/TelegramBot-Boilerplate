@@ -1,13 +1,14 @@
 import sys
 import time
 import uvloop
+from pyrogram import Client
+from telegraph.aio import Telegraph
 from asyncio import get_event_loop, new_event_loop, set_event_loop
 
-
-from pyrogram import Client
 from TelegramBot import config
-from TelegramBot.database.mongodb import check_mongo_uri
 from TelegramBot.logging import LOGGER
+from TelegramBot.database.mongodb import check_mongo_uri
+
 
 uvloop.install()
 LOGGER(__name__).info("Starting TelegramBot....")
@@ -49,13 +50,14 @@ ____________________________________________________________________
 # https://patorjk.com/software/taag/#p=display&f=Graffiti&t=Type%20Something%20
 
 
-LOGGER(__name__).info("initiating the client....")
 LOGGER(__name__).info("checking MongoDb URI....")
 loop.run_until_complete(check_mongo_uri(config.MONGO_URI))
 
+LOGGER(__name__).info("creating telegraph session....")
+telegraph = Telegraph(domain="graph.org")
 
-# https://docs.pyrogram.org/topics/smart-plugins
-plugins = dict(root="TelegramBot/plugins")
+LOGGER(__name__).info("initiating the client....")
+plugins = dict(root="TelegramBot/plugins")  # https://docs.pyrogram.org/topics/smart-plugins
 bot = Client(
     "TelegramBot",
     api_id=config.API_ID,
