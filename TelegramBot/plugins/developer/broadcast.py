@@ -9,7 +9,6 @@ from TelegramBot.database import mongodb
 from TelegramBot.helpers.filters import dev_cmd
 
 
-
 @bot.on_message(filters.command(["broadcast"]) & dev_cmd)
 async def broadcast(_, message: Message):
     """Broadcast the message via bot to bot users and groups.."""
