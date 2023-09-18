@@ -1,45 +1,47 @@
 from typing import Union
-
-from pyrate_limiter import (BucketFullException, Duration, Limiter,
-                            MemoryListBucket, RequestRate)
+from pyrate_limiter import (
+    BucketFullException,
+    Duration,
+    Limiter,
+    MemoryListBucket,
+    RequestRate,
+)
 
 
 class RateLimiter:
     """
     Implement rate limit logic using leaky bucket
-    algorithm, via pyrate_limiter.
+    algorithm, via pyrate_limiter library.
     (https://pypi.org/project/pyrate-limiter/)
     """
 
-    def __init__(self) -> None:
+    def __init__(self, seconds: int, minutes: int) -> None:
 
-        # 2 requests per seconds
-        self.second_rate = RequestRate(2, Duration.SECOND)
+        # 2 requests per seconds (default).
+        self.second_rate = RequestRate(seconds, Duration.SECOND)
 
-        # 17 requests per minute.
-        self.minute_rate = RequestRate(17, Duration.MINUTE)
-
-        # 1000 requests per hour
-        self.hourly_rate = RequestRate(1000, Duration.HOUR)
-
-        # 10000 requests per day
-        self.daily_rate = RequestRate(10000, Duration.DAY)
+        # 19 requests per minute (default).
+        self.minute_rate = RequestRate(minutes, Duration.MINUTE)
 
         self.limiter = Limiter(
+            self.second_rate,
             self.minute_rate,
-            self.hourly_rate,
-            self.daily_rate,
-            bucket_class=MemoryListBucket,
-        )
+            bucket_class=MemoryListBucket)
 
-    async def acquire(self, userid: Union[int, str]) -> bool:
+    async def acquire(self, update_id: Union[int, str]) -> bool:
         """
-        Acquire rate limit per userid and return True / False
-        based on userid ratelimit status.
+        Acquire rate limit per update_id and return True / False
+        based on update_id ratelimit status.
+
+        params:
+            update_id (int | str): unique identifier for update.
+
+        returns:
+            bool: True if update_id is ratelimited else False.
         """
 
         try:
-            self.limiter.try_acquire(userid)
+            self.limiter.try_acquire(update_id)
             return False
         except BucketFullException:
             return True
