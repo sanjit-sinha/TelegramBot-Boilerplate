@@ -43,10 +43,10 @@ async def broadcast(_, message: Message):
 
     total_list = []
     if to_chats:
-        total_list += await mongodb.chats.get_all_id()
+        total_list += await MongoDb.chats.get_all_id()
 
     if to_users:
-        total_list += await mongodb.users.get_all_id()
+        total_list += await MongoDb.users.get_all_id()
 
     failed = 0
     success = 0
