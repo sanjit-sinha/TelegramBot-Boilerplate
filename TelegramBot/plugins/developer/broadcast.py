@@ -5,7 +5,7 @@ from pyrogram.types import Message
 
 from TelegramBot import bot
 from TelegramBot.logging import LOGGER
-from TelegramBot.database import mongodb
+from TelegramBot.database import MongoDb
 from TelegramBot.helpers.filters import dev_cmd
 
 
