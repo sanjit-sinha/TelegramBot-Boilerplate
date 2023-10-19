@@ -7,7 +7,7 @@ from asyncio import get_event_loop, new_event_loop, set_event_loop
 
 from TelegramBot import config
 from TelegramBot.logging import LOGGER
-from TelegramBot.database.mongodb import check_mongo_uri
+from TelegramBot.database.MongoDb import check_mongo_uri
 
 
 uvloop.install()
