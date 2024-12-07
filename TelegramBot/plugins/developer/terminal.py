@@ -1,9 +1,8 @@
-import asyncio
-import shlex
+import os
 import sys
+import asyncio
 import traceback
-from io import BytesIO, StringIO
-from os import remove
+from io import StringIO
 
 import aiofiles
 from pyrogram import Client, filters
@@ -11,43 +10,33 @@ from pyrogram.types import (
     CallbackQuery,
     InlineKeyboardButton,
     InlineKeyboardMarkup,
-    Message)
+    Message,
+)
 
-from TelegramBot.helpers.decorators import ratelimiter
 from TelegramBot.helpers.filters import dev_cmd
-from TelegramBot.logging import LOGGER
+from TelegramBot import bot
 
 
-@Client.on_message(filters.command(["shell", "sh"]) & dev_cmd)
-@ratelimiter
-async def shell(_, message: Message):
-    """
-    Executes command in terminal via bot.
-    """
+task_list: list = []
 
-    if len(message.command) < 2:
-        shell_usage = f"**USAGE:** Executes terminal commands directly via bot.\n\n**Example: **<pre>/shell pip install requests</pre>"
-        return await message.reply_text(shell_usage, quote=True)
+@bot.on_callback_query(filters.regex("pytaskcallback_"))
+async def py_taskcallback(_, callback: CallbackQuery):
+    """Callback for shell command."""
 
-    user_input = message.text.split(maxsplit=1)[1]
-    args = shlex.split(user_input)
+    if callback.from_user.id != callback.message.reply_to_message.from_user.id:
+        return await callback.answer(
+            "That command is not initiated by you.", show_alert=True)
 
-    try:
-        shell_replymsg = await message.reply_text("running...", quote=True)
-        shell = await asyncio.create_subprocess_exec(*args, stdout=-1, stderr=-1)
-        stdout, stderr = await shell.communicate()
-        result = str(stdout.decode().strip()) + str(stderr.decode().strip())
-    except Exception as error:
-        LOGGER(__name__).warning(f"{error}")
-        return await shell_replymsg.edit(f"Error :-\n\n{error}")
+    task_index = callback.data.split("_")[-1]
+    message = callback.message
 
-    if len(result) > 4000:
-        await shell_replymsg.edit("output too large. sending it as a file..")
-        file = BytesIO(result.encode())
-        file.name = "output.txt"
-        await shell_replymsg.reply_document(file, caption=file.name, quote=True)
-    else:
-        await shell_replymsg.edit(f"Output :-\n\n{result}")
+    task = task_list[int(task_index)]
+
+    if not task.done():
+        task.cancel()
+        task_list.remove(task)
+
+    return await message.edit("Task Killed Successfully.")
 
 
 async def aexec(code, client, message):
@@ -59,27 +48,46 @@ async def aexec(code, client, message):
 
 
 async def py_runexec(client: Client, message: Message, replymsg: Message):
+    """Run Python Code inside Telegram"""
+
     old_stderr = sys.stderr
     old_stdout = sys.stdout
+
     redirected_output = sys.stdout = StringIO()
     redirected_error = sys.stderr = StringIO()
-    stdout, stderr, exc = None, None, None
+
+    stdout = None
+    stderr = None
+    exception = None
+
+    refresh_button = InlineKeyboardMarkup(
+        [[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]
+    )
 
     try:
-        await replymsg.edit("executing...")
         code = message.text.split(maxsplit=1)[1]
     except IndexError:
-        return await replymsg.edit("No codes found to execute.", reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
-
-    if "config.env" in code:
-        return await replymsg.edit("That's a dangerous operation! Not Permitted!", reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("Refresh  🔄", callback_data="refresh")]]))
+        return await replymsg.edit(
+            "No codes found to execute.", reply_markup=refresh_button)
 
     try:
-        await aexec(code, client, message)
+        task = asyncio.create_task(aexec(code, client, message))
+        task_list.append(task)
+
+        button = [
+            [
+                InlineKeyboardButton(
+                    "Kill Process",
+                    callback_data=f"pytaskcallback_{task_list.index(task)}",
+                )
+            ]
+        ]
+        await replymsg.edit("Executing...", reply_markup=InlineKeyboardMarkup(button))
+        await task
+        task_list.remove(task)
+
     except Exception:
-        exc = traceback.format_exc()
+        exception = traceback.format_exc()
 
     stdout = redirected_output.getvalue()
     stderr = redirected_error.getvalue()
@@ -87,53 +95,56 @@ async def py_runexec(client: Client, message: Message, replymsg: Message):
     sys.stderr = old_stderr
 
     evaluation = ""
-    if exc:
-        evaluation = exc
+    if exception:
+        evaluation = f"--**Exception**--\n\n`{exception}`"
     elif stderr:
-        evaluation = stderr
+        evaluation = f"--**Error**--\n\n`{stderr}`"
     elif stdout:
-        evaluation = stdout
+        evaluation = f"--**Output**--\n\n`{stdout}`"
     else:
         evaluation = "success"
     final_output = f"{evaluation.strip()}"
 
-    if len(final_output) <= 4000:
-        return await replymsg.edit(final_output, reply_markup=InlineKeyboardMarkup(
-            [[InlineKeyboardButton("refresh 🔄", callback_data="refresh")]]))
-    async with aiofiles.open("output.txt", "w+", encoding="utf8") as file:
-        await file.write(str(evaluation.strip()))
+    if len(final_output) > 4000:
+        async with aiofiles.open("output.txt", "w+", encoding="utf8") as file:
+            await file.write(str(evaluation.strip()))
 
-    await replymsg.edit("output too large. sending it as a file...", reply_markup=InlineKeyboardMarkup(
-        [[InlineKeyboardButton("refresh 🔄", callback_data="refresh")]]))
-    await client.send_document(message.chat.id, "output.txt", caption="output.txt")
-    remove("output.txt")
+        await replymsg.edit(
+            "output too large. sending it as a file...", reply_markup=refresh_button)
+
+        await client.send_document(message.chat.id, "output.txt", caption="output.txt")
+        os.remove("output.txt")
+
+    return await replymsg.edit(
+        final_output, reply_markup=refresh_button)
 
 
-@Client.on_callback_query(filters.regex("refresh"))
-@ratelimiter
-async def pyCallbacks(client, CallbackQuery: CallbackQuery):
-    cliker_user_id = CallbackQuery.from_user.id
-    message_user_id = CallbackQuery.message.reply_to_message.from_user.id
+@bot.on_callback_query(filters.regex("refresh"))
+async def py_callback(client: Client, callbackquery: CallbackQuery):
+    """Refreshes the output of python code execution."""
 
-    if cliker_user_id != message_user_id:
-        return await CallbackQuery.answer("That command is not initiated by you.", show_alert=True)
+    clicker_user_id = callbackquery.from_user.id
+    message_user_id = callbackquery.message.reply_to_message.from_user.id
 
+    if clicker_user_id != message_user_id:
+        return await callbackquery.answer(
+            "That command is not initiated by you.", show_alert=True)
+
+    replymsg = callbackquery.message
     message = await client.get_messages(
-        CallbackQuery.message.chat.id, CallbackQuery.message.reply_to_message.id)
-    replymsg = await client.get_messages(
-        CallbackQuery.message.chat.id, CallbackQuery.message.id)
+        callbackquery.message.chat.id, callbackquery.message.reply_to_message.id)
 
-    if CallbackQuery.data == "refresh":
+    if callbackquery.data == "refresh":
         await py_runexec(client, message, replymsg)
 
 
-@Client.on_message(filters.command(["exec", "py"]) & dev_cmd)
-@ratelimiter
-async def py_exec(client, message):
-    """Executes python command via bot with refresh button."""
+@bot.on_message(filters.command(["exec", "py"]) & dev_cmd)
+async def py_execute(client: Client, message: Message):
+    """Executes python command via bot with inbuilt refresh button."""
+
     if len(message.command) < 2:
         await message.reply_text(
-            f"**Usage:** Executes python commands directly via bot.\n\n**Example: **<pre>/exec print('hello world')</pre>")
+            "**Usage:** Executes python commands directly via bot.\n\n**Example: **<pre>/exec print('hello world')</pre>")
     else:
-        replymsg = await message.reply_text("executing..", quote=True)
+        replymsg = await message.reply_text("Executing..", quote=True)
         await py_runexec(client, message, replymsg)

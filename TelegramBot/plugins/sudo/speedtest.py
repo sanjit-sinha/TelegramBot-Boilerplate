@@ -1,11 +1,13 @@
-from pyrogram import Client, filters
-from pyrogram.types import Message
 from speedtest import Speedtest
 
-from TelegramBot.helpers.decorators import ratelimiter, run_sync_in_thread
-from TelegramBot.helpers.functions import get_readable_bytes
-from TelegramBot.helpers.filters import sudo_cmd
+from pyrogram import filters
+from pyrogram.types import Message
+
+from TelegramBot import bot
 from TelegramBot.logging import LOGGER
+from TelegramBot.helpers.filters import sudo_cmd
+from TelegramBot.helpers.functions import get_readable_bytes
+from TelegramBot.helpers.decorators import run_sync_in_thread
 
 
 @run_sync_in_thread
@@ -18,13 +20,10 @@ def speedtestcli():
     return test.results.dict()
 
 
-@Client.on_message(filters.command(["speedtest", "speed"]) & sudo_cmd)
-@ratelimiter
+@bot.on_message(filters.command(["speedtest", "speed"]) & sudo_cmd)
 async def speedtest(_, message: Message):
-    """
-    Give speedtest of the server where bot is running.
-    """
-    
+    """Give speedtest of the server where bot is running."""
+
     speed = await message.reply("Running speedtest....", quote=True)
     LOGGER(__name__).info("Running speedtest....")
     result = await speedtestcli()
@@ -37,4 +36,5 @@ ISP: {result["client"]["isp"]}
 """
     await speed.delete()
     return await message.reply_photo(
-        photo=result["share"], caption=speed_string, quote=True)
+        photo=result["share"], caption=speed_string, quote=True
+    )
